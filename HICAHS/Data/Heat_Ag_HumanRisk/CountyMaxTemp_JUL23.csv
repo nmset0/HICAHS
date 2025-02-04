@@ -1,0 +1,296 @@
+July 2023 County Maximum Temperature,,,,,,
+Units: Degrees Fahrenheit,,,,,,
+Missing: -99,,,,,,
+Period of Record: 130 Years,,,,,,
+ID,Name,State,Value,Anomaly (1901-2000 base period),Rank,1901-2000 Mean
+CO-001,Adams County,Colorado,87.7,-0.7,49,88.4
+CO-003,Alamosa County,Colorado,87.4,7.3,130,80.1
+CO-005,Arapahoe County,Colorado,86.9,-0.4,54,87.3
+CO-007,Archuleta County,Colorado,85.6,6.3,129,79.3
+CO-009,Baca County,Colorado,90.4,-1,46,91.4
+CO-011,Bent County,Colorado,91.3,-0.7,49,92
+CO-013,Boulder County,Colorado,80.2,0.7,76,79.5
+CO-014,Broomfield County,Colorado,88.1,0.4,74,87.7
+CO-015,Chaffee County,Colorado,78,6.3,129,71.7
+CO-017,Cheyenne County,Colorado,88.7,-0.4,50,89.1
+CO-019,Clear Creek County,Colorado,72,2.9,116,69.1
+CO-021,Conejos County,Colorado,81.2,7,129,74.2
+CO-023,Costilla County,Colorado,84.3,8,130,76.3
+CO-025,Crowley County,Colorado,92.4,1.7,89,90.7
+CO-027,Custer County,Colorado,80.2,4.9,128,75.3
+CO-029,Delta County,Colorado,88.8,6.5,128,82.3
+CO-031,Denver County,Colorado,87.2,-0.7,47,87.9
+CO-033,Dolores County,Colorado,83.6,6.6,129,77
+CO-035,Douglas County,Colorado,82.6,0.5,71,82.1
+CO-037,Eagle County,Colorado,78.3,4.1,122,74.2
+CO-039,Elbert County,Colorado,86.4,1.2,84,85.2
+CO-041,El Paso County,Colorado,85.8,2.7,102,83.1
+CO-043,Fremont County,Colorado,84.9,4.3,126,80.6
+CO-045,Garfield County,Colorado,82.6,4.5,124,78.1
+CO-047,Gilpin County,Colorado,73.7,1.9,105,71.8
+CO-049,Grand County,Colorado,75.1,2.6,114,72.5
+CO-051,Gunnison County,Colorado,78.6,5.8,127,72.8
+CO-053,Hinsdale County,Colorado,74.3,7.9,129,66.4
+CO-055,Huerfano County,Colorado,87.3,5.9,129,81.4
+CO-057,Jackson County,Colorado,74.7,1.7,91,73
+CO-059,Jefferson County,Colorado,81.4,0.6,75,80.8
+CO-061,Kiowa County,Colorado,89.6,-1.1,39,90.7
+CO-063,Kit Carson County,Colorado,87.9,-0.4,52,88.3
+CO-065,Lake County,Colorado,72.8,5.4,126,67.4
+CO-067,La Plata County,Colorado,87.1,8.1,130,79
+CO-069,Larimer County,Colorado,78.2,1.2,79,77
+CO-071,Las Animas County,Colorado,89.9,3.1,116,86.8
+CO-073,Lincoln County,Colorado,88.6,0.6,70,88
+CO-075,Logan County,Colorado,86.9,-2,32,88.9
+CO-077,Mesa County,Colorado,89.6,6.4,129,83.2
+CO-079,Mineral County,Colorado,75.2,6.6,129,68.6
+CO-081,Moffat County,Colorado,86.1,3.6,117,82.5
+CO-083,Montezuma County,Colorado,91.1,6.3,129,84.8
+CO-085,Montrose County,Colorado,90.2,6.5,129,83.7
+CO-087,Morgan County,Colorado,87.6,-0.9,47,88.5
+CO-089,Otero County,Colorado,92,0.6,70,91.4
+CO-091,Ouray County,Colorado,83.4,8.6,129,74.8
+CO-093,Park County,Colorado,76.5,4.2,126,72.3
+CO-095,Phillips County,Colorado,87.3,-2.1,32,89.4
+CO-097,Pitkin County,Colorado,75.7,5,126,70.7
+CO-099,Prowers County,Colorado,90,-2,30,92
+CO-101,Pueblo County,Colorado,92.3,3,114,89.3
+CO-103,Rio Blanco County,Colorado,85,3.9,122,81.1
+CO-105,Rio Grande County,Colorado,81.4,7.4,130,74
+CO-107,Routt County,Colorado,78.4,2.8,111,75.6
+CO-109,Saguache County,Colorado,81.3,7,130,74.3
+CO-111,San Juan County,Colorado,71.6,8.6,130,63
+CO-113,San Miguel County,Colorado,86.3,6.8,129,79.5
+CO-115,Sedgwick County,Colorado,86.2,-3,24,89.2
+CO-117,Summit County,Colorado,72.6,3.9,123,68.7
+CO-119,Teller County,Colorado,77.4,3.4,117,74
+CO-121,Washington County,Colorado,86.3,-2.2,31,88.5
+CO-123,Weld County,Colorado,86.2,-1.6,32,87.8
+CO-125,Yuma County,Colorado,87.8,-1.5,40,89.3
+MT-001,Beaverhead County,Montana,77.2,3.5,106,73.7
+MT-003,Big Horn County,Montana,84,-0.1,52,84.1
+MT-005,Blaine County,Montana,84.8,2.8,96,82
+MT-007,Broadwater County,Montana,81.4,2.1,88,79.3
+MT-009,Carbon County,Montana,79.3,0.9,68,78.4
+MT-011,Carter County,Montana,85.7,0.9,74,84.8
+MT-013,Cascade County,Montana,83.2,2.9,101,80.3
+MT-015,Chouteau County,Montana,86.7,3.2,102,83.5
+MT-017,Custer County,Montana,87.4,0.4,57,87
+MT-019,Daniels County,Montana,82.2,1.2,77,81
+MT-021,Dawson County,Montana,85.1,0.3,68,84.8
+MT-023,Deer Lodge County,Montana,75.4,2.6,93,72.8
+MT-025,Fallon County,Montana,84.6,-0.2,58,84.8
+MT-027,Fergus County,Montana,83.6,1.8,79,81.8
+MT-029,Flathead County,Montana,79.7,5.2,120,74.5
+MT-031,Gallatin County,Montana,79,2.5,96,76.5
+MT-033,Garfield County,Montana,87,2,85,85
+MT-035,Glacier County,Montana,78.7,5.3,121,73.4
+MT-037,Golden Valley County,Montana,82.9,0.1,56,82.8
+MT-039,Granite County,Montana,77.7,3.7,111,74
+MT-041,Hill County,Montana,85.8,3.4,105,82.4
+MT-043,Jefferson County,Montana,79.5,3.4,100,76.1
+MT-045,Judith Basin County,Montana,79.4,1.7,80,77.7
+MT-047,Lake County,Montana,84.4,5.1,119,79.3
+MT-049,Lewis and Clark County,Montana,79.5,3.3,105,76.2
+MT-051,Liberty County,Montana,85,3.6,109,81.4
+MT-053,Lincoln County,Montana,81.4,4.9,117,76.5
+MT-055,McCone County,Montana,85.4,0.4,63,85
+MT-057,Madison County,Montana,78.2,2.6,94,75.6
+MT-059,Meagher County,Montana,77.5,2.6,91,74.9
+MT-061,Mineral County,Montana,82,4.9,118,77.1
+MT-063,Missoula County,Montana,81.7,4.3,112,77.4
+MT-065,Musselshell County,Montana,84.4,-0.5,48,84.9
+MT-067,Park County,Montana,77.7,2.7,96,75
+MT-069,Petroleum County,Montana,86.3,0.5,69,85.8
+MT-071,Phillips County,Montana,86.2,2.1,86,84.1
+MT-073,Pondera County,Montana,81.9,3.1,106,78.8
+MT-075,Powder River County,Montana,87.1,0.9,67,86.2
+MT-077,Powell County,Montana,78.7,3.5,110,75.2
+MT-079,Prairie County,Montana,86,0.2,61,85.8
+MT-081,Ravalli County,Montana,79.7,4.1,115,75.6
+MT-083,Richland County,Montana,84.8,0.5,69,84.3
+MT-085,Roosevelt County,Montana,84,0.7,69,83.3
+MT-087,Rosebud County,Montana,87,0.8,67,86.2
+MT-089,Sanders County,Montana,83.2,4.5,117,78.7
+MT-091,Sheridan County,Montana,82.8,1.1,78,81.7
+MT-093,Silver Bow County,Montana,77.4,2.7,91,74.7
+MT-095,Stillwater County,Montana,80.6,-0.2,52,80.8
+MT-097,Sweet Grass County,Montana,79.4,1.1,71,78.3
+MT-099,Teton County,Montana,80.8,2.6,96,78.2
+MT-101,Toole County,Montana,84.1,3.3,110,80.8
+MT-103,Treasure County,Montana,86.7,0.2,59,86.5
+MT-105,Valley County,Montana,84.6,1.7,86,82.9
+MT-107,Wheatland County,Montana,80.3,0.7,62,79.6
+MT-109,Wibaux County,Montana,84.1,-0.4,52,84.5
+MT-111,Yellowstone County,Montana,86.2,0.5,57,85.7
+ND-001,Adams County,North Dakota,82.6,-1.4,44,84
+ND-003,Barnes County,North Dakota,79.7,-2.5,31,82.2
+ND-005,Benson County,North Dakota,78,-3.5,20,81.5
+ND-007,Billings County,North Dakota,83,-0.6,50,83.6
+ND-009,Bottineau County,North Dakota,79.5,-1.4,45,80.9
+ND-011,Bowman County,North Dakota,84,-0.1,59,84.1
+ND-013,Burke County,North Dakota,79.7,-0.5,57,80.2
+ND-015,Burleigh County,North Dakota,79,-3.7,18,82.7
+ND-017,Cass County,North Dakota,81.2,-1.6,40,82.8
+ND-019,Cavalier County,North Dakota,77.4,-1.4,43,78.8
+ND-021,Dickey County,North Dakota,79.6,-3.5,19,83.1
+ND-023,Divide County,North Dakota,81.3,0.7,73,80.6
+ND-025,Dunn County,North Dakota,82.7,-0.3,56,83
+ND-027,Eddy County,North Dakota,77.7,-4,15,81.7
+ND-029,Emmons County,North Dakota,80.2,-4,17,84.2
+ND-031,Foster County,North Dakota,77.9,-4.1,15,82
+ND-033,Golden Valley County,North Dakota,83.6,-0.5,53,84.1
+ND-035,Grand Forks County,North Dakota,79.6,-2.3,34,81.9
+ND-037,Grant County,North Dakota,81.6,-3,30,84.6
+ND-039,Griggs County,North Dakota,77.7,-4.2,12,81.9
+ND-041,Hettinger County,North Dakota,81.6,-2.1,38,83.7
+ND-043,Kidder County,North Dakota,78.2,-3.9,18,82.1
+ND-045,LaMoure County,North Dakota,79.8,-3.1,26,82.9
+ND-047,Logan County,North Dakota,78.8,-4,18,82.8
+ND-049,McHenry County,North Dakota,80.5,-1.6,46,82.1
+ND-051,McIntosh County,North Dakota,78.6,-4.4,16,83
+ND-053,McKenzie County,North Dakota,83,-0.3,55,83.3
+ND-055,McLean County,North Dakota,80.5,-1.6,38,82.1
+ND-057,Mercer County,North Dakota,81.3,-1.8,38,83.1
+ND-059,Morton County,North Dakota,80.8,-2.9,29,83.7
+ND-061,Mountrail County,North Dakota,80.8,-0.5,53,81.3
+ND-063,Nelson County,North Dakota,77.8,-3,24,80.8
+ND-065,Oliver County,North Dakota,80.2,-2.7,31,82.9
+ND-067,Pembina County,North Dakota,79,-1.2,46,80.2
+ND-069,Pierce County,North Dakota,79.2,-2.1,37,81.3
+ND-071,Ramsey County,North Dakota,77.7,-3.2,25,80.9
+ND-073,Ransom County,North Dakota,81.2,-1.7,39,82.9
+ND-075,Renville County,North Dakota,80.2,-1.3,50,81.5
+ND-077,Richland County,North Dakota,81.4,-1.8,42,83.2
+ND-079,Rolette County,North Dakota,78.2,-0.8,54,79
+ND-081,Sargent County,North Dakota,80.9,-2.4,32,83.3
+ND-083,Sheridan County,North Dakota,78,-3.7,18,81.7
+ND-085,Sioux County,North Dakota,81.8,-3.2,24,85
+ND-087,Slope County,North Dakota,83.2,-0.9,47,84.1
+ND-089,Stark County,North Dakota,81.6,-1.8,38,83.4
+ND-091,Steele County,North Dakota,77.7,-4.5,9,82.2
+ND-093,Stutsman County,North Dakota,78.7,-3.5,22,82.2
+ND-095,Towner County,North Dakota,78.7,-1,48,79.7
+ND-097,Traill County,North Dakota,79,-3.7,18,82.7
+ND-099,Walsh County,North Dakota,79,-1.3,43,80.3
+ND-101,Ward County,North Dakota,80,-1.7,40,81.7
+ND-103,Wells County,North Dakota,77.1,-4.6,13,81.7
+ND-105,Williams County,North Dakota,82.3,0.4,63,81.9
+SD-003,Aurora County,South Dakota,84.3,-3.3,23,87.6
+SD-005,Beadle County,South Dakota,83.9,-3,29,86.9
+SD-007,Bennett County,South Dakota,85.4,-1.8,40,87.2
+SD-009,Bon Homme County,South Dakota,84.4,-3.7,21,88.1
+SD-011,Brookings County,South Dakota,80.8,-2.7,31,83.5
+SD-013,Brown County,South Dakota,82.4,-2.1,39,84.5
+SD-015,Brule County,South Dakota,84.8,-3.4,22,88.2
+SD-017,Buffalo County,South Dakota,84.3,-3.4,27,87.7
+SD-019,Butte County,South Dakota,86.1,-0.3,55,86.4
+SD-021,Campbell County,South Dakota,81.2,-4.1,16,85.3
+SD-023,Charles Mix County,South Dakota,85.4,-3.5,20,88.9
+SD-025,Clark County,South Dakota,81.7,-2.1,44,83.8
+SD-027,Clay County,South Dakota,83.5,-3.9,16,87.4
+SD-029,Codington County,South Dakota,80.8,-1.4,52,82.2
+SD-031,Corson County,South Dakota,83.4,-2.4,32,85.8
+SD-033,Custer County,South Dakota,82.3,-1.8,36,84.1
+SD-035,Davison County,South Dakota,84.4,-3.6,21,88
+SD-037,Day County,South Dakota,80.6,-1.7,45,82.3
+SD-039,Deuel County,South Dakota,80.6,-1.6,46,82.2
+SD-041,Dewey County,South Dakota,85.3,-1.7,41,87
+SD-043,Douglas County,South Dakota,84.7,-3.7,20,88.4
+SD-045,Edmunds County,South Dakota,81.9,-3.5,21,85.4
+SD-047,Fall River County,South Dakota,86.4,-1.7,35,88.1
+SD-049,Faulk County,South Dakota,82.7,-3.1,30,85.8
+SD-051,Grant County,South Dakota,82,-1,56,83
+SD-053,Gregory County,South Dakota,85.5,-2.6,28,88.1
+SD-055,Haakon County,South Dakota,86.9,-1.7,41,88.6
+SD-057,Hamlin County,South Dakota,81.2,-1.7,42,82.9
+SD-059,Hand County,South Dakota,82.9,-3.8,25,86.7
+SD-061,Hanson County,South Dakota,84,-3.4,22,87.4
+SD-063,Harding County,South Dakota,85.6,0.9,71,84.7
+SD-065,Hughes County,South Dakota,85.8,-2.8,33,88.6
+SD-067,Hutchinson County,South Dakota,83.9,-3.8,19,87.7
+SD-069,Hyde County,South Dakota,83.1,-3.4,26,86.5
+SD-071,Jackson County,South Dakota,87.3,-1.9,38,89.2
+SD-073,Jerauld County,South Dakota,83,-3.6,23,86.6
+SD-075,Jones County,South Dakota,86.2,-3.5,25,89.7
+SD-077,Kingsbury County,South Dakota,81.9,-2.9,32,84.8
+SD-079,Lake County,South Dakota,81.4,-3.5,23,84.9
+SD-081,Lawrence County,South Dakota,78.8,-1.9,34,80.7
+SD-083,Lincoln County,South Dakota,82.1,-3.9,17,86
+SD-085,Lyman County,South Dakota,86.3,-3,31,89.3
+SD-087,McCook County,South Dakota,82.6,-3.7,20,86.3
+SD-089,McPherson County,South Dakota,79.9,-4.1,16,84
+SD-091,Marshall County,South Dakota,80.2,-2,39,82.2
+SD-093,Meade County,South Dakota,85.3,-1.2,47,86.5
+SD-095,Mellette County,South Dakota,86.8,-2.9,28,89.7
+SD-097,Miner County,South Dakota,82.9,-3.5,23,86.4
+SD-099,Minnehaha County,South Dakota,81.4,-3.7,18,85.1
+SD-101,Moody County,South Dakota,81,-3.5,21,84.5
+SD-102,Oglala Lakota County,South Dakota,86.3,-1.6,41,87.9
+SD-103,Pennington County,South Dakota,83.9,-1.5,43,85.4
+SD-105,Perkins County,South Dakota,84.4,-1,47,85.4
+SD-107,Potter County,South Dakota,82.3,-3.9,20,86.2
+SD-109,Roberts County,South Dakota,81.4,-1.6,47,83
+SD-111,Sanborn County,South Dakota,84.1,-3.4,25,87.5
+SD-115,Spink County,South Dakota,83.8,-2.3,39,86.1
+SD-117,Stanley County,South Dakota,86.7,-2.3,36,89
+SD-119,Sully County,South Dakota,84.1,-3.6,26,87.7
+SD-121,Todd County,South Dakota,84.8,-3.1,24,87.9
+SD-123,Tripp County,South Dakota,86.6,-2.2,34,88.8
+SD-125,Turner County,South Dakota,82.7,-3.9,17,86.6
+SD-127,Union County,South Dakota,83.4,-3.5,18,86.9
+SD-129,Walworth County,South Dakota,81.9,-3.6,20,85.5
+SD-135,Yankton County,South Dakota,83.6,-3.8,20,87.4
+SD-137,Ziebach County,South Dakota,86.2,-1,52,87.2
+UT-001,Beaver County,Utah,92.7,5.7,129,87
+UT-003,Box Elder County,Utah,91.7,3.6,118,88.1
+UT-005,Cache County,Utah,83.8,4.2,118,79.6
+UT-007,Carbon County,Utah,86.3,4.5,124,81.8
+UT-009,Daggett County,Utah,81.5,3.2,109,78.3
+UT-011,Davis County,Utah,89.7,4,118,85.7
+UT-013,Duchesne County,Utah,81.3,4,121,77.3
+UT-015,Emery County,Utah,94.2,5.8,128,88.4
+UT-017,Garfield County,Utah,90.5,6.9,129,83.6
+UT-019,Grand County,Utah,95.7,6.2,129,89.5
+UT-021,Iron County,Utah,91.6,6,128,85.6
+UT-023,Juab County,Utah,94.6,5,125,89.6
+UT-025,Kane County,Utah,95.2,6.8,129,88.4
+UT-027,Millard County,Utah,96.2,5.7,129,90.5
+UT-029,Morgan County,Utah,83.1,4,116,79.1
+UT-031,Piute County,Utah,84.2,6.3,129,77.9
+UT-033,Rich County,Utah,81.5,3.5,113,78
+UT-035,Salt Lake County,Utah,90.4,5.6,126,84.8
+UT-037,San Juan County,Utah,95.9,5.8,129,90.1
+UT-039,Sanpete County,Utah,84.9,5.1,126,79.8
+UT-041,Sevier County,Utah,85.4,6.1,129,79.3
+UT-043,Summit County,Utah,76.6,3.3,115,73.3
+UT-045,Tooele County,Utah,95,4.1,121,90.9
+UT-047,Uintah County,Utah,89.6,4.9,124,84.8
+UT-049,Utah County,Utah,88.5,4,120,84.5
+UT-051,Wasatch County,Utah,80.1,3.2,117,76.9
+UT-053,Washington County,Utah,96.4,5.8,128,90.6
+UT-055,Wayne County,Utah,94.7,7.6,129,87.1
+UT-057,Weber County,Utah,86.2,3.9,115,82.3
+WY-001,Albany County,Wyoming,78.7,1.3,82,77.4
+WY-003,Big Horn County,Wyoming,82.3,0.9,64,81.4
+WY-005,Campbell County,Wyoming,84.5,-0.1,58,84.6
+WY-007,Carbon County,Wyoming,82,2.3,97,79.7
+WY-009,Converse County,Wyoming,84.3,0.3,63,84
+WY-011,Crook County,Wyoming,83.5,-0.2,61,83.7
+WY-013,Fremont County,Wyoming,80.4,0.8,66,79.6
+WY-015,Goshen County,Wyoming,85.9,-0.4,49,86.3
+WY-017,Hot Springs County,Wyoming,82.2,0.2,58,82
+WY-019,Johnson County,Wyoming,81.7,0.2,57,81.5
+WY-021,Laramie County,Wyoming,82.9,0.1,54,82.8
+WY-023,Lincoln County,Wyoming,81.2,4.2,118,77
+WY-025,Natrona County,Wyoming,84,0.6,64,83.4
+WY-027,Niobrara County,Wyoming,85.9,-0.6,50,86.5
+WY-029,Park County,Wyoming,76,1.3,79,74.7
+WY-031,Platte County,Wyoming,85.7,0.7,68,85
+WY-033,Sheridan County,Wyoming,80.2,-0.5,54,80.7
+WY-035,Sublette County,Wyoming,77.1,2.2,95,74.9
+WY-037,Sweetwater County,Wyoming,84.5,2.1,96,82.4
+WY-039,Teton County,Wyoming,74.4,2.4,99,72
+WY-041,Uinta County,Wyoming,80.7,2.6,107,78.1
+WY-043,Washakie County,Wyoming,85.1,0.6,59,84.5
+WY-045,Weston County,Wyoming,84.7,-1,42,85.7

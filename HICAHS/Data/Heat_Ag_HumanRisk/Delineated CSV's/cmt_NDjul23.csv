@@ -1,0 +1,58 @@
+# Title: July 2023 North Dakota County Maximum Temperature,,,,,,
+# Units: Degrees Fahrenheit,,,,,,
+# Missing: -99,,,,,,
+# Note: Period of Record: 130 Years,,,,,,
+ID,Name,State,Value,Anomaly (1901-2000 base period),Rank,1901-2000 Mean
+ND-001,Adams County,North Dakota,82.6,-1.4,44,84
+ND-003,Barnes County,North Dakota,79.7,-2.5,31,82.2
+ND-005,Benson County,North Dakota,78,-3.5,20,81.5
+ND-007,Billings County,North Dakota,83,-0.6,50,83.6
+ND-009,Bottineau County,North Dakota,79.5,-1.4,45,80.9
+ND-011,Bowman County,North Dakota,84,-0.1,59,84.1
+ND-013,Burke County,North Dakota,79.7,-0.5,57,80.2
+ND-015,Burleigh County,North Dakota,79,-3.7,18,82.7
+ND-017,Cass County,North Dakota,81.2,-1.6,40,82.8
+ND-019,Cavalier County,North Dakota,77.4,-1.4,43,78.8
+ND-021,Dickey County,North Dakota,79.6,-3.5,19,83.1
+ND-023,Divide County,North Dakota,81.3,0.7,73,80.6
+ND-025,Dunn County,North Dakota,82.7,-0.3,56,83
+ND-027,Eddy County,North Dakota,77.7,-4,15,81.7
+ND-029,Emmons County,North Dakota,80.2,-4,17,84.2
+ND-031,Foster County,North Dakota,77.9,-4.1,15,82
+ND-033,Golden Valley County,North Dakota,83.6,-0.5,53,84.1
+ND-035,Grand Forks County,North Dakota,79.6,-2.3,34,81.9
+ND-037,Grant County,North Dakota,81.6,-3,30,84.6
+ND-039,Griggs County,North Dakota,77.7,-4.2,12,81.9
+ND-041,Hettinger County,North Dakota,81.6,-2.1,38,83.7
+ND-043,Kidder County,North Dakota,78.2,-3.9,18,82.1
+ND-045,LaMoure County,North Dakota,79.8,-3.1,26,82.9
+ND-047,Logan County,North Dakota,78.8,-4,18,82.8
+ND-049,McHenry County,North Dakota,80.5,-1.6,46,82.1
+ND-051,McIntosh County,North Dakota,78.6,-4.4,16,83
+ND-053,McKenzie County,North Dakota,83,-0.3,55,83.3
+ND-055,McLean County,North Dakota,80.5,-1.6,38,82.1
+ND-057,Mercer County,North Dakota,81.3,-1.8,38,83.1
+ND-059,Morton County,North Dakota,80.8,-2.9,29,83.7
+ND-061,Mountrail County,North Dakota,80.8,-0.5,53,81.3
+ND-063,Nelson County,North Dakota,77.8,-3,24,80.8
+ND-065,Oliver County,North Dakota,80.2,-2.7,31,82.9
+ND-067,Pembina County,North Dakota,79,-1.2,46,80.2
+ND-069,Pierce County,North Dakota,79.2,-2.1,37,81.3
+ND-071,Ramsey County,North Dakota,77.7,-3.2,25,80.9
+ND-073,Ransom County,North Dakota,81.2,-1.7,39,82.9
+ND-075,Renville County,North Dakota,80.2,-1.3,50,81.5
+ND-077,Richland County,North Dakota,81.4,-1.8,42,83.2
+ND-079,Rolette County,North Dakota,78.2,-0.8,54,79
+ND-081,Sargent County,North Dakota,80.9,-2.4,32,83.3
+ND-083,Sheridan County,North Dakota,78,-3.7,18,81.7
+ND-085,Sioux County,North Dakota,81.8,-3.2,24,85
+ND-087,Slope County,North Dakota,83.2,-0.9,47,84.1
+ND-089,Stark County,North Dakota,81.6,-1.8,38,83.4
+ND-091,Steele County,North Dakota,77.7,-4.5,9,82.2
+ND-093,Stutsman County,North Dakota,78.7,-3.5,22,82.2
+ND-095,Towner County,North Dakota,78.7,-1,48,79.7
+ND-097,Traill County,North Dakota,79,-3.7,18,82.7
+ND-099,Walsh County,North Dakota,79,-1.3,43,80.3
+ND-101,Ward County,North Dakota,80,-1.7,40,81.7
+ND-103,Wells County,North Dakota,77.1,-4.6,13,81.7
+ND-105,Williams County,North Dakota,82.3,0.4,63,81.9

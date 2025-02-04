@@ -1,0 +1,34 @@
+# Title: August 2023 Utah County Maximum Temperature,,,,,,
+# Units: Degrees Fahrenheit,,,,,,
+# Missing: -99,,,,,,
+# Note: Period of Record: 130 Years,,,,,,
+ID,Name,State,Value,Anomaly (1901-2000 base period),Rank,1901-2000 Mean
+UT-001,Beaver County,Utah,84.8,0.3,61,84.5
+UT-003,Box Elder County,Utah,84.3,-1.6,29,85.9
+UT-005,Cache County,Utah,78.1,0.2,61,77.9
+UT-007,Carbon County,Utah,79.7,0.7,72,79
+UT-009,Daggett County,Utah,76.7,0.5,71,76.2
+UT-011,Davis County,Utah,84.6,1.2,82,83.4
+UT-013,Duchesne County,Utah,75.6,0.6,72,75
+UT-015,Emery County,Utah,87.4,2,100,85.4
+UT-017,Garfield County,Utah,82.2,1.4,91,80.8
+UT-019,Grand County,Utah,89.5,3.2,116,86.3
+UT-021,Iron County,Utah,82.9,-0.3,50,83.2
+UT-023,Juab County,Utah,87.4,0.2,55,87.2
+UT-025,Kane County,Utah,86.6,1.1,82,85.5
+UT-027,Millard County,Utah,88.6,0.6,70,88
+UT-029,Morgan County,Utah,77.9,0.6,67,77.3
+UT-031,Piute County,Utah,76.2,0.6,73,75.6
+UT-033,Rich County,Utah,77,0.8,74,76.2
+UT-035,Salt Lake County,Utah,83.7,1.2,84,82.5
+UT-037,San Juan County,Utah,89.1,1.9,102,87.2
+UT-039,Sanpete County,Utah,78.7,1.1,84,77.6
+UT-041,Sevier County,Utah,77.5,0.6,74,76.9
+UT-043,Summit County,Utah,71.4,-0.1,58,71.5
+UT-045,Tooele County,Utah,88,-0.4,45,88.4
+UT-047,Uintah County,Utah,84.3,2.1,103,82.2
+UT-049,Utah County,Utah,82.1,0,53,82.1
+UT-051,Wasatch County,Utah,74.6,-0.3,54,74.9
+UT-053,Washington County,Utah,87.1,-1.2,32,88.3
+UT-055,Wayne County,Utah,86.9,2.8,109,84.1
+UT-057,Weber County,Utah,81.3,1.1,80,80.2

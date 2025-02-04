@@ -1,0 +1,28 @@
+# Title: August 2023 Wyoming County Maximum Temperature,,,,,,
+# Units: Degrees Fahrenheit,,,,,,
+# Missing: -99,,,,,,
+# Note: Period of Record: 130 Years,,,,,,
+ID,Name,State,Value,Anomaly (1901-2000 base period),Rank,1901-2000 Mean
+WY-001,Albany County,Wyoming,76.8,1.2,78,75.6
+WY-003,Big Horn County,Wyoming,80.7,1.6,85,79.1
+WY-005,Campbell County,Wyoming,84.4,1,75,83.4
+WY-007,Carbon County,Wyoming,78.6,1.2,88,77.4
+WY-009,Converse County,Wyoming,82.5,0.1,56,82.4
+WY-011,Crook County,Wyoming,83.2,0.9,77,82.3
+WY-013,Fremont County,Wyoming,76.9,-0.6,47,77.5
+WY-015,Goshen County,Wyoming,87.4,2.8,102,84.6
+WY-017,Hot Springs County,Wyoming,79.8,0,56,79.8
+WY-019,Johnson County,Wyoming,80.5,0.6,68,79.9
+WY-021,Laramie County,Wyoming,82.8,1.7,88,81.1
+WY-023,Lincoln County,Wyoming,74.8,-0.2,54,75
+WY-025,Natrona County,Wyoming,81,-0.4,53,81.4
+WY-027,Niobrara County,Wyoming,86.7,1.4,82,85.3
+WY-029,Park County,Wyoming,73.1,0.4,67,72.7
+WY-031,Platte County,Wyoming,86,2.6,102,83.4
+WY-033,Sheridan County,Wyoming,79.6,0.2,65,79.4
+WY-035,Sublette County,Wyoming,72.3,-0.6,51,72.9
+WY-037,Sweetwater County,Wyoming,80,-0.1,57,80.1
+WY-039,Teton County,Wyoming,68.4,-1.6,32,70
+WY-041,Uinta County,Wyoming,75.3,-0.8,39,76.1
+WY-043,Washakie County,Wyoming,83.2,1,75,82.2
+WY-045,Weston County,Wyoming,85.3,1.3,84,84
