@@ -1,0 +1,39 @@
+---
+title: "Health Risk and Worker Density"
+author: "Nathan Seto"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+- Data:
+  - Health factors by state
+  - h2a per city per state
+  - max temp per county
+  - natural disaster risk (datahub)
+  - heat, ag, human risk, (datahub)
+
+- Define what a health risk factor is
+    - physical & mental health
+    - environmental factors
+    - Is this all-encompassing?
+- measure density
+    - per sq mile, per acre/hectare? 
+    
+- Merge data for each state
+
+- leaflet package?
+
+_____________________________________________________________________________________
+### (1) What is the relationship between health risk factors and worker densities in the HICAHS area?
+
+#### i. calculate unconditional correlations between worker concentrations (e.g., totals) and fire and heat environmental exposure scales (identified on website as capturing aspects of “human risk”)
+
+#### ii.similar correlations for other available indicators that may be of interest
+
+#### iii. use county-level as the geo-observational unit
+
+see HealthRisk_Density.R 

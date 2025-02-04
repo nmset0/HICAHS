@@ -1,0 +1,270 @@
+state,county,totalWorkersH2a
+Colorado,Adams,648
+Colorado,Alamosa,38
+Colorado,Arapahoe,28
+Colorado,Baca,8
+Colorado,Bent,13
+Colorado,Boulder,188
+Colorado,Cheyenne,23
+Colorado,Conejos,9
+Colorado,Costilla,13
+Colorado,Delta,223
+Colorado,Denver,42
+Colorado,Douglas,36
+Colorado,Eagle,13
+Colorado,El Paso,156
+Colorado,Garfield,49
+Colorado,Grand,28
+Colorado,Gunnison,6
+Colorado,Jackson,53
+Colorado,Jefferson,22
+Colorado,Kit Carson,39
+Colorado,La Plata,7
+Colorado,Larimer,45
+Colorado,Las Animas,1
+Colorado,Lincoln,3
+Colorado,Logan,22
+Colorado,Mesa,608
+Colorado,Moffat,117
+Colorado,Montezuma,6
+Colorado,Montrose,233
+Colorado,Morgan,16
+Colorado,Otero,121
+Colorado,Ouray,6
+Colorado,Phillips,8
+Colorado,Pitkin,5
+Colorado,Prowers,11
+Colorado,Pueblo,256
+Colorado,Rio Blanco,59
+Colorado,Rio Grande,14
+Colorado,Routt,97
+Colorado,Saguache,33
+Colorado,San Miguel,3
+Colorado,Sedgwick,6
+Colorado,Summit,2
+Colorado,Washington,11
+Colorado,Weld,288
+Colorado,Yuma,68
+Colorado,#N/A,30
+Montana,Beaverhead,185
+Montana,Big Horn,49
+Montana,Blaine,61
+Montana,Broadwater,27
+Montana,Carbon,1
+Montana,Carter,29
+Montana,Cascade,4
+Montana,Chouteau,15
+Montana,Custer,54
+Montana,Daniels,55
+Montana,Dawson,22
+Montana,Deer Lodge,4
+Montana,Fallon,8
+Montana,Fergus,10
+Montana,Flathead,73
+Montana,Fremont,4
+Montana,Gallatin,72
+Montana,Garfield,8
+Montana,Glacier,16
+Montana,Golden Valley,17
+Montana,Granite,3
+Montana,Hill,65
+Montana,Jefferson,15
+Montana,Judith Basin,6
+Montana,Kings,12
+Montana,Lake,27
+Montana,Lewis and Clark,21
+Montana,Liberty,35
+Montana,Lincoln,1
+Montana,Madison,53
+Montana,McCone,25
+Montana,Meagher,6
+Montana,Missoula,17
+Montana,Park,13
+Montana,Phillips,20
+Montana,Pondera,17
+Montana,Powder River,3
+Montana,Powell,13
+Montana,Prairie,18
+Montana,Ravalli,46
+Montana,Richland,106
+Montana,Roosevelt,48
+Montana,Rosebud,17
+Montana,Sanders,13
+Montana,Sheridan,63
+Montana,Stillwater,28
+Montana,Sweet Grass,22
+Montana,Teton,26
+Montana,Toole,14
+Montana,Treasure,9
+Montana,Valley,54
+Montana,Wheatland,12
+Montana,Wibaux,13
+Montana,Yellowstone,69
+Montana,#N/A,22
+North Dakota,Adams,31
+North Dakota,Barnes,41
+North Dakota,Benson,48
+North Dakota,Billings,2
+North Dakota,Bon Homme,5
+North Dakota,Bottineau,84
+North Dakota,Bowman,22
+North Dakota,Burke,16
+North Dakota,Burleigh,83
+North Dakota,Cass,73
+North Dakota,Cavalier,133
+North Dakota,Dickey,97
+North Dakota,Divide,34
+North Dakota,Dunn,41
+North Dakota,Eddy,27
+North Dakota,Emmons,73
+North Dakota,Foster,79
+North Dakota,Golden Valley,NA
+North Dakota,Grand Forks,170
+North Dakota,Grant,15
+North Dakota,Griggs,10
+North Dakota,Hettinger,30
+North Dakota,Kidder,64
+North Dakota,LaMoure,57
+North Dakota,Logan,43
+North Dakota,Marshall,2
+North Dakota,McHenry,76
+North Dakota,McIntosh,60
+North Dakota,McKenzie,25
+North Dakota,McLean,187
+North Dakota,Mercer,46
+North Dakota,Morton,119
+North Dakota,Mountrail,105
+North Dakota,Nelson,80
+North Dakota,Oliver,16
+North Dakota,Pembina,203
+North Dakota,Pierce,17
+North Dakota,Polk,4
+North Dakota,Ramsey,139
+North Dakota,Ransom,24
+North Dakota,Renville,44
+North Dakota,Richland,89
+North Dakota,Rolette,28
+North Dakota,Sargent,116
+North Dakota,Sheridan,23
+North Dakota,Sioux,6
+North Dakota,Slope,23
+North Dakota,Stark,46
+North Dakota,Steele,62
+North Dakota,Stutsman,74
+North Dakota,Towner,35
+North Dakota,Traill,71
+North Dakota,Walsh,257
+North Dakota,Ward,178
+North Dakota,Wells,113
+North Dakota,Wilkin,3
+North Dakota,Williams,110
+North Dakota,#N/A,69
+South Dakota,Aurora,15
+South Dakota,Beadle,80
+South Dakota,Bennett,7
+South Dakota,Bon Homme,9
+South Dakota,Brookings,135
+South Dakota,Brown,80
+South Dakota,Brule,18
+South Dakota,Campbell,11
+South Dakota,Charles Mix,154
+South Dakota,Clark,18
+South Dakota,Clay,1
+South Dakota,Codington,10
+South Dakota,Corson,63
+South Dakota,Davison,45
+South Dakota,Day,19
+South Dakota,Deuel,8
+South Dakota,Dewey,16
+South Dakota,Douglas,24
+South Dakota,Edmunds,142
+South Dakota,Fall River,6
+South Dakota,Faulk,12
+South Dakota,Grant,51
+South Dakota,Gregory,19
+South Dakota,Haakon,4
+South Dakota,Hamlin,64
+South Dakota,Hand,90
+South Dakota,Hanson,9
+South Dakota,Harding,5
+South Dakota,Hughes,68
+South Dakota,Hutchinson,8
+South Dakota,Hyde,33
+South Dakota,Jackson,2
+South Dakota,Jerauld,28
+South Dakota,Jones,11
+South Dakota,Kingsbury,71
+South Dakota,Lake,24
+South Dakota,Lawrence,2
+South Dakota,Lincoln,12
+South Dakota,Lyman,43
+South Dakota,Marshall,34
+South Dakota,McCook,3
+South Dakota,McPherson,37
+South Dakota,Mellette,4
+South Dakota,Minnehaha,41
+South Dakota,Pennington,13
+South Dakota,Perkins,57
+South Dakota,Potter,68
+South Dakota,Roberts,17
+South Dakota,Sanborn,22
+South Dakota,Spink,39
+South Dakota,Stanley,18
+South Dakota,Sully,62
+South Dakota,Todd,8
+South Dakota,Tripp,55
+South Dakota,Union,10
+South Dakota,Walworth,14
+South Dakota,Yankton,16
+South Dakota,Ziebach,7
+South Dakota,#N/A,5
+Utah,Beaver,5
+Utah,Box Elder,116
+Utah,Cache,24
+Utah,Carbon,23
+Utah,Davis,87
+Utah,Duchesne,36
+Utah,Emery,8
+Utah,Iron,44
+Utah,Juab,68
+Utah,Millard,23
+Utah,Morgan,10
+Utah,Piute,10
+Utah,Rich,21
+Utah,Salt Lake,122
+Utah,Sanpete,119
+Utah,Sevier,3
+Utah,Summit,85
+Utah,Tooele,33
+Utah,Uintah,9
+Utah,Utah,488
+Utah,Wasatch,17
+Utah,Washington,6
+Utah,Wayne,14
+Utah,Weber,133
+Utah,#N/A,61
+Wyoming,Albany,1
+Wyoming,Big Horn,56
+Wyoming,Campbell,8
+Wyoming,Carbon,109
+Wyoming,Converse,9
+Wyoming,Crook,NA
+Wyoming,Fremont,20
+Wyoming,Goshen,3
+Wyoming,Hot Springs,NA
+Wyoming,Johnson,30
+Wyoming,Laramie,10
+Wyoming,Lincoln,56
+Wyoming,Niobrara,24
+Wyoming,Park,9
+Wyoming,Platte,2
+Wyoming,Rio Blanco,3
+Wyoming,Sheridan,16
+Wyoming,Sublette,2
+Wyoming,Summit,20
+Wyoming,Sweetwater,39
+Wyoming,Teton,5
+Wyoming,Uinta,46
+Wyoming,Washakie,13
+Wyoming,Weston,2
+Wyoming,#N/A,12
