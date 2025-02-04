@@ -32,10 +32,10 @@ h2a_by_county_new <- h2a_by_county[!total_rows, ]
 
 # Separating into state and county columns
 # inserting new column for state names
-h2a_by_county_new <- h2a_by_county_new %>%
+h2a_by_county_new <- h2a_by_county_new |>
   mutate(h2a_by_county_new, state = NA, .before = `State/ County`)
-h2a_by_county_new <- h2a_by_county_new %>%
-  rename(county = `State/ County`) %>%
+h2a_by_county_new <- h2a_by_county_new |>
+  rename(county = `State/ County`) |>
   rename(totalWorkersH2a = `Total Workers H2A Certified`) # Renaming columns for functionality/preference
 
 # Reassigning states to counties
@@ -43,7 +43,7 @@ breaks <- c(0, 47, 102, 160, 219, 244, 269) # Indices
   labels <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
     h2a_by_county_new$state <- cut(seq_len(nrow(h2a_by_county_new)), breaks = breaks, labels = labels, right = TRUE)
 
-h2a_by_county_new <- h2a_by_county_new %>% filter(row_number() <= n()-1)
+h2a_by_county_new <- h2a_by_county_new |> filter(row_number() <= n()-1)
 
 write_csv(h2a_by_county_new, file = "~/internship/workspace/h2a_by_county_new.csv")
 #______________________________________________________________________________________________________________________#
