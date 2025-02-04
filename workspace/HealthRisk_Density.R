@@ -7,10 +7,7 @@
 # grid?
 
 # Packages
-library(ggplot2)
-library(dplyr)
-library(readr)
-library(readxl)
+library(tidyverse)
 # Clean environment
 rm(list = ls())
 
