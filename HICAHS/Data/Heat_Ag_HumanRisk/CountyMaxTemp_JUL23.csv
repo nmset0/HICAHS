@@ -1,7 +1,3 @@
-July 2023 County Maximum Temperature,,,,,,
-Units: Degrees Fahrenheit,,,,,,
-Missing: -99,,,,,,
-Period of Record: 130 Years,,,,,,
 ID,Name,State,Value,Anomaly (1901-2000 base period),Rank,1901-2000 Mean
 CO-001,Adams County,Colorado,87.7,-0.7,49,88.4
 CO-003,Alamosa County,Colorado,87.4,7.3,130,80.1

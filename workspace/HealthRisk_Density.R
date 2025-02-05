@@ -12,7 +12,7 @@ library(tidyverse)
 rm(list = ls())
 
 # Import h2a by county data
-h2a_by_county <- read_csv("HICAHS/Data/NatDisasterR&I/H2AbyCounty.csv")
+h2a_by_county <- as.data.frame(read_csv("HICAHS/Data/NatDisasterR&I/H2AbyCounty.csv"))
 state_totals = data.frame() # empty df
 
 # Separating state total sums into state_totals
@@ -44,6 +44,36 @@ h2a_by_county_new <- h2a_by_county_new |> filter(row_number() <= n()-1)
 
 write_csv(h2a_by_county_new, file = "~/internship/workspace/h2a_by_county_new.csv")
 #______________________________________________________________________________________________________________________#
+# Heat data
+CountyMaxTemp_JUL23 <- as.data.frame(read_csv("HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv"))
+CountyMaxTemp_AUG23 <- as.data.frame(read_csv("HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_AUG23.csv"))
 
-# TODO: fire and heat exposure
+CountyMaxTemp_JUL23 <- CountyMaxTemp_JUL23 |> mutate(month = "July")
+CountyMaxTemp_AUG23 <- CountyMaxTemp_AUG23 |> mutate(month = "August")
+
+CountyMaxTemp_AUG_JUL_23 <- rbind(CountyMaxTemp_JUL23, CountyMaxTemp_AUG23)
+
+CountyMaxTemp_AUG_JUL_23_new <- subset(CountyMaxTemp_AUG_JUL_23, select = -c(ID, State))
+
+CountyMaxTemp_AUG_JUL_23_new$Name <- gsub(" County", "", CountyMaxTemp_AUG_JUL_23_new$Name)
+
+MaxTemp_H2AWorkers <- left_join(CountyMaxTemp_AUG_JUL_23_new, h2a_by_county_new,
+                                          by = c("Name" = "county"),
+                                          relationship = "many-to-many")
+
+
+
+# Data frame which combines heat data with the number of H2A workers per county
+MaxTemp_H2AWorkers <- subset(MaxTemp_H2AWorkers, (!is.na(MaxTemp_H2AWorkers[,"totalWorkersH2a"]))) |> arrange(state)
+MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = Name)
+
+
+# barplot of state totals
+ggplot(data = state_totals[1:6,], aes(x = `State/ County`, y = `Total Workers H2A Certified`)) +
+  geom_bar(stat="identity", aes(fill = `State/ County`)) +
+  theme_minimal() +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Number of Recorded H2A Workers per State", x = "State")
+
+
 
