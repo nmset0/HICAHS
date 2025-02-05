@@ -67,7 +67,8 @@ colnames(MaxTemp_H2AWorkers) <- tolower(colnames(MaxTemp_H2AWorkers))
 MaxTemp_H2AWorkers <- subset(MaxTemp_H2AWorkers, (!is.na(MaxTemp_H2AWorkers[,"total_workers_h2a"]))) |> arrange(state)
 MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = name) |>
   rename(mean = `1901-2000 mean`) |>
-  rename(max_temp = value)
+  rename(max_temp = value) |>
+  rename(anomaly = `anomaly (1901-2000 base period)`)
 
 
 # barplot of state totals
