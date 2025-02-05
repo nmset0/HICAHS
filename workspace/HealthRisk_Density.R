@@ -4,7 +4,6 @@
 # Import data
 # merge and clean
 # Correlation model
-# grid?
 
 # Packages
 library(tidyverse)
@@ -33,7 +32,7 @@ h2a_by_county_new <- h2a_by_county_new |>
   mutate(h2a_by_county_new, state = NA, .before = `State/ County`)
 h2a_by_county_new <- h2a_by_county_new |>
   rename(county = `State/ County`) |>
-  rename(totalWorkersH2a = `Total Workers H2A Certified`) # Renaming columns for functionality/preference
+  rename(total_workers_h2a = `Total Workers H2A Certified`) # Renaming columns for functionality/preference
 
 # Reassigning states to counties
 breaks <- c(0, 47, 102, 160, 219, 244, 269) # Indices
@@ -62,10 +61,13 @@ MaxTemp_H2AWorkers <- left_join(CountyMaxTemp_AUG_JUL_23_new, h2a_by_county_new,
                                           relationship = "many-to-many")
 
 
+colnames(MaxTemp_H2AWorkers) <- tolower(colnames(MaxTemp_H2AWorkers))
 
 # Data frame which combines heat data with the number of H2A workers per county
-MaxTemp_H2AWorkers <- subset(MaxTemp_H2AWorkers, (!is.na(MaxTemp_H2AWorkers[,"totalWorkersH2a"]))) |> arrange(state)
-MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = Name)
+MaxTemp_H2AWorkers <- subset(MaxTemp_H2AWorkers, (!is.na(MaxTemp_H2AWorkers[,"total_workers_h2a"]))) |> arrange(state)
+MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = name) |>
+  rename(mean = `1901-2000 mean`) |>
+  rename(max_temp = value)
 
 
 # barplot of state totals
@@ -75,5 +77,10 @@ ggplot(data = state_totals[1:6,], aes(x = `State/ County`, y = `Total Workers H2
   theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Number of Recorded H2A Workers per State", x = "State")
 
+# Correlation between heat and worker concentrations
+# x = max temp. per county, y = number of workers in county
+MaxTemp_WorkerTotal_lm <- lm(total_workers_h2a ~ max_temp, data = MaxTemp_H2AWorkers)
+summary(MaxTemp_WorkerTotal_lm)$coefficients
+# No correlation? Reasonable answer, but unsure if this is desired model
 
 
