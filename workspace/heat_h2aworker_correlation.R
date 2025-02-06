@@ -1,20 +1,20 @@
 library(tidyverse)
 
-MaxTemp_H2AWorkers <- read_csv("workspace/MaxTemp_H2AWorkers.csv")
+Risk_H2AWorkers <- read_csv("workspace/Risk_H2AWorkers.csv")
 
 # Correlation between heat and worker concentrations
 # x = max temp. per county, y = number of workers in county
-MaxTemp_WorkerTotal_lm <- lm(total_workers_h2a ~ max_temp, data = MaxTemp_H2AWorkers)
+MaxTemp_WorkerTotal_lm <- lm(total_workers_h2a ~ max_temp, data = Risk_H2AWorkers)
 summary(MaxTemp_WorkerTotal_lm)$coefficients
 # No correlation? Reasonable answer, but unsure if this is desired model
 
 # Correlation between heat and worker density
 
 # Pearson Correlation Coefficient
-cor(x = MaxTemp_H2AWorkers$max_temp, y = MaxTemp_H2AWorkers$total_workers_h2a)
+cor(x = Risk_H2AWorkers$max_temp, y = Risk_H2AWorkers$total_workers_h2a)
 
 # Separating by state
-split_datasets <- split(MaxTemp_H2AWorkers, MaxTemp_H2AWorkers$state)
+split_datasets <- split(Risk_H2AWorkers, Risk_H2AWorkers$state)
 
 colorado <- split_datasets[[1]]
   montana <- split_datasets[[2]]

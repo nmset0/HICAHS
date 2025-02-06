@@ -76,6 +76,8 @@ MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = name) |>
   rename(max_temp = value) |>
   rename(anomaly = `anomaly (1901-2000 base period)`)
 
+# write_csv(MaxTemp_H2AWorkers, file = "Risk_H2AWorkers.csv")
+
 ggplot(data = MaxTemp_H2AWorkers, aes(x = max_temp, y = total_workers_h2a)) +
   geom_point(aes(color = state)) +
   theme_minimal() +
