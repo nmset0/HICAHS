@@ -69,7 +69,7 @@ MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = name) |>
   rename(mean = `1901-2000 mean`) |>
   rename(max_temp = value) |>
   rename(anomaly = `anomaly (1901-2000 base period)`)
-
+#______________________________________________________________________________________________________________________#
 
 # barplot of state totals
 ggplot(data = state_totals[1:6,], aes(x = `State/ County`, y = `Total Workers H2A Certified`)) +
@@ -77,11 +77,4 @@ ggplot(data = state_totals[1:6,], aes(x = `State/ County`, y = `Total Workers H2
   theme_minimal() +
   theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Number of Recorded H2A Workers per State", x = "State")
-
-# Correlation between heat and worker concentrations
-# x = max temp. per county, y = number of workers in county
-MaxTemp_WorkerTotal_lm <- lm(total_workers_h2a ~ max_temp, data = MaxTemp_H2AWorkers)
-summary(MaxTemp_WorkerTotal_lm)$coefficients
-# No correlation? Reasonable answer, but unsure if this is desired model
-
 

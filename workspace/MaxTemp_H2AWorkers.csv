@@ -1,0 +1,657 @@
+county,max_temp,anomaly,rank,mean,month,state,total_workers_h2a
+Adams,87.7,-0.7,49,88.4,July,Colorado,648
+Alamosa,87.4,7.3,130,80.1,July,Colorado,38
+Arapahoe,86.9,-0.4,54,87.3,July,Colorado,28
+Baca,90.4,-1,46,91.4,July,Colorado,8
+Bent,91.3,-0.7,49,92,July,Colorado,13
+Boulder,80.2,0.7,76,79.5,July,Colorado,188
+Cheyenne,88.7,-0.4,50,89.1,July,Colorado,23
+Conejos,81.2,7,129,74.2,July,Colorado,9
+Costilla,84.3,8,130,76.3,July,Colorado,13
+Delta,88.8,6.5,128,82.3,July,Colorado,223
+Denver,87.2,-0.7,47,87.9,July,Colorado,42
+Douglas,82.6,0.5,71,82.1,July,Colorado,36
+Eagle,78.3,4.1,122,74.2,July,Colorado,13
+El Paso,85.8,2.7,102,83.1,July,Colorado,156
+Garfield,82.6,4.5,124,78.1,July,Colorado,49
+Grand,75.1,2.6,114,72.5,July,Colorado,28
+Gunnison,78.6,5.8,127,72.8,July,Colorado,6
+Jackson,74.7,1.7,91,73,July,Colorado,53
+Jefferson,81.4,0.6,75,80.8,July,Colorado,22
+Kit Carson,87.9,-0.4,52,88.3,July,Colorado,39
+La Plata,87.1,8.1,130,79,July,Colorado,7
+Larimer,78.2,1.2,79,77,July,Colorado,45
+Las Animas,89.9,3.1,116,86.8,July,Colorado,1
+Lincoln,88.6,0.6,70,88,July,Colorado,3
+Logan,86.9,-2,32,88.9,July,Colorado,22
+Mesa,89.6,6.4,129,83.2,July,Colorado,608
+Moffat,86.1,3.6,117,82.5,July,Colorado,117
+Montezuma,91.1,6.3,129,84.8,July,Colorado,6
+Montrose,90.2,6.5,129,83.7,July,Colorado,233
+Morgan,87.6,-0.9,47,88.5,July,Colorado,16
+Otero,92,0.6,70,91.4,July,Colorado,121
+Ouray,83.4,8.6,129,74.8,July,Colorado,6
+Phillips,87.3,-2.1,32,89.4,July,Colorado,8
+Pitkin,75.7,5,126,70.7,July,Colorado,5
+Prowers,90,-2,30,92,July,Colorado,11
+Pueblo,92.3,3,114,89.3,July,Colorado,256
+Rio Blanco,85,3.9,122,81.1,July,Colorado,59
+Rio Grande,81.4,7.4,130,74,July,Colorado,14
+Routt,78.4,2.8,111,75.6,July,Colorado,97
+Saguache,81.3,7,130,74.3,July,Colorado,33
+San Miguel,86.3,6.8,129,79.5,July,Colorado,3
+Sedgwick,86.2,-3,24,89.2,July,Colorado,6
+Summit,72.6,3.9,123,68.7,July,Colorado,2
+Washington,86.3,-2.2,31,88.5,July,Colorado,11
+Weld,86.2,-1.6,32,87.8,July,Colorado,288
+Yuma,87.8,-1.5,40,89.3,July,Colorado,68
+Garfield,87,2,85,85,July,Colorado,49
+Jefferson,79.5,3.4,100,76.1,July,Colorado,22
+Lincoln,81.4,4.9,117,76.5,July,Colorado,3
+Phillips,86.2,2.1,86,84.1,July,Colorado,8
+Adams,82.6,-1.4,44,84,July,Colorado,648
+Logan,78.8,-4,18,82.8,July,Colorado,22
+Douglas,84.7,-3.7,20,88.4,July,Colorado,36
+Jackson,87.3,-1.9,38,89.2,July,Colorado,53
+Lincoln,82.1,-3.9,17,86,July,Colorado,3
+Garfield,90.5,6.9,129,83.6,July,Colorado,49
+Grand,95.7,6.2,129,89.5,July,Colorado,28
+Morgan,83.1,4,116,79.1,July,Colorado,16
+Summit,76.6,3.3,115,73.3,July,Colorado,2
+Washington,96.4,5.8,128,90.6,July,Colorado,11
+Lincoln,81.2,4.2,118,77,July,Colorado,3
+Adams,87.9,1.7,88,86.2,August,Colorado,648
+Alamosa,82.9,5.3,128,77.6,August,Colorado,38
+Arapahoe,87.2,2,98,85.2,August,Colorado,28
+Baca,91,1.8,94,89.2,August,Colorado,8
+Bent,91.3,1.5,79,89.8,August,Colorado,13
+Boulder,77.8,0.1,60,77.7,August,Colorado,188
+Cheyenne,89.1,2,91,87.1,August,Colorado,23
+Conejos,76.3,4.4,126,71.9,August,Colorado,9
+Costilla,78.7,4.7,126,74,August,Colorado,13
+Delta,83.9,4.3,124,79.6,August,Colorado,223
+Denver,87.2,1.3,80,85.9,August,Colorado,42
+Douglas,81.2,1.1,80,80.1,August,Colorado,36
+Eagle,74.8,2.6,114,72.2,August,Colorado,13
+El Paso,84.5,3.7,119,80.8,August,Colorado,156
+Garfield,78.4,2.8,112,75.6,August,Colorado,49
+Grand,72.4,1.7,97,70.7,August,Colorado,28
+Gunnison,74.4,4,127,70.4,August,Colorado,6
+Jackson,73.3,2.3,104,71,August,Colorado,53
+Jefferson,79.5,0.6,73,78.9,August,Colorado,22
+Kit Carson,88.8,2.5,100,86.3,August,Colorado,39
+La Plata,80.6,3.9,124,76.7,August,Colorado,7
+Larimer,76.4,1.2,82,75.2,August,Colorado,45
+Las Animas,87.4,2.7,109,84.7,August,Colorado,1
+Lincoln,89.1,3.1,110,86,August,Colorado,3
+Logan,88.4,1.6,86,86.8,August,Colorado,22
+Mesa,84.2,3.8,119,80.4,August,Colorado,608
+Moffat,82.6,2.3,105,80.3,August,Colorado,117
+Montezuma,85,2.8,116,82.2,August,Colorado,6
+Montrose,84.5,3.5,119,81,August,Colorado,233
+Morgan,88.4,2,90,86.4,August,Colorado,16
+Otero,90.8,1.6,85,89.2,August,Colorado,121
+Ouray,78.1,5.6,127,72.5,August,Colorado,6
+Phillips,89.3,2.1,95,87.2,August,Colorado,8
+Pitkin,72.2,3.9,124,68.3,August,Colorado,5
+Prowers,91.7,1.9,88,89.8,August,Colorado,11
+Pueblo,89.7,3,116,86.7,August,Colorado,256
+Rio Blanco,81,2.3,105,78.7,August,Colorado,59
+Rio Grande,76.4,4.7,127,71.7,August,Colorado,14
+Routt,76.2,2.6,105,73.6,August,Colorado,97
+Saguache,76.5,4.5,128,72,August,Colorado,33
+San Miguel,80.5,3.4,119,77.1,August,Colorado,3
+Sedgwick,87.9,0.9,77,87,August,Colorado,6
+Summit,69,2.2,111,66.8,August,Colorado,2
+Washington,88,1.4,78,86.6,August,Colorado,11
+Weld,86.4,0.7,69,85.7,August,Colorado,288
+Yuma,89.6,2.3,98,87.3,August,Colorado,68
+Garfield,87.1,3.6,107,83.5,August,Colorado,49
+Jefferson,76.7,2.2,88,74.5,August,Colorado,22
+Lincoln,78.9,3.8,105,75.1,August,Colorado,3
+Phillips,86,3.3,102,82.7,August,Colorado,8
+Adams,82.6,-0.3,62,82.9,August,Colorado,648
+Logan,78.4,-2.9,33,81.3,August,Colorado,22
+Douglas,86.7,0.9,86,85.8,August,Colorado,36
+Jackson,87.5,0.2,66,87.3,August,Colorado,53
+Lincoln,84.3,0.9,83,83.4,August,Colorado,3
+Garfield,82.2,1.4,91,80.8,August,Colorado,49
+Grand,89.5,3.2,116,86.3,August,Colorado,28
+Morgan,77.9,0.6,67,77.3,August,Colorado,16
+Summit,71.4,-0.1,58,71.5,August,Colorado,2
+Washington,87.1,-1.2,32,88.3,August,Colorado,11
+Lincoln,74.8,-0.2,54,75,August,Colorado,3
+Custer,80.2,4.9,128,75.3,July,Montana,54
+Fremont,84.9,4.3,126,80.6,July,Montana,4
+Garfield,82.6,4.5,124,78.1,July,Montana,8
+Jefferson,81.4,0.6,75,80.8,July,Montana,15
+Lake,72.8,5.4,126,67.4,July,Montana,27
+Lincoln,88.6,0.6,70,88,July,Montana,1
+Park,76.5,4.2,126,72.3,July,Montana,13
+Phillips,87.3,-2.1,32,89.4,July,Montana,20
+Beaverhead,77.2,3.5,106,73.7,July,Montana,185
+Big Horn,84,-0.1,52,84.1,July,Montana,49
+Blaine,84.8,2.8,96,82,July,Montana,61
+Broadwater,81.4,2.1,88,79.3,July,Montana,27
+Carbon,79.3,0.9,68,78.4,July,Montana,1
+Carter,85.7,0.9,74,84.8,July,Montana,29
+Cascade,83.2,2.9,101,80.3,July,Montana,4
+Chouteau,86.7,3.2,102,83.5,July,Montana,15
+Custer,87.4,0.4,57,87,July,Montana,54
+Daniels,82.2,1.2,77,81,July,Montana,55
+Dawson,85.1,0.3,68,84.8,July,Montana,22
+Deer Lodge,75.4,2.6,93,72.8,July,Montana,4
+Fallon,84.6,-0.2,58,84.8,July,Montana,8
+Fergus,83.6,1.8,79,81.8,July,Montana,10
+Flathead,79.7,5.2,120,74.5,July,Montana,73
+Gallatin,79,2.5,96,76.5,July,Montana,72
+Garfield,87,2,85,85,July,Montana,8
+Glacier,78.7,5.3,121,73.4,July,Montana,16
+Golden Valley,82.9,0.1,56,82.8,July,Montana,17
+Granite,77.7,3.7,111,74,July,Montana,3
+Hill,85.8,3.4,105,82.4,July,Montana,65
+Jefferson,79.5,3.4,100,76.1,July,Montana,15
+Judith Basin,79.4,1.7,80,77.7,July,Montana,6
+Lake,84.4,5.1,119,79.3,July,Montana,27
+Lewis and Clark,79.5,3.3,105,76.2,July,Montana,21
+Liberty,85,3.6,109,81.4,July,Montana,35
+Lincoln,81.4,4.9,117,76.5,July,Montana,1
+McCone,85.4,0.4,63,85,July,Montana,25
+Madison,78.2,2.6,94,75.6,July,Montana,53
+Meagher,77.5,2.6,91,74.9,July,Montana,6
+Missoula,81.7,4.3,112,77.4,July,Montana,17
+Park,77.7,2.7,96,75,July,Montana,13
+Phillips,86.2,2.1,86,84.1,July,Montana,20
+Pondera,81.9,3.1,106,78.8,July,Montana,17
+Powder River,87.1,0.9,67,86.2,July,Montana,3
+Powell,78.7,3.5,110,75.2,July,Montana,13
+Prairie,86,0.2,61,85.8,July,Montana,18
+Ravalli,79.7,4.1,115,75.6,July,Montana,46
+Richland,84.8,0.5,69,84.3,July,Montana,106
+Roosevelt,84,0.7,69,83.3,July,Montana,48
+Rosebud,87,0.8,67,86.2,July,Montana,17
+Sanders,83.2,4.5,117,78.7,July,Montana,13
+Sheridan,82.8,1.1,78,81.7,July,Montana,63
+Stillwater,80.6,-0.2,52,80.8,July,Montana,28
+Sweet Grass,79.4,1.1,71,78.3,July,Montana,22
+Teton,80.8,2.6,96,78.2,July,Montana,26
+Toole,84.1,3.3,110,80.8,July,Montana,14
+Treasure,86.7,0.2,59,86.5,July,Montana,9
+Valley,84.6,1.7,86,82.9,July,Montana,54
+Wheatland,80.3,0.7,62,79.6,July,Montana,12
+Wibaux,84.1,-0.4,52,84.5,July,Montana,13
+Yellowstone,86.2,0.5,57,85.7,July,Montana,69
+Golden Valley,83.6,-0.5,53,84.1,July,Montana,17
+Richland,81.4,-1.8,42,83.2,July,Montana,106
+Sheridan,78,-3.7,18,81.7,July,Montana,63
+Custer,82.3,-1.8,36,84.1,July,Montana,54
+Lake,81.4,-3.5,23,84.9,July,Montana,27
+Lincoln,82.1,-3.9,17,86,July,Montana,1
+Carbon,86.3,4.5,124,81.8,July,Montana,1
+Garfield,90.5,6.9,129,83.6,July,Montana,8
+Big Horn,82.3,0.9,64,81.4,July,Montana,49
+Carbon,82,2.3,97,79.7,July,Montana,1
+Fremont,80.4,0.8,66,79.6,July,Montana,4
+Lincoln,81.2,4.2,118,77,July,Montana,1
+Park,76,1.3,79,74.7,July,Montana,13
+Sheridan,80.2,-0.5,54,80.7,July,Montana,63
+Teton,74.4,2.4,99,72,July,Montana,26
+Custer,76,3,114,73,August,Montana,54
+Fremont,80.9,2.6,110,78.3,August,Montana,4
+Garfield,78.4,2.8,112,75.6,August,Montana,8
+Jefferson,79.5,0.6,73,78.9,August,Montana,15
+Lake,68.6,3.6,125,65,August,Montana,27
+Lincoln,89.1,3.1,110,86,August,Montana,1
+Park,72.6,2.5,115,70.1,August,Montana,13
+Phillips,89.3,2.1,95,87.2,August,Montana,20
+Beaverhead,72,0,59,72,August,Montana,185
+Big Horn,83.5,0.8,76,82.7,August,Montana,49
+Blaine,83.9,3.3,102,80.6,August,Montana,61
+Broadwater,78.9,0.9,75,78,August,Montana,27
+Carbon,78.6,1.7,87,76.9,August,Montana,1
+Carter,85.1,1.6,83,83.5,August,Montana,29
+Cascade,81.4,2.3,85,79.1,August,Montana,4
+Chouteau,85.2,3.1,99,82.1,August,Montana,15
+Custer,86.9,1.6,83,85.3,August,Montana,54
+Daniels,82.7,2.8,102,79.9,August,Montana,55
+Dawson,85.5,2,92,83.5,August,Montana,22
+Deer Lodge,72.3,1.3,76,71,August,Montana,4
+Fallon,83.9,0.3,68,83.6,August,Montana,8
+Fergus,82.6,1.8,86,80.8,August,Montana,10
+Flathead,76.8,4.1,104,72.7,August,Montana,73
+Gallatin,74.9,-0.3,56,75.2,August,Montana,72
+Garfield,87.1,3.6,107,83.5,August,Montana,8
+Glacier,77.1,4.9,110,72.2,August,Montana,16
+Golden Valley,82.1,0.3,67,81.8,August,Montana,17
+Granite,74.1,1.8,85,72.3,August,Montana,3
+Hill,84.2,3.4,104,80.8,August,Montana,65
+Jefferson,76.7,2.2,88,74.5,August,Montana,15
+Judith Basin,77.9,1,74,76.9,August,Montana,6
+Lake,80.6,2.9,95,77.7,August,Montana,27
+Lewis and Clark,76.7,1.8,83,74.9,August,Montana,21
+Liberty,82.5,2.5,93,80,August,Montana,35
+Lincoln,78.9,3.8,105,75.1,August,Montana,1
+McCone,86.6,3,100,83.6,August,Montana,25
+Madison,73.3,-0.6,49,73.9,August,Montana,53
+Meagher,75.6,1.6,80,74,August,Montana,6
+Missoula,77.5,1.7,82,75.8,August,Montana,17
+Park,74.1,0.4,67,73.7,August,Montana,13
+Phillips,86,3.3,102,82.7,August,Montana,20
+Pondera,80.2,2.7,93,77.5,August,Montana,17
+Powder River,87.1,2.2,89,84.9,August,Montana,3
+Powell,75.4,1.6,82,73.8,August,Montana,13
+Prairie,86,1.7,86,84.3,August,Montana,18
+Ravalli,75.5,1.7,83,73.8,August,Montana,46
+Richland,85.2,2.1,94,83.1,August,Montana,106
+Roosevelt,84.9,2.8,99,82.1,August,Montana,48
+Rosebud,86.4,1.8,86,84.6,August,Montana,17
+Sanders,80.3,2.8,97,77.5,August,Montana,13
+Sheridan,83.5,3.1,102,80.4,August,Montana,63
+Stillwater,79.6,0.1,68,79.5,August,Montana,28
+Sweet Grass,77.4,0.1,61,77.3,August,Montana,22
+Teton,79,2.1,87,76.9,August,Montana,26
+Toole,81.8,2.3,89,79.5,August,Montana,14
+Treasure,86.5,1.4,83,85.1,August,Montana,9
+Valley,85,3.5,103,81.5,August,Montana,54
+Wheatland,78.9,0.1,64,78.8,August,Montana,12
+Wibaux,83.3,-0.1,63,83.4,August,Montana,13
+Yellowstone,85.6,1.5,84,84.1,August,Montana,69
+Golden Valley,83,0,67,83,August,Montana,17
+Richland,81.6,0.1,72,81.5,August,Montana,106
+Sheridan,78.2,-1.9,43,80.1,August,Montana,63
+Custer,82.8,0.1,65,82.7,August,Montana,54
+Lake,83.7,1.2,97,82.5,August,Montana,27
+Lincoln,84.3,0.9,83,83.4,August,Montana,1
+Carbon,79.7,0.7,72,79,August,Montana,1
+Garfield,82.2,1.4,91,80.8,August,Montana,8
+Big Horn,80.7,1.6,85,79.1,August,Montana,49
+Carbon,78.6,1.2,88,77.4,August,Montana,1
+Fremont,76.9,-0.6,47,77.5,August,Montana,4
+Lincoln,74.8,-0.2,54,75,August,Montana,1
+Park,73.1,0.4,67,72.7,August,Montana,13
+Sheridan,79.6,0.2,65,79.4,August,Montana,63
+Teton,68.4,-1.6,32,70,August,Montana,26
+Adams,87.7,-0.7,49,88.4,July,North Dakota,31
+Logan,86.9,-2,32,88.9,July,North Dakota,43
+Richland,84.8,0.5,69,84.3,July,North Dakota,89
+Sheridan,82.8,1.1,78,81.7,July,North Dakota,23
+Adams,82.6,-1.4,44,84,July,North Dakota,31
+Barnes,79.7,-2.5,31,82.2,July,North Dakota,41
+Benson,78,-3.5,20,81.5,July,North Dakota,48
+Billings,83,-0.6,50,83.6,July,North Dakota,2
+Bottineau,79.5,-1.4,45,80.9,July,North Dakota,84
+Bowman,84,-0.1,59,84.1,July,North Dakota,22
+Burke,79.7,-0.5,57,80.2,July,North Dakota,16
+Burleigh,79,-3.7,18,82.7,July,North Dakota,83
+Cass,81.2,-1.6,40,82.8,July,North Dakota,73
+Cavalier,77.4,-1.4,43,78.8,July,North Dakota,133
+Dickey,79.6,-3.5,19,83.1,July,North Dakota,97
+Divide,81.3,0.7,73,80.6,July,North Dakota,34
+Dunn,82.7,-0.3,56,83,July,North Dakota,41
+Eddy,77.7,-4,15,81.7,July,North Dakota,27
+Emmons,80.2,-4,17,84.2,July,North Dakota,73
+Foster,77.9,-4.1,15,82,July,North Dakota,79
+Grand Forks,79.6,-2.3,34,81.9,July,North Dakota,170
+Grant,81.6,-3,30,84.6,July,North Dakota,15
+Griggs,77.7,-4.2,12,81.9,July,North Dakota,10
+Hettinger,81.6,-2.1,38,83.7,July,North Dakota,30
+Kidder,78.2,-3.9,18,82.1,July,North Dakota,64
+LaMoure,79.8,-3.1,26,82.9,July,North Dakota,57
+Logan,78.8,-4,18,82.8,July,North Dakota,43
+McHenry,80.5,-1.6,46,82.1,July,North Dakota,76
+McIntosh,78.6,-4.4,16,83,July,North Dakota,60
+McKenzie,83,-0.3,55,83.3,July,North Dakota,25
+McLean,80.5,-1.6,38,82.1,July,North Dakota,187
+Mercer,81.3,-1.8,38,83.1,July,North Dakota,46
+Morton,80.8,-2.9,29,83.7,July,North Dakota,119
+Mountrail,80.8,-0.5,53,81.3,July,North Dakota,105
+Nelson,77.8,-3,24,80.8,July,North Dakota,80
+Oliver,80.2,-2.7,31,82.9,July,North Dakota,16
+Pembina,79,-1.2,46,80.2,July,North Dakota,203
+Pierce,79.2,-2.1,37,81.3,July,North Dakota,17
+Ramsey,77.7,-3.2,25,80.9,July,North Dakota,139
+Ransom,81.2,-1.7,39,82.9,July,North Dakota,24
+Renville,80.2,-1.3,50,81.5,July,North Dakota,44
+Richland,81.4,-1.8,42,83.2,July,North Dakota,89
+Rolette,78.2,-0.8,54,79,July,North Dakota,28
+Sargent,80.9,-2.4,32,83.3,July,North Dakota,116
+Sheridan,78,-3.7,18,81.7,July,North Dakota,23
+Sioux,81.8,-3.2,24,85,July,North Dakota,6
+Slope,83.2,-0.9,47,84.1,July,North Dakota,23
+Stark,81.6,-1.8,38,83.4,July,North Dakota,46
+Steele,77.7,-4.5,9,82.2,July,North Dakota,62
+Stutsman,78.7,-3.5,22,82.2,July,North Dakota,74
+Towner,78.7,-1,48,79.7,July,North Dakota,35
+Traill,79,-3.7,18,82.7,July,North Dakota,71
+Walsh,79,-1.3,43,80.3,July,North Dakota,257
+Ward,80,-1.7,40,81.7,July,North Dakota,178
+Wells,77.1,-4.6,13,81.7,July,North Dakota,113
+Williams,82.3,0.4,63,81.9,July,North Dakota,110
+Bon Homme,84.4,-3.7,21,88.1,July,North Dakota,5
+Grant,82,-1,56,83,July,North Dakota,15
+Marshall,80.2,-2,39,82.2,July,North Dakota,2
+Sheridan,80.2,-0.5,54,80.7,July,North Dakota,23
+Adams,87.9,1.7,88,86.2,August,North Dakota,31
+Logan,88.4,1.6,86,86.8,August,North Dakota,43
+Richland,85.2,2.1,94,83.1,August,North Dakota,89
+Sheridan,83.5,3.1,102,80.4,August,North Dakota,23
+Adams,82.6,-0.3,62,82.9,August,North Dakota,31
+Barnes,79.2,-1.6,48,80.8,August,North Dakota,41
+Benson,78.7,-1,58,79.7,August,North Dakota,48
+Billings,82.7,0.2,65,82.5,August,North Dakota,2
+Bottineau,79.6,0.2,68,79.4,August,North Dakota,84
+Bowman,83.6,0.5,69,83.1,August,North Dakota,22
+Burke,78.9,0.2,63,78.7,August,North Dakota,16
+Burleigh,78.4,-2.8,37,81.2,August,North Dakota,83
+Cass,81.2,-0.3,70,81.5,August,North Dakota,73
+Cavalier,77.6,0.2,63,77.4,August,North Dakota,133
+Dickey,79,-2.6,36,81.6,August,North Dakota,97
+Divide,81.7,2.3,93,79.4,August,North Dakota,34
+Dunn,82.3,0.5,64,81.8,August,North Dakota,41
+Eddy,77.9,-2.3,44,80.2,August,North Dakota,27
+Emmons,79.4,-3.4,30,82.8,August,North Dakota,73
+Foster,77.8,-2.7,34,80.5,August,North Dakota,79
+Grand Forks,79.1,-1.4,53,80.5,August,North Dakota,170
+Grant,81.6,-1.4,49,83,August,North Dakota,15
+Griggs,77.5,-2.9,33,80.4,August,North Dakota,10
+Hettinger,81.6,-0.8,51,82.4,August,North Dakota,30
+Kidder,77.8,-2.8,38,80.6,August,North Dakota,64
+LaMoure,79,-2.3,39,81.3,August,North Dakota,57
+Logan,78.4,-2.9,33,81.3,August,North Dakota,43
+McHenry,80.8,0.2,72,80.6,August,North Dakota,76
+McIntosh,78.1,-3.4,28,81.5,August,North Dakota,60
+McKenzie,83,0.9,69,82.1,August,North Dakota,25
+McLean,80.5,-0.3,60,80.8,August,North Dakota,187
+Mercer,81.4,-0.5,58,81.9,August,North Dakota,46
+Morton,80.3,-2,42,82.3,August,North Dakota,119
+Mountrail,80.5,0.6,66,79.9,August,North Dakota,105
+Nelson,77.5,-1.9,47,79.4,August,North Dakota,80
+Oliver,80.1,-1.5,49,81.6,August,North Dakota,16
+Pembina,78.9,0.2,65,78.7,August,North Dakota,203
+Pierce,79.8,0.2,68,79.6,August,North Dakota,17
+Ramsey,78,-1.5,53,79.5,August,North Dakota,139
+Ransom,80.7,-0.8,59,81.5,August,North Dakota,24
+Renville,79.7,-0.2,61,79.9,August,North Dakota,44
+Richland,81.6,0.1,72,81.5,August,North Dakota,89
+Rolette,78.1,0.8,74,77.3,August,North Dakota,28
+Sargent,80.6,-1.1,57,81.7,August,North Dakota,116
+Sheridan,78.2,-1.9,43,80.1,August,North Dakota,23
+Sioux,81.3,-2.1,40,83.4,August,North Dakota,6
+Slope,82.8,-0.3,58,83.1,August,North Dakota,23
+Stark,81.4,-0.8,54,82.2,August,North Dakota,46
+Steele,77.1,-3.7,24,80.8,August,North Dakota,62
+Stutsman,78.2,-2.4,39,80.6,August,North Dakota,74
+Towner,78.8,0.7,76,78.1,August,North Dakota,35
+Traill,78.5,-2.9,31,81.4,August,North Dakota,71
+Walsh,78.6,-0.4,62,79,August,North Dakota,257
+Ward,80,-0.2,61,80.2,August,North Dakota,178
+Wells,77.5,-2.8,37,80.3,August,North Dakota,113
+Williams,82.3,1.6,85,80.7,August,North Dakota,110
+Bon Homme,86.1,0.6,81,85.5,August,North Dakota,5
+Grant,82.6,1.6,97,81,August,North Dakota,15
+Marshall,80.2,-0.3,63,80.5,August,North Dakota,2
+Sheridan,79.6,0.2,65,79.4,August,North Dakota,23
+Douglas,82.6,0.5,71,82.1,July,South Dakota,24
+Jackson,74.7,1.7,91,73,July,South Dakota,2
+Lake,72.8,5.4,126,67.4,July,South Dakota,24
+Lincoln,88.6,0.6,70,88,July,South Dakota,12
+Lake,84.4,5.1,119,79.3,July,South Dakota,24
+Lincoln,81.4,4.9,117,76.5,July,South Dakota,12
+Grant,81.6,-3,30,84.6,July,South Dakota,51
+Aurora,84.3,-3.3,23,87.6,July,South Dakota,15
+Beadle,83.9,-3,29,86.9,July,South Dakota,80
+Bennett,85.4,-1.8,40,87.2,July,South Dakota,7
+Bon Homme,84.4,-3.7,21,88.1,July,South Dakota,9
+Brookings,80.8,-2.7,31,83.5,July,South Dakota,135
+Brown,82.4,-2.1,39,84.5,July,South Dakota,80
+Brule,84.8,-3.4,22,88.2,July,South Dakota,18
+Campbell,81.2,-4.1,16,85.3,July,South Dakota,11
+Charles Mix,85.4,-3.5,20,88.9,July,South Dakota,154
+Clark,81.7,-2.1,44,83.8,July,South Dakota,18
+Clay,83.5,-3.9,16,87.4,July,South Dakota,1
+Codington,80.8,-1.4,52,82.2,July,South Dakota,10
+Corson,83.4,-2.4,32,85.8,July,South Dakota,63
+Davison,84.4,-3.6,21,88,July,South Dakota,45
+Day,80.6,-1.7,45,82.3,July,South Dakota,19
+Deuel,80.6,-1.6,46,82.2,July,South Dakota,8
+Dewey,85.3,-1.7,41,87,July,South Dakota,16
+Douglas,84.7,-3.7,20,88.4,July,South Dakota,24
+Edmunds,81.9,-3.5,21,85.4,July,South Dakota,142
+Fall River,86.4,-1.7,35,88.1,July,South Dakota,6
+Faulk,82.7,-3.1,30,85.8,July,South Dakota,12
+Grant,82,-1,56,83,July,South Dakota,51
+Gregory,85.5,-2.6,28,88.1,July,South Dakota,19
+Haakon,86.9,-1.7,41,88.6,July,South Dakota,4
+Hamlin,81.2,-1.7,42,82.9,July,South Dakota,64
+Hand,82.9,-3.8,25,86.7,July,South Dakota,90
+Hanson,84,-3.4,22,87.4,July,South Dakota,9
+Harding,85.6,0.9,71,84.7,July,South Dakota,5
+Hughes,85.8,-2.8,33,88.6,July,South Dakota,68
+Hutchinson,83.9,-3.8,19,87.7,July,South Dakota,8
+Hyde,83.1,-3.4,26,86.5,July,South Dakota,33
+Jackson,87.3,-1.9,38,89.2,July,South Dakota,2
+Jerauld,83,-3.6,23,86.6,July,South Dakota,28
+Jones,86.2,-3.5,25,89.7,July,South Dakota,11
+Kingsbury,81.9,-2.9,32,84.8,July,South Dakota,71
+Lake,81.4,-3.5,23,84.9,July,South Dakota,24
+Lawrence,78.8,-1.9,34,80.7,July,South Dakota,2
+Lincoln,82.1,-3.9,17,86,July,South Dakota,12
+Lyman,86.3,-3,31,89.3,July,South Dakota,43
+McCook,82.6,-3.7,20,86.3,July,South Dakota,3
+McPherson,79.9,-4.1,16,84,July,South Dakota,37
+Marshall,80.2,-2,39,82.2,July,South Dakota,34
+Mellette,86.8,-2.9,28,89.7,July,South Dakota,4
+Minnehaha,81.4,-3.7,18,85.1,July,South Dakota,41
+Pennington,83.9,-1.5,43,85.4,July,South Dakota,13
+Perkins,84.4,-1,47,85.4,July,South Dakota,57
+Potter,82.3,-3.9,20,86.2,July,South Dakota,68
+Roberts,81.4,-1.6,47,83,July,South Dakota,17
+Sanborn,84.1,-3.4,25,87.5,July,South Dakota,22
+Spink,83.8,-2.3,39,86.1,July,South Dakota,39
+Stanley,86.7,-2.3,36,89,July,South Dakota,18
+Sully,84.1,-3.6,26,87.7,July,South Dakota,62
+Todd,84.8,-3.1,24,87.9,July,South Dakota,8
+Tripp,86.6,-2.2,34,88.8,July,South Dakota,55
+Union,83.4,-3.5,18,86.9,July,South Dakota,10
+Walworth,81.9,-3.6,20,85.5,July,South Dakota,14
+Yankton,83.6,-3.8,20,87.4,July,South Dakota,16
+Ziebach,86.2,-1,52,87.2,July,South Dakota,7
+Campbell,84.5,-0.1,58,84.6,July,South Dakota,11
+Lincoln,81.2,4.2,118,77,July,South Dakota,12
+Douglas,81.2,1.1,80,80.1,August,South Dakota,24
+Jackson,73.3,2.3,104,71,August,South Dakota,2
+Lake,68.6,3.6,125,65,August,South Dakota,24
+Lincoln,89.1,3.1,110,86,August,South Dakota,12
+Lake,80.6,2.9,95,77.7,August,South Dakota,24
+Lincoln,78.9,3.8,105,75.1,August,South Dakota,12
+Grant,81.6,-1.4,49,83,August,South Dakota,51
+Aurora,86.3,1.2,84,85.1,August,South Dakota,15
+Beadle,85.6,0.9,85,84.7,August,South Dakota,80
+Bennett,85.6,0.3,65,85.3,August,South Dakota,7
+Bon Homme,86.1,0.6,81,85.5,August,South Dakota,9
+Brookings,82.8,1.7,101,81.1,August,South Dakota,135
+Brown,82.1,-0.5,56,82.6,August,South Dakota,80
+Brule,86.8,0.9,80,85.9,August,South Dakota,18
+Campbell,80.2,-3.5,26,83.7,August,South Dakota,11
+Charles Mix,87.3,0.9,80,86.4,August,South Dakota,154
+Clark,83.1,1.5,94,81.6,August,South Dakota,18
+Clay,85.7,1,89,84.7,August,South Dakota,1
+Codington,82,1.7,95,80.3,August,South Dakota,10
+Corson,82.7,-1.5,47,84.2,August,South Dakota,63
+Davison,86.5,1.2,87,85.3,August,South Dakota,45
+Day,80.9,0.4,80,80.5,August,South Dakota,19
+Deuel,82.3,2.4,104,79.9,August,South Dakota,8
+Dewey,83.8,-1.5,49,85.3,August,South Dakota,16
+Douglas,86.7,0.9,86,85.8,August,South Dakota,24
+Edmunds,81.6,-1.9,44,83.5,August,South Dakota,142
+Fall River,86.5,-0.3,55,86.8,August,South Dakota,6
+Faulk,82.5,-1.1,50,83.6,August,South Dakota,12
+Grant,82.6,1.6,97,81,August,South Dakota,51
+Gregory,87.2,1.5,86,85.7,August,South Dakota,19
+Haakon,86.2,-0.7,55,86.9,August,South Dakota,4
+Hamlin,83.1,2.4,103,80.7,August,South Dakota,64
+Hand,83.7,-1,55,84.7,August,South Dakota,90
+Hanson,86.4,1.6,92,84.8,August,South Dakota,9
+Harding,85.5,1.7,89,83.8,August,South Dakota,5
+Hughes,86,-0.8,52,86.8,August,South Dakota,68
+Hutchinson,86.2,1,89,85.2,August,South Dakota,8
+Hyde,83.6,-1.1,49,84.7,August,South Dakota,33
+Jackson,87.5,0.2,66,87.3,August,South Dakota,2
+Jerauld,84.7,0.3,75,84.4,August,South Dakota,28
+Jones,87,-0.6,55,87.6,August,South Dakota,11
+Kingsbury,84,1.6,99,82.4,August,South Dakota,71
+Lake,83.7,1.2,97,82.5,August,South Dakota,24
+Lawrence,79,-0.2,62,79.2,August,South Dakota,2
+Lincoln,84.3,0.9,83,83.4,August,South Dakota,12
+Lyman,87.4,0.2,73,87.2,August,South Dakota,43
+McCook,85.1,1.4,96,83.7,August,South Dakota,3
+McPherson,79.5,-2.9,35,82.4,August,South Dakota,37
+Marshall,80.2,-0.3,63,80.5,August,South Dakota,34
+Mellette,88,0.4,75,87.6,August,South Dakota,4
+Minnehaha,83.7,1.1,95,82.6,August,South Dakota,41
+Pennington,84.3,0.4,66,83.9,August,South Dakota,13
+Perkins,84.7,0.4,69,84.3,August,South Dakota,57
+Potter,82,-2.2,41,84.2,August,South Dakota,68
+Roberts,81.5,0.3,75,81.2,August,South Dakota,17
+Sanborn,86.2,1,88,85.2,August,South Dakota,22
+Spink,84.4,0.5,85,83.9,August,South Dakota,39
+Stanley,86,-1.3,46,87.3,August,South Dakota,18
+Sully,84.3,-1.6,46,85.9,August,South Dakota,62
+Todd,86.1,0.2,69,85.9,August,South Dakota,8
+Tripp,87.6,1,81,86.6,August,South Dakota,55
+Union,85.4,1.3,92,84.1,August,South Dakota,10
+Walworth,80.9,-2.8,32,83.7,August,South Dakota,14
+Yankton,85.8,1.1,87,84.7,August,South Dakota,16
+Ziebach,84.7,-0.9,54,85.6,August,South Dakota,7
+Campbell,84.4,1,75,83.4,August,South Dakota,11
+Lincoln,74.8,-0.2,54,75,August,South Dakota,12
+Morgan,87.6,-0.9,47,88.5,July,Utah,10
+Summit,72.6,3.9,123,68.7,July,Utah,85
+Washington,86.3,-2.2,31,88.5,July,Utah,6
+Carbon,79.3,0.9,68,78.4,July,Utah,23
+Beaver,92.7,5.7,129,87,July,Utah,5
+Box Elder,91.7,3.6,118,88.1,July,Utah,116
+Cache,83.8,4.2,118,79.6,July,Utah,24
+Carbon,86.3,4.5,124,81.8,July,Utah,23
+Davis,89.7,4,118,85.7,July,Utah,87
+Duchesne,81.3,4,121,77.3,July,Utah,36
+Emery,94.2,5.8,128,88.4,July,Utah,8
+Iron,91.6,6,128,85.6,July,Utah,44
+Juab,94.6,5,125,89.6,July,Utah,68
+Millard,96.2,5.7,129,90.5,July,Utah,23
+Morgan,83.1,4,116,79.1,July,Utah,10
+Piute,84.2,6.3,129,77.9,July,Utah,10
+Rich,81.5,3.5,113,78,July,Utah,21
+Salt Lake,90.4,5.6,126,84.8,July,Utah,122
+Sanpete,84.9,5.1,126,79.8,July,Utah,119
+Sevier,85.4,6.1,129,79.3,July,Utah,3
+Summit,76.6,3.3,115,73.3,July,Utah,85
+Tooele,95,4.1,121,90.9,July,Utah,33
+Uintah,89.6,4.9,124,84.8,July,Utah,9
+Utah,88.5,4,120,84.5,July,Utah,488
+Wasatch,80.1,3.2,117,76.9,July,Utah,17
+Washington,96.4,5.8,128,90.6,July,Utah,6
+Wayne,94.7,7.6,129,87.1,July,Utah,14
+Weber,86.2,3.9,115,82.3,July,Utah,133
+Carbon,82,2.3,97,79.7,July,Utah,23
+Morgan,88.4,2,90,86.4,August,Utah,10
+Summit,69,2.2,111,66.8,August,Utah,85
+Washington,88,1.4,78,86.6,August,Utah,6
+Carbon,78.6,1.7,87,76.9,August,Utah,23
+Beaver,84.8,0.3,61,84.5,August,Utah,5
+Box Elder,84.3,-1.6,29,85.9,August,Utah,116
+Cache,78.1,0.2,61,77.9,August,Utah,24
+Carbon,79.7,0.7,72,79,August,Utah,23
+Davis,84.6,1.2,82,83.4,August,Utah,87
+Duchesne,75.6,0.6,72,75,August,Utah,36
+Emery,87.4,2,100,85.4,August,Utah,8
+Iron,82.9,-0.3,50,83.2,August,Utah,44
+Juab,87.4,0.2,55,87.2,August,Utah,68
+Millard,88.6,0.6,70,88,August,Utah,23
+Morgan,77.9,0.6,67,77.3,August,Utah,10
+Piute,76.2,0.6,73,75.6,August,Utah,10
+Rich,77,0.8,74,76.2,August,Utah,21
+Salt Lake,83.7,1.2,84,82.5,August,Utah,122
+Sanpete,78.7,1.1,84,77.6,August,Utah,119
+Sevier,77.5,0.6,74,76.9,August,Utah,3
+Summit,71.4,-0.1,58,71.5,August,Utah,85
+Tooele,88,-0.4,45,88.4,August,Utah,33
+Uintah,84.3,2.1,103,82.2,August,Utah,9
+Utah,82.1,0,53,82.1,August,Utah,488
+Wasatch,74.6,-0.3,54,74.9,August,Utah,17
+Washington,87.1,-1.2,32,88.3,August,Utah,6
+Wayne,86.9,2.8,109,84.1,August,Utah,14
+Weber,81.3,1.1,80,80.2,August,Utah,133
+Carbon,78.6,1.2,88,77.4,August,Utah,23
+Fremont,84.9,4.3,126,80.6,July,Wyoming,20
+Lincoln,88.6,0.6,70,88,July,Wyoming,56
+Park,76.5,4.2,126,72.3,July,Wyoming,9
+Rio Blanco,85,3.9,122,81.1,July,Wyoming,3
+Summit,72.6,3.9,123,68.7,July,Wyoming,20
+Big Horn,84,-0.1,52,84.1,July,Wyoming,56
+Carbon,79.3,0.9,68,78.4,July,Wyoming,109
+Lincoln,81.4,4.9,117,76.5,July,Wyoming,56
+Park,77.7,2.7,96,75,July,Wyoming,9
+Sheridan,82.8,1.1,78,81.7,July,Wyoming,16
+Teton,80.8,2.6,96,78.2,July,Wyoming,5
+Sheridan,78,-3.7,18,81.7,July,Wyoming,16
+Campbell,81.2,-4.1,16,85.3,July,Wyoming,8
+Lincoln,82.1,-3.9,17,86,July,Wyoming,56
+Carbon,86.3,4.5,124,81.8,July,Wyoming,109
+Summit,76.6,3.3,115,73.3,July,Wyoming,20
+Albany,78.7,1.3,82,77.4,July,Wyoming,1
+Big Horn,82.3,0.9,64,81.4,July,Wyoming,56
+Campbell,84.5,-0.1,58,84.6,July,Wyoming,8
+Carbon,82,2.3,97,79.7,July,Wyoming,109
+Converse,84.3,0.3,63,84,July,Wyoming,9
+Fremont,80.4,0.8,66,79.6,July,Wyoming,20
+Goshen,85.9,-0.4,49,86.3,July,Wyoming,3
+Johnson,81.7,0.2,57,81.5,July,Wyoming,30
+Laramie,82.9,0.1,54,82.8,July,Wyoming,10
+Lincoln,81.2,4.2,118,77,July,Wyoming,56
+Niobrara,85.9,-0.6,50,86.5,July,Wyoming,24
+Park,76,1.3,79,74.7,July,Wyoming,9
+Platte,85.7,0.7,68,85,July,Wyoming,2
+Sheridan,80.2,-0.5,54,80.7,July,Wyoming,16
+Sublette,77.1,2.2,95,74.9,July,Wyoming,2
+Sweetwater,84.5,2.1,96,82.4,July,Wyoming,39
+Teton,74.4,2.4,99,72,July,Wyoming,5
+Uinta,80.7,2.6,107,78.1,July,Wyoming,46
+Washakie,85.1,0.6,59,84.5,July,Wyoming,13
+Weston,84.7,-1,42,85.7,July,Wyoming,2
+Fremont,80.9,2.6,110,78.3,August,Wyoming,20
+Lincoln,89.1,3.1,110,86,August,Wyoming,56
+Park,72.6,2.5,115,70.1,August,Wyoming,9
+Rio Blanco,81,2.3,105,78.7,August,Wyoming,3
+Summit,69,2.2,111,66.8,August,Wyoming,20
+Big Horn,83.5,0.8,76,82.7,August,Wyoming,56
+Carbon,78.6,1.7,87,76.9,August,Wyoming,109
+Lincoln,78.9,3.8,105,75.1,August,Wyoming,56
+Park,74.1,0.4,67,73.7,August,Wyoming,9
+Sheridan,83.5,3.1,102,80.4,August,Wyoming,16
+Teton,79,2.1,87,76.9,August,Wyoming,5
+Sheridan,78.2,-1.9,43,80.1,August,Wyoming,16
+Campbell,80.2,-3.5,26,83.7,August,Wyoming,8
+Lincoln,84.3,0.9,83,83.4,August,Wyoming,56
+Carbon,79.7,0.7,72,79,August,Wyoming,109
+Summit,71.4,-0.1,58,71.5,August,Wyoming,20
+Albany,76.8,1.2,78,75.6,August,Wyoming,1
+Big Horn,80.7,1.6,85,79.1,August,Wyoming,56
+Campbell,84.4,1,75,83.4,August,Wyoming,8
+Carbon,78.6,1.2,88,77.4,August,Wyoming,109
+Converse,82.5,0.1,56,82.4,August,Wyoming,9
+Fremont,76.9,-0.6,47,77.5,August,Wyoming,20
+Goshen,87.4,2.8,102,84.6,August,Wyoming,3
+Johnson,80.5,0.6,68,79.9,August,Wyoming,30
+Laramie,82.8,1.7,88,81.1,August,Wyoming,10
+Lincoln,74.8,-0.2,54,75,August,Wyoming,56
+Niobrara,86.7,1.4,82,85.3,August,Wyoming,24
+Park,73.1,0.4,67,72.7,August,Wyoming,9
+Platte,86,2.6,102,83.4,August,Wyoming,2
+Sheridan,79.6,0.2,65,79.4,August,Wyoming,16
+Sublette,72.3,-0.6,51,72.9,August,Wyoming,2
+Sweetwater,80,-0.1,57,80.1,August,Wyoming,39
+Teton,68.4,-1.6,32,70,August,Wyoming,5
+Uinta,75.3,-0.8,39,76.1,August,Wyoming,46
+Washakie,83.2,1,75,82.2,August,Wyoming,13
+Weston,85.3,1.3,84,84,August,Wyoming,2

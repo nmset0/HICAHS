@@ -6,7 +6,10 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+library(formatR)
+library(knitr)
+library(tidyverse)
+opts_chunk$set(echo = FALSE, eval = TRUE, tidy = TRUE)
 ```
 
 - Data:
@@ -26,14 +29,61 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 - Merge data for each state
 
 - leaflet package?
+$\\$
+$\\$
 
-_____________________________________________________________________________________
 ### (1) What is the relationship between health risk factors and worker densities in the HICAHS area?
 
 #### i. calculate unconditional correlations between worker concentrations (e.g., totals) and fire and heat environmental exposure scales (identified on website as capturing aspects of “human risk”)
+$\\$
+
+The Correlation between heat and worker concentrations:
+```{r heat}
+MaxTemp_H2AWorkers <- read_csv("MaxTemp_H2AWorkers.csv")
+
+MaxTemp_WorkerTotal_lm <- lm(total_workers_h2a ~ max_temp, data = MaxTemp_H2AWorkers)
+summary(MaxTemp_WorkerTotal_lm)$coefficients
+
+
+split_datasets <- split(MaxTemp_H2AWorkers, MaxTemp_H2AWorkers$state)
+
+colorado <- split_datasets[[1]]
+  montana <- split_datasets[[2]]
+    north_dakota <- split_datasets[[3]]
+      south_dakota <- split_datasets[[4]]
+        utah <- split_datasets[[5]]
+          wyoming <- split_datasets[[6]]
+
+colorado_lm <- lm(max_temp ~ total_workers_h2a, data = colorado)
+  wyoming_lm <- lm(max_temp ~ total_workers_h2a, data = wyoming)
+    north_dakota_lm <- lm(max_temp ~ total_workers_h2a, data = north_dakota)
+      south_dakota_lm <- lm(max_temp ~ total_workers_h2a, data = south_dakota)
+        utah_lm <- lm(max_temp ~ total_workers_h2a, data = utah)
+
+CO_rsq <- cor(x = colorado$max_temp, y = colorado$total_workers_h2a)
+  MT_rsq <- cor(x = montana$max_temp, y = montana$total_workers_h2a)
+    ND_rsq <- cor(x = north_dakota$max_temp, y = north_dakota$total_workers_h2a)
+      SD_rsq <- cor(x = south_dakota$max_temp, y = south_dakota$total_workers_h2a)
+        WY_rsq <- cor(x = wyoming$max_temp, y = wyoming$total_workers_h2a)
+          UT_rsq <- cor(x = utah$max_temp, y = utah$total_workers_h2a)
+
+r_squared <- data.frame(State = c("Colorado", "Wyoming", "North Dakota", "South Dakota", "Utah"),
+                          Model_R_sqr = c(
+                            summary(colorado_lm)$r.squared,
+                            summary(wyoming_lm)$r.squared,
+                            summary(north_dakota_lm)$r.squared,
+                            summary(south_dakota_lm)$r.squared,
+                            summary(utah_lm)$r.squared), 
+                        Pearson_Corr = c(CO_rsq, WY_rsq, ND_rsq, SD_rsq, UT_rsq))
+
+kable(r_squared, col.names = c("State", "Multiple R-Sqr", "Pearson Corr. Coef."), align = 'lrr', label = "Correlation Between Heat and Worker Density")
+
+```
+
 
 #### ii.similar correlations for other available indicators that may be of interest
 
 #### iii. use county-level as the geo-observational unit
+
 
 see HealthRisk_Density.R 
