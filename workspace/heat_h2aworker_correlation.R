@@ -59,3 +59,5 @@ r_squared <- data.frame(State = c("Colorado", "Wyoming", "North Dakota", "South 
                         Pearson_Corr = c(CO_rsq, WY_rsq, ND_rsq, SD_rsq, UT_rsq))
 
 tibble(r_squared)
+
+# Correlogram ggcorrplot()

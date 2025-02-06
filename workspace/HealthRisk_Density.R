@@ -22,6 +22,13 @@ for (i in 1:nrow(h2a_by_county)) {
 }
 state_totals <- rbind(state_totals, h2a_by_county[nrow(h2a_by_county),]) # Grand total
 
+# barplot of state totals
+ggplot(data = state_totals[1:6,], aes(x = `State/ County`, y = `Total Workers H2A Certified`)) +
+  geom_bar(stat="identity", aes(fill = `State/ County`)) +
+  theme_minimal() +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Number of Recorded H2A Workers per State", x = "State")
+
 # Removing totals from original data
 total_rows <- apply(h2a_by_county, 1, function(row) any(grepl("\\(Total\\)", row)))
 h2a_by_county_new <- h2a_by_county[!total_rows, ]
@@ -60,7 +67,6 @@ MaxTemp_H2AWorkers <- left_join(CountyMaxTemp_AUG_JUL_23_new, h2a_by_county_new,
                                           by = c("Name" = "county"),
                                           relationship = "many-to-many")
 
-
 colnames(MaxTemp_H2AWorkers) <- tolower(colnames(MaxTemp_H2AWorkers))
 
 # Data frame which combines heat data with the number of H2A workers per county
@@ -69,12 +75,13 @@ MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = name) |>
   rename(mean = `1901-2000 mean`) |>
   rename(max_temp = value) |>
   rename(anomaly = `anomaly (1901-2000 base period)`)
+
+ggplot(data = MaxTemp_H2AWorkers, aes(x = max_temp, y = total_workers_h2a)) +
+  geom_point(aes(color = state)) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  labs(title = "Maximum Temperature and Worker Density", x = "Maximum Temperature (F)", y = "Total H2A Certified Workers")
 #______________________________________________________________________________________________________________________#
 
-# barplot of state totals
-ggplot(data = state_totals[1:6,], aes(x = `State/ County`, y = `Total Workers H2A Certified`)) +
-  geom_bar(stat="identity", aes(fill = `State/ County`)) +
-  theme_minimal() +
-  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Number of Recorded H2A Workers per State", x = "State")
+disaster <- read_csv("workspace/HICAHS_States_National_Risk_Index_Counties.csv")
 
