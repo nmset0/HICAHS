@@ -85,5 +85,33 @@ ggplot(data = MaxTemp_H2AWorkers, aes(x = max_temp, y = total_workers_h2a)) +
   labs(title = "Maximum Temperature and Worker Density", x = "Maximum Temperature (F)", y = "Total H2A Certified Workers")
 #______________________________________________________________________________________________________________________#
 
-disaster <- read_csv("workspace/HICAHS_States_National_Risk_Index_Counties.csv")
+disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
+
+state_names <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
+disaster <- disaster |> rename(state = `State Name`)
+disaster <- filter(disaster, state %in% state_names)
+disaster <- disaster |> select(-`County Type`)
+
+# wildfire-specific data
+disaster_fire <- bind_cols(disaster[2:21], select(disaster, contains("wildfire")))
+disaster_fire <- select(disaster_fire, -contains("FIPS")) |> select(-`State Name Abbreviation`)
+colnames(disaster_fire) <- colnames(disaster_fire) |> tolower()
+colnames(disaster_fire) <- gsub(" ", "_", names(disaster_fire))
+
+# moving total workers into dataframe
+disaster_fire$total_workers <- NA
+for (i in 1:nrow(MaxTemp_H2AWorkers)) {
+  for (j in 1:nrow(disaster_fire)) {
+    if (disaster_fire$county_name[j] == MaxTemp_H2AWorkers$county[i]) {
+      disaster_fire$total_workers[j] = MaxTemp_H2AWorkers$total_workers_h2a[i]
+    }
+  }
+}
+
+# SELECT * FROM "disaster_fire" WHERE "total_workers" IS NOT NULL
+disaster_fire <- filter(disaster_fire, !is.na(total_workers))
+
+#write_csv(disaster_fire, file = "wildfire_disaster.csv")
+
+
 
