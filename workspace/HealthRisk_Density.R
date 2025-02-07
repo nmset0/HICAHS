@@ -1,12 +1,10 @@
 # Health Risk and Worker Density
-# Unconditional Correlations
 
-# Import data
-# merge and clean
-# Correlation model
+# Data Cleaning
 
-# Packages
 library(tidyverse)
+library(readxl)
+
 # Clean environment
 rm(list = ls())
 
