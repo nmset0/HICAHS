@@ -98,18 +98,25 @@ colnames(disaster_fire) <- gsub(" ", "_", names(disaster_fire))
 
 # moving total workers into dataframe
 disaster_fire$total_workers <- NA
+disaster_fire$maximum_temperature <- NA
+disaster_fire$mean_temperature <- NA
+
 for (i in 1:nrow(MaxTemp_H2AWorkers)) {
   for (j in 1:nrow(disaster_fire)) {
-    if (disaster_fire$county_name[j] == MaxTemp_H2AWorkers$county[i]) {
+    if (disaster_fire$county_name[j] == MaxTemp_H2AWorkers$county[i] & disaster_fire$state[j] == MaxTemp_H2AWorkers$state[i]) {
       disaster_fire$total_workers[j] = MaxTemp_H2AWorkers$total_workers_h2a[i]
+      disaster_fire$maximum_temperature[j] = MaxTemp_H2AWorkers$max_temp[i]
+      disaster_fire$mean_temperature[j] = MaxTemp_H2AWorkers$mean[i]
     }
   }
 }
 
+
 # SELECT * FROM "disaster_fire" WHERE "total_workers" IS NOT NULL
 disaster_fire <- filter(disaster_fire, !is.na(total_workers))
+colnames(disaster_fire) <- gsub("_-_", "_", colnames(disaster_fire))
 
-#write_csv(disaster_fire, file = "wildfire_disaster.csv")
+# write_csv(disaster_fire, file = "C:/Users/natha/OneDrive/Documents/internship/workspace/wildfire_disaster.csv")
 
 
 
