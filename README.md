@@ -1,7 +1,7 @@
-# Nathan Seto
-## Colorado State University
-### Department of Economics
 # Internship Project: Statistical analysis of select series highlighted in the HICAHS Data Hub
+## Nathan Seto
+### Colorado State University
+#### Department of Economics
 
 Overview: The new HICAHS Data Hub (https://hicahs-centroid-collaboration-csurams.hub.arcgis.com/)
 provides capacity for compelling visualizations of correlations between environmental risk and worker
