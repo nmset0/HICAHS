@@ -46,7 +46,7 @@ breaks <- c(0, 47, 102, 160, 219, 244, 269) # Indices
 
 h2a_by_county_new <- h2a_by_county_new |> filter(row_number() <= n()-1)
 
-write_csv(h2a_by_county_new, file = "~/internship/workspace/h2a_by_county_new.csv")
+# write_csv(h2a_by_county_new, file = "~/internship/workspace/h2a_by_county_new.csv")
 #______________________________________________________________________________________________________________________#
 # Heat data
 CountyMaxTemp_JUL23 <- as.data.frame(read_csv("HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv"))
