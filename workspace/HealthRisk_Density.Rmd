@@ -21,11 +21,35 @@ opts_chunk$set(echo = FALSE, eval = TRUE, tidy = TRUE, warning = FALSE, message 
 #### ii.similar correlations for other available indicators that may be of interest
 
 #### iii. use county-level as the geo-observational unit
-
-The correlation between heat, fire, and worker concentrations (totals):
-
-```{r heat}
+```{r}
 Risk_H2AWorkers <- read_csv("~/internship/workspace/wildfire_disaster.csv")
+
+ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
+  geom_point(aes(color = county_name)) +
+  geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
+  facet_wrap(.~state, scales = "free") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(title = "Wildfire Risk Score and Worker Totals",
+       x = "Wildfire Hazard Type Risk Index Score",
+       y = "Total H2A Workers")
+
+ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = mean_temperature)) +
+  geom_point(aes(color = county_name)) +
+  geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
+  facet_wrap(.~state, scales = "free") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(title = "Mean Temperature",
+       x = "Wildfire Hazard Type Risk Index Score",
+       y = "Total H2A Workers")
+
+cor.test(Risk_H2AWorkers$mean_temperature, Risk_H2AWorkers$total_workers, method = "spearman")
+  cor.test(Risk_H2AWorkers$wildfire_exposure_total, Risk_H2AWorkers$total_workers, method = "spearman")
+    cor.test(Risk_H2AWorkers$wildfire_hazard_type_risk_index_score, Risk_H2AWorkers$total_workers, method = "spearman")
+```
+
+```{r}
 
 split_datasets <- split(Risk_H2AWorkers, Risk_H2AWorkers$state)
 
@@ -78,7 +102,7 @@ correlation_vector <- c()
   Risk_H2AWorkers_num <- Risk_H2AWorkers[, sapply(Risk_H2AWorkers, is.numeric)]
     N <- colnames(Risk_H2AWorkers_num)
       for (i in N) {
-        correlation_value <- cor(x = Risk_H2AWorkers_num[[i]], y = Risk_H2AWorkers_num$total_workers)
+        correlation_value <- cor(x = Risk_H2AWorkers_num[[i]], y = Risk_H2AWorkers_num$total_workers, method = "spearman")
         correlation_vector <- c(correlation_vector, correlation_value)
       }
         correlation_df <- data.frame(column = N, correlation = correlation_vector) |> arrange(desc(correlation))
@@ -86,7 +110,7 @@ correlation_vector <- c()
 
 # Correlogram ggcorrplot()
 temp <- Risk_H2AWorkers[sapply(Risk_H2AWorkers, is.numeric)]
-corr <- round(cor(temp),2)
+corr <- round(cor(temp, method = "spearman"),2)
 matrix <- cor_pmat(temp)
 corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
     lab = TRUE, lab_size = 1.6, insig = "blank", title = "Correlation Plot") +

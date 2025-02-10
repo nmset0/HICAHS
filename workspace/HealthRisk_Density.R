@@ -118,5 +118,12 @@ colnames(disaster_fire) <- gsub("_-_", "_", colnames(disaster_fire))
 
 # write_csv(disaster_fire, file = "C:/Users/natha/OneDrive/Documents/internship/workspace/wildfire_disaster.csv")
 
-
-
+ggplot(data = disaster_fire, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
+  geom_point(aes(color = county_name)) +
+  geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
+  facet_wrap(.~state, scales = "free") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(title = "Wildfire Risk Score and Worker Totals",
+       x = "Wildfire Hazard Type Risk Index Score",
+       y = "Total H2A Workers")

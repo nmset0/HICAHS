@@ -70,7 +70,7 @@ correlation_vector <- c()
   Risk_H2AWorkers_num <- Risk_H2AWorkers[, sapply(Risk_H2AWorkers, is.numeric)]
     N <- colnames(Risk_H2AWorkers_num)
       for (i in N) {
-        correlation_value <- cor(x = Risk_H2AWorkers_num[[i]], y = Risk_H2AWorkers_num$total_workers)
+        correlation_value <- cor(x = Risk_H2AWorkers_num[[i]], y = Risk_H2AWorkers_num$total_workers, method = "spearman")
         correlation_vector <- c(correlation_vector, correlation_value)
       }
         correlation_df <- data.frame(column = N, correlation = correlation_vector) |> arrange(desc(correlation))
@@ -79,7 +79,7 @@ correlation_vector <- c()
 
 # Correlogram ggcorrplot()
 temp <- Risk_H2AWorkers[sapply(Risk_H2AWorkers, is.numeric)]
-corr <- round(cor(temp),2)
+corr <- round(cor(temp, method = "spearman"),3)
 matrix <- cor_pmat(temp)
 corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
     lab = TRUE, lab_size = 1.6, insig = "blank", title = "Correlation Plot") +
