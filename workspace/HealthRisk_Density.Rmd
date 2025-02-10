@@ -12,6 +12,7 @@ library(tidyverse)
 library(stargazer)
 library(ggcorrplot)
 opts_chunk$set(echo = FALSE, eval = TRUE, tidy = TRUE, warning = FALSE, message = FALSE)
+Risk_H2AWorkers <- read_csv("~/internship/workspace/wildfire_disaster.csv")
 ```
 
 ### (1) What is the relationship between health risk factors and worker densities in the HICAHS area?
@@ -21,10 +22,14 @@ opts_chunk$set(echo = FALSE, eval = TRUE, tidy = TRUE, warning = FALSE, message 
 #### ii.similar correlations for other available indicators that may be of interest
 
 #### iii. use county-level as the geo-observational unit
-```{r}
-Risk_H2AWorkers <- read_csv("~/internship/workspace/wildfire_disaster.csv")
+$\\$
 
-ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
+```{r}
+temp_cor_test <- cor.test(Risk_H2AWorkers$mean_temperature, Risk_H2AWorkers$total_workers, method = "spearman")
+  fire_exp_cor_est <- cor.test(Risk_H2AWorkers$wildfire_exposure_total, Risk_H2AWorkers$total_workers, method = "spearman")
+    fire_hazard_cor_tset <- cor.test(Risk_H2AWorkers$wildfire_hazard_type_risk_index_score, Risk_H2AWorkers$total_workers, method = "spearman")
+    
+plot1 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
   geom_point(aes(color = county_name)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
   facet_wrap(.~state, scales = "free") +
@@ -34,20 +39,20 @@ ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_r
        x = "Wildfire Hazard Type Risk Index Score",
        y = "Total H2A Workers")
 
-ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = mean_temperature)) +
+plot2 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = mean_temperature)) +
   geom_point(aes(color = county_name)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
   facet_wrap(.~state, scales = "free") +
   theme_minimal() +
   theme(legend.position = "none") +
-  labs(title = "Mean Temperature",
-       x = "Wildfire Hazard Type Risk Index Score",
+  labs(title = "Average Temperature and Worker Totals",
+       x = "Mean Temperature",
        y = "Total H2A Workers")
 
-cor.test(Risk_H2AWorkers$mean_temperature, Risk_H2AWorkers$total_workers, method = "spearman")
-  cor.test(Risk_H2AWorkers$wildfire_exposure_total, Risk_H2AWorkers$total_workers, method = "spearman")
-    cor.test(Risk_H2AWorkers$wildfire_hazard_type_risk_index_score, Risk_H2AWorkers$total_workers, method = "spearman")
+plot1
+plot2
 ```
+
 
 ```{r}
 
