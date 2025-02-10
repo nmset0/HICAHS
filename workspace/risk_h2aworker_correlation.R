@@ -15,7 +15,7 @@ FireHzrdIdxScore_WorkerTotal_lm <- lm(total_workers ~ `wildfire_hazard_type_risk
 FireExpTotal_WorkerTotal_lm <- lm(total_workers ~ `wildfire_exposure_total`, data = Risk_H2AWorkers)
 
 summary(FireHzrdIdxScore_WorkerTotal_lm)$coefficients
-summary(FireExpTotal_WorkerTotal_lm)$coefficients # SIGNIFICANCE
+summary(FireExpTotal_WorkerTotal_lm)$coefficients # significant
 
 
 # Separating by state
@@ -89,5 +89,5 @@ corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
 corrplot
 
 # write_csv(correlation_df, file = "Risk_Correlation_df.csv")
-# ggsave(filename = "Risk_Corr_Plot.png", plot = corrplot, width = 10, height = 10, units = "in")
+ggsave(filename = "Risk_Corr_Plot.png", plot = corrplot)
 
