@@ -96,9 +96,9 @@ FireExpTotal_WorkerTotal_lm <- lm(total_workers ~ `wildfire_exposure_total`, dat
 cat("Linear Model of Maximum Temperature and Worker Totals: \n")
 stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics", out = "summary_statistics.txt")
 cat("\nLinear Model of Wild Fire Hazard Index Score and Worker Totals: \n")
-stargazer(FireHzrdIdxScore_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients", out = "summary_coefficients.txt")
+stargazer(FireHzrdIdxScore_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients")
 cat("\nLinear Model of Fire Exposure Total and Worker Totals: \n")
-stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients", out = "summary_coefficients.txt")
+stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients")
 ```
 
 ```{r}
