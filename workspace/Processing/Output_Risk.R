@@ -49,7 +49,7 @@ disaster <- as.data.frame(lapply(disaster, function(x) {
   if (is.character(x)) tolower(x) else x
 }))
 
-disaster <- disaster |> select(-National.Risk.Index.ID)
+disaster <- disaster |> select(-National.Risk.Index.ID) |> select(-GlobalID) |> select(-National.Risk.Index.Version)
 # preparing to merge: changing entry in disaster data to match agriculture data
 # (otherwise whole row will become NA when matching order (below))
 disaster$county[disaster$county == "lamoure"] <- "la moure"
@@ -72,6 +72,7 @@ shared_cols <- intersect(names(disaster), names(ag_output_wide))
 view(ag_output_wide)
 view(disaster)
 view(output_risk_combined)
+
 
 # write_csv(output_risk_combined, file = "~/internship/workspace/output_risk_combined.csv")
 
