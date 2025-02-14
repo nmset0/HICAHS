@@ -1,0 +1,15 @@
+---
+title: "Economic Output and Risk Factors"
+author: "Nathan Seto"
+output: pdf_document
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(readr)
+library(data.table)
+```
+
+## What is the relationship between health risk concentrations and economic output?
+$\\$
+#### Calculate correlations between environmental exposures and farm sales (and/or other econ. variables) to understand economic linkages. 
