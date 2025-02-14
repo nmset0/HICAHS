@@ -30,7 +30,7 @@ temp_cor_test <- cor.test(Risk_H2AWorkers$mean_temperature, Risk_H2AWorkers$tota
     fire_hazard_cor_tset <- cor.test(Risk_H2AWorkers$wildfire_hazard_type_risk_index_score, Risk_H2AWorkers$total_workers, method = "spearman")
     
 plot1 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
-  geom_point(aes(color = county_name)) +
+  geom_point(aes(color = county)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
   facet_wrap(.~state, scales = "free") +
   theme_minimal() +
@@ -40,7 +40,7 @@ plot1 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_haza
        y = "Total H2A Workers")
 
 plot2 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = mean_temperature)) +
-  geom_point(aes(color = county_name)) +
+  geom_point(aes(color = county)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
   facet_wrap(.~state, scales = "free") +
   theme_minimal() +
@@ -145,7 +145,7 @@ temp_cor_test <- cor.test(Risk_H2AWorkers$mean_temperature, Risk_H2AWorkers$tota
     
 # seeing what the data looks like
 plot1 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
-  geom_point(aes(color = county_name)) +
+  geom_point(aes(color = county)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
   facet_wrap(.~state, scales = "free") +
   theme_minimal() +
@@ -155,7 +155,7 @@ plot1 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_haza
        y = "Total H2A Workers")
 
 plot2 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = mean_temperature)) +
-  geom_point(aes(color = county_name)) +
+  geom_point(aes(color = county)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
   facet_wrap(.~state, scales = "free") +
   theme_minimal() +

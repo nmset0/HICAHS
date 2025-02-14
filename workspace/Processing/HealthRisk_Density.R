@@ -86,13 +86,11 @@ ggplot(data = MaxTemp_H2AWorkers, aes(x = max_temp, y = total_workers_h2a)) +
 disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
 
 state_names <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
-disaster <- disaster |> rename(state = `State Name`)
 disaster <- filter(disaster, state %in% state_names)
-disaster <- disaster |> select(-`County Type`)
 
 # wildfire-specific data
 disaster_fire <- bind_cols(disaster[2:21], select(disaster, contains("wildfire")))
-disaster_fire <- select(disaster_fire, -contains("FIPS")) |> select(-`State Name Abbreviation`)
+disaster_fire <- select(disaster_fire, -contains("FIPS")) |> select(-abbrev)
 colnames(disaster_fire) <- colnames(disaster_fire) |> tolower()
 colnames(disaster_fire) <- gsub(" ", "_", names(disaster_fire))
 
@@ -103,7 +101,7 @@ disaster_fire$mean_temperature <- NA
 
 for (i in 1:nrow(MaxTemp_H2AWorkers)) {
   for (j in 1:nrow(disaster_fire)) {
-    if (disaster_fire$county_name[j] == MaxTemp_H2AWorkers$county[i] & disaster_fire$state[j] == MaxTemp_H2AWorkers$state[i]) {
+    if (disaster_fire$county[j] == MaxTemp_H2AWorkers$county[i] & disaster_fire$state[j] == MaxTemp_H2AWorkers$state[i]) {
       disaster_fire$total_workers[j] = MaxTemp_H2AWorkers$total_workers_h2a[i]
       disaster_fire$maximum_temperature[j] = MaxTemp_H2AWorkers$max_temp[i]
       disaster_fire$mean_temperature[j] = MaxTemp_H2AWorkers$mean[i]
@@ -119,7 +117,7 @@ colnames(disaster_fire) <- gsub("_-_", "_", colnames(disaster_fire))
 # write_csv(disaster_fire, file = "C:/Users/natha/OneDrive/Documents/internship/workspace/wildfire_disaster.csv")
 
 ggplot(data = disaster_fire, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
-  geom_point(aes(color = county_name)) +
+  geom_point(aes(color = county)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
   facet_wrap(.~state, scales = "free") +
   theme_minimal() +
