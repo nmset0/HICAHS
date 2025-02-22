@@ -1,11 +1,12 @@
 ---
-title: "Health Risk and Worker Density"
+title: "Health Risks and Worker Density"
 author: "Nathan Seto"
-date: "`r Sys.Date()`"
+date: "10 February 2025"
 output: pdf_document
 ---
 
 ```{r setup, include = FALSE}
+rm(list = ls())
 library(formatR)
 library(knitr)
 library(tidyverse)
@@ -17,18 +18,11 @@ Risk_H2AWorkers <- read_csv("~/internship/workspace/wildfire_disaster.csv")
 
 ### (1) What is the relationship between health risk factors and worker densities in the HICAHS area?
 
-#### i. calculate unconditional correlations between worker concentrations (e.g., totals) and fire and heat environmental exposure scales (identified on website as capturing aspects of “human risk”)
+##### Goal: Calculate unconditional correlations of worker concentrations (total workers) with heat exposure, wildfire exposure, and any other similar correlations of importance.
 
-#### ii.similar correlations for other available indicators that may be of interest
+I started by observing the shape of the data by plotting the total number of workers against variables of interest. Below is a visual examination of the relationship between total workers and two variables of interest: 'Wildfire Risk Score' and 'Average Temperature'.
 
-#### iii. use county-level as the geo-observational unit
-$\\$
-
-```{r}
-temp_cor_test <- cor.test(Risk_H2AWorkers$mean_temperature, Risk_H2AWorkers$total_workers, method = "spearman")
-  fire_exp_cor_est <- cor.test(Risk_H2AWorkers$wildfire_exposure_total, Risk_H2AWorkers$total_workers, method = "spearman")
-    fire_hazard_cor_tset <- cor.test(Risk_H2AWorkers$wildfire_hazard_type_risk_index_score, Risk_H2AWorkers$total_workers, method = "spearman")
-    
+```{r eda}
 plot1 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
   geom_point(aes(color = county)) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
@@ -53,55 +47,69 @@ plot1
 plot2
 ```
 
+For the rest of my work, I also focused on Wildfire Hazard Type Risk Index Score along with the previous variables.
 
-```{r}
-split_datasets <- split(Risk_H2AWorkers, Risk_H2AWorkers$state)
+Following my graphical examination, I calculated correlations using three methods in R. The first method directly calculates only the [correlation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor) between two variables. The results can be found below. The second method calculates the [correlation between a pair of variables and the significance level](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor.test). The last creates a [linear model](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm) with the response variable being total workers, from which I extracted the $R^2$ value.
 
-MaxTemp_WorkerTotal_lm <- lm(total_workers ~ maximum_temperature, data = Risk_H2AWorkers)
+Linear Model Summaries:
 
-colorado <- split_datasets[[1]]
-  montana <- split_datasets[[2]]
-    north_dakota <- split_datasets[[3]]
-      south_dakota <- split_datasets[[4]]
-        utah <- split_datasets[[5]]
-          wyoming <- split_datasets[[6]]
-
-colorado_lm <- lm(maximum_temperature ~ total_workers, data = colorado)
-  wyoming_lm <- lm(maximum_temperature ~ total_workers, data = wyoming)
-    north_dakota_lm <- lm(maximum_temperature ~ total_workers, data = north_dakota)
-      south_dakota_lm <- lm(maximum_temperature ~ total_workers, data = south_dakota)
-        utah_lm <- lm(maximum_temperature ~ total_workers, data = utah)
-
-CO_rsq <- cor(x = colorado$maximum_temperature, y = colorado$total_workers)
-  MT_rsq <- cor(x = montana$maximum_temperature, y = montana$total_workers)
-    ND_rsq <- cor(x = north_dakota$maximum_temperature, y = north_dakota$total_workers)
-      SD_rsq <- cor(x = south_dakota$maximum_temperature, y = south_dakota$total_workers)
-        WY_rsq <- cor(x = wyoming$maximum_temperature, y = wyoming$total_workers)
-          UT_rsq <- cor(x = utah$maximum_temperature, y = utah$total_workers)
-
-r_squared <- data.frame(State = c("Colorado", "Wyoming", "North Dakota", "South Dakota", "Utah"),
-                          Model_R_sqr = c(
-                            summary(colorado_lm)$r.squared,
-                            summary(wyoming_lm)$r.squared,
-                            summary(north_dakota_lm)$r.squared,
-                            summary(south_dakota_lm)$r.squared,
-                            summary(utah_lm)$r.squared), 
-                        Pearson_Corr = c(CO_rsq, WY_rsq, ND_rsq, SD_rsq, UT_rsq))
-
-kable(r_squared, col.names = c("State", "Multiple R-Sqr", "Pearson Corr. Coef."), align = 'lcc', label = "Correlation Between Heat and Worker Density", digits = 3)
-
+```{r cor}
+MaxTemp_WorkerTotal_lm <- lm(total_workers ~ mean_temperature, data = Risk_H2AWorkers)
 FireHzrdIdxScore_WorkerTotal_lm <- lm(total_workers ~ `wildfire_hazard_type_risk_index_score`, data = Risk_H2AWorkers)
 FireExpTotal_WorkerTotal_lm <- lm(total_workers ~ `wildfire_exposure_total`, data = Risk_H2AWorkers)
-
-cat("Linear Model of Maximum Temperature and Worker Totals: \n")
-stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics", out = "summary_statistics.txt")
-cat("\nLinear Model of Wild Fire Hazard Index Score and Worker Totals: \n")
+ 
+cat("Linear Model of Average Temperature and Worker Totals (All States): \n")
+stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients")
+cat("\nLinear Model of Wild Fire Hazard Index Score and Worker Totals (All States): \n")
 stargazer(FireHzrdIdxScore_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients")
-cat("\nLinear Model of Fire Exposure Total and Worker Totals: \n")
+cat("\nLinear Model of Fire Exposure Total and Worker Totals (All States): \n")
 stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients")
 ```
 
+Correlation Coefficients:
+
 ```{r}
+analyze_states <- function(data, states) {
+  results <- data.frame()
+  
+  for (state in states) {
+    state_data <- data[data$state == state, ]
+    
+    predictors <- c("mean_temperature", "wildfire_hazard_type_risk_index_score", "wildfire_exposure_total")
+    
+    for (predictor in predictors) {
+      lm_model <- lm(total_workers ~ get(predictor), data = state_data)
+      model_rsq <- summary(lm_model)$r.squared
+      
+      correlation <- cor(state_data[[predictor]], state_data$total_workers, method = "spearman")
+      cor_test <- cor.test(state_data[[predictor]], state_data$total_workers, method = "spearman")
+      
+      results <- rbind(results, data.frame(
+        State = state,
+        Predictor = predictor,
+        Model_R_sq = model_rsq,
+        Spearman_Corr = correlation,
+        P_Value = cor_test$p.value
+      ))
+    }
+  }
+  
+  return(results)
+}
+
+states <- c("Colorado", "Montana", "Wyoming", "Utah", "North Dakota", "South Dakota")
+results_df <- analyze_states(Risk_H2AWorkers, states)
+kable(results_df, caption = "Correlation between Total Workers and Predictors by State", digits = 4)
+```
+
+Only a few of the relationships were found to be significantly correlated.
+
+```{r}
+cat("Number of Significant Correlations (p < 0.05):", sum(results_df$P_Value<0.05), "\n")
+kable(results_df[results_df$P_Value < 0.05, ], caption = "Significant Correlations Found (p < 0.05)", digits = 4)
+```
+
+```{r corrplot}
 correlation_vector <- c()
   Risk_H2AWorkers_num <- Risk_H2AWorkers[, sapply(Risk_H2AWorkers, is.numeric)]
     N <- colnames(Risk_H2AWorkers_num)
@@ -127,116 +135,3 @@ print(tibble(correlation_df), n = nrow(correlation_df))
 cat("\n\n")
 corrplot
 ```
-
-
-```{r appendix, echo = TRUE, eval = FALSE, message = FALSE, warning = FALSE}
-library(formatR)
-library(knitr)
-library(tidyverse)
-library(stargazer)
-library(ggcorrplot)
-opts_chunk$set(echo = FALSE, eval = TRUE, tidy = TRUE, warning = FALSE, message = FALSE)
-Risk_H2AWorkers <- read_csv("~/internship/workspace/wildfire_disaster.csv")
-
-# initial correlation tests
-temp_cor_test <- cor.test(Risk_H2AWorkers$mean_temperature, Risk_H2AWorkers$total_workers, method = "spearman")
-  fire_exp_cor_est <- cor.test(Risk_H2AWorkers$wildfire_exposure_total, Risk_H2AWorkers$total_workers, method = "spearman")
-    fire_hazard_cor_tset <- cor.test(Risk_H2AWorkers$wildfire_hazard_type_risk_index_score, Risk_H2AWorkers$total_workers, method = "spearman")
-    
-# seeing what the data looks like
-plot1 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
-  geom_point(aes(color = county)) +
-  geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
-  facet_wrap(.~state, scales = "free") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  labs(title = "Wildfire Risk Score and Worker Totals",
-       x = "Wildfire Hazard Type Risk Index Score",
-       y = "Total H2A Workers")
-
-plot2 <- ggplot(data = Risk_H2AWorkers, aes(y = total_workers, x = mean_temperature)) +
-  geom_point(aes(color = county)) +
-  geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.5) +
-  facet_wrap(.~state, scales = "free") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  labs(title = "Average Temperature and Worker Totals",
-       x = "Mean Temperature",
-       y = "Total H2A Workers")
-
-plot1
-plot2
-
-split_datasets <- split(Risk_H2AWorkers, Risk_H2AWorkers$state)
-
-MaxTemp_WorkerTotal_lm <- lm(total_workers ~ maximum_temperature, data = Risk_H2AWorkers)
-
-colorado <- split_datasets[[1]]
-  montana <- split_datasets[[2]]
-    north_dakota <- split_datasets[[3]]
-      south_dakota <- split_datasets[[4]]
-        utah <- split_datasets[[5]]
-          wyoming <- split_datasets[[6]]
-          
-# maximum temperature correlated with worker totals
-colorado_lm <- lm(maximum_temperature ~ total_workers, data = colorado)
-  wyoming_lm <- lm(maximum_temperature ~ total_workers, data = wyoming)
-    north_dakota_lm <- lm(maximum_temperature ~ total_workers, data = north_dakota)
-      south_dakota_lm <- lm(maximum_temperature ~ total_workers, data = south_dakota)
-        utah_lm <- lm(maximum_temperature ~ total_workers, data = utah)
-
-CO_rsq <- cor(x = colorado$maximum_temperature, y = colorado$total_workers)
-  MT_rsq <- cor(x = montana$maximum_temperature, y = montana$total_workers)
-    ND_rsq <- cor(x = north_dakota$maximum_temperature, y = north_dakota$total_workers)
-      SD_rsq <- cor(x = south_dakota$maximum_temperature, y = south_dakota$total_workers)
-        WY_rsq <- cor(x = wyoming$maximum_temperature, y = wyoming$total_workers)
-          UT_rsq <- cor(x = utah$maximum_temperature, y = utah$total_workers)
-
-r_squared <- data.frame(State = c("Colorado", "Wyoming", "North Dakota", "South Dakota", "Utah"),
-                          Model_R_sqr = c(
-                            summary(colorado_lm)$r.squared,
-                            summary(wyoming_lm)$r.squared,
-                            summary(north_dakota_lm)$r.squared,
-                            summary(south_dakota_lm)$r.squared,
-                            summary(utah_lm)$r.squared), 
-                        Pearson_Corr = c(CO_rsq, WY_rsq, ND_rsq, SD_rsq, UT_rsq))
-
-kable(r_squared, col.names = c("State", "Multiple R-Sqr", "Pearson Corr. Coef."), align = 'lcc', label = "Correlation Between Heat and Worker Density", digits = 3)
-
-FireHzrdIdxScore_WorkerTotal_lm <- lm(total_workers ~ `wildfire_hazard_type_risk_index_score`, data = Risk_H2AWorkers)
-FireExpTotal_WorkerTotal_lm <- lm(total_workers ~ `wildfire_exposure_total`, data = Risk_H2AWorkers)
-
-cat("Linear Model of Maximum Temperature and Worker Totals: \n")
-stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics", out = "summary_statistics.txt")
-cat("\nLinear Model of Wild Fire Hazard Index Score and Worker Totals: \n")
-stargazer(FireHzrdIdxScore_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients", out = "summary_coefficients.txt")
-cat("\nLinear Model of Fire Exposure Total and Worker Totals: \n")
-stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients", out = "summary_coefficients.txt")
-
-# calculating all correlations with total workers
-correlation_vector <- c()
-  Risk_H2AWorkers_num <- Risk_H2AWorkers[, sapply(Risk_H2AWorkers, is.numeric)]
-    N <- colnames(Risk_H2AWorkers_num)
-      for (i in N) {
-        correlation_value <- cor(x = Risk_H2AWorkers_num[[i]], y = Risk_H2AWorkers_num$total_workers, method = "spearman")
-        correlation_vector <- c(correlation_vector, correlation_value)
-      }
-        correlation_df <- data.frame(column = N, correlation = correlation_vector) |> arrange(desc(correlation))
-          correlation_df <-  correlation_df[-1, ]
-
-# Correlogram
-temp <- Risk_H2AWorkers[sapply(Risk_H2AWorkers, is.numeric)]
-corr <- round(cor(temp, method = "spearman"),2)
-matrix <- cor_pmat(temp)
-corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
-    lab = TRUE, lab_size = 1.6, insig = "blank", title = "Correlation Plot") +
-    theme(axis.text.x = element_text(size = 4.1, angle = 90, hjust = 1),
-    axis.text.y = element_text(size = 4.1)
-)
-
-cat("\n\n Correlation of all Variables with Total Workers \n")
-print(tibble(correlation_df), n = nrow(correlation_df))
-cat("\n\n")
-corrplot
-```
-
