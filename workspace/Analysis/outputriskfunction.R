@@ -73,7 +73,7 @@ process_risk_data <- function(dataset, predictor) {
       grepl("Expected.", column, ignore.case = TRUE) ~ "expectedLoss",
       grepl("national.risk.index", column, ignore.case = TRUE) ~ "riskIndex",
       grepl("farm_operations", column, ignore.case = TRUE) ~ "operations",
-      grepl("income", column, ignore.case = TRUE) ~ "income",
+      grepl("income|commodity_totals_sales", column, ignore.case = TRUE) ~ "income",
       grepl("expense", column, ignore.case = TRUE) ~ "costs",
       grepl("ag_land", column, ignore.case = TRUE) ~ "agriculturalLand",
       grepl("farm_sales_", column, ignore.case = TRUE) ~ "salesQuantity",
@@ -82,8 +82,9 @@ process_risk_data <- function(dataset, predictor) {
     arrange(category, p_value) |>
     rename(predictor = column)
 
-  # Split data frames by category and return as a list
-  assign("correlation_df", correlation_df, envir = .GlobalEnv)
+    correlation_df <- correlation_df |> mutate(significance = p_value<=0.05)
+
+    assign("correlation_df", correlation_df, envir = .GlobalEnv)
 
   return(correlation_df)
 }

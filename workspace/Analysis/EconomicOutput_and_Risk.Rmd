@@ -12,7 +12,7 @@ library(readr)
 library(data.table)
 library(dplyr)
 opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
-output_risk_combined <- readr::read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
+output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
 ```
 
 ## What is the relationship between health risk concentrations and economic output?
@@ -38,11 +38,11 @@ tibble(salesQuantity[,-4])
 ```
 
 ```{r}
-tibble(crops[,-4])
+tibble(crops[,-4]) |> arrange(predictor)
 ```
 
 ```{r}
-tibble(animals[,-4])
+tibble(animals[,-4]) |> arrange(predictor)
 ```
 
 ```{r}
@@ -50,11 +50,11 @@ tibble(agriculturalLand[,-4])
 ```
 
 ```{r}
-tibble(area_operated[,-4])
+tibble(area_operated[,-4]) |> arrange(predictor)
 ```
 
 ```{r}
-tibble(nature[,-4])
+tibble(nature[,-4]) |> arrange(predictor)
 ```
 
 ```{r}
@@ -74,7 +74,7 @@ tibble(riskIndex[,-4])
 ```
 
 ```{r}
-tibble(social[,-4])
+tibble(social[,-4]) |> arrange(predictor) 
 ```
 
 ```{r}
