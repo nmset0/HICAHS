@@ -75,29 +75,12 @@ correlation_df <- correlation_df |>
 knitr::kable(correlation_df)
 view(correlation_df)
 
+# See 'outputriskfunction.R' for final correlation analysis method
+
 split_dfs <- split(correlation_df, correlation_df$category)
 list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
 
-# Correlogram ggcorrplot()
-# temp <- output_risk_combined[sapply(output_risk_combined, is.numeric)]
-# corr <- round(cor(temp, method = "spearman"),3)
-# matrix <- cor_pmat(temp)
-#
-# # Data too large for legibility
-# corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
-#                        lab = FALSE, insig = "blank", title = "Correlation Plot") +
-#   theme(
-#     axis.text.x = element_blank(),  # Remove x-axis labels
-#     axis.text.y = element_blank(),  # Remove y-axis labels
-#     axis.ticks = element_blank(),   # Remove axis ticks
-#     axis.title.x = element_blank(), # Remove x-axis title
-#     axis.title.y = element_blank()  # Remove y-axis title
-#   )
-# corrplot
 
-# Creates multiple correlograms with a random sample of 30 variables without replacement:
-# source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/create_correlogram_function.R")
-# create_correlograms(temp, chunk_size = 30)
 
 
 

@@ -1,10 +1,8 @@
-process_risk_data <- function(file_path) {
-  library(readr)
-  library(dplyr)
-  library(knitr)
+process_risk_data <- function(dataset, predictor) {
 
-  # Read the dataset
-  output_risk_combined <- read_csv(file_path)
+  # Use the provided dataset directly
+  output_risk_combined <- dataset
+  assign("output_risk_combined", output_risk_combined, envir = globalenv())
 
   # Identify problematic character columns containing numeric values
   problematic_cols <- sapply(output_risk_combined, function(x) {
@@ -32,18 +30,26 @@ process_risk_data <- function(file_path) {
   # Extract numeric columns
   output_risk_combined_num <- output_risk_combined[, sapply(output_risk_combined, is.numeric)]
   N <- colnames(output_risk_combined_num)
+  assign("output_risk_combined_num", output_risk_combined_num, envir = globalenv())
+
+  # Ensure predictor is numeric
+  if (!predictor %in% colnames(output_risk_combined_num)) {
+    stop(paste("Error: Predictor column", predictor, "not found in the numeric dataset."))
+  }
+  output_risk_combined_num[[predictor]] <- as.numeric(output_risk_combined_num[[predictor]])
 
   # Initialize correlation results
   correlation_results <- data.frame(column = character(), correlation = numeric(), p_value = numeric(), stringsAsFactors = FALSE)
 
-  # Compute correlations with crop_totals_sales_measured_in_$
+  # Compute correlations with the specified predictor
   for (i in seq_along(N)) {
-    if (N[i] != "crop_totals_sales_measured_in_$") {
+    if (N[i] != predictor && is.numeric(output_risk_combined_num[[i]]) && is.numeric(output_risk_combined_num[[predictor]])) {
       test_result <- cor.test(
         x = output_risk_combined_num[[i]],
-        y = output_risk_combined_num$`crop_totals_sales_measured_in_$`,
+        y = output_risk_combined_num[[predictor]],
         method = "spearman",
-        use = "complete.obs"
+        use = "pairwise.complete.obs",
+        exact = FALSE
       )
 
       correlation_results <- rbind(correlation_results, data.frame(
@@ -76,10 +82,9 @@ process_risk_data <- function(file_path) {
     arrange(category, p_value) |>
     rename(predictor = column)
 
-  # Display correlation table
-  print(kable(correlation_df))
-  View(correlation_df)
-
   # Split data frames by category and return as a list
+  assign("correlation_df", correlation_df, envir = .GlobalEnv)
+
   return(correlation_df)
 }
+
