@@ -1,5 +1,4 @@
 rm(list = ls())
-library(ggcorrplot)
 library(tidyverse)
 library(dplyr)
 
@@ -26,63 +25,65 @@ output_risk_combined <- output_risk_combined |>
     }
   }))
 
-output_risk_combined[is.na(output_risk_combined)] <- 0
-
 
 # Correlating crop_totals_sales_measured_in_$ with all other variables
 output_risk_combined_num <- output_risk_combined[, sapply(output_risk_combined, is.numeric)]
 N <- colnames(output_risk_combined_num)
 
-correlation_vector <- numeric(length = ncol(output_risk_combined_num))
-names(correlation_vector) <- N
+correlation_results <- data.frame(column = character(), correlation = numeric(), p_value = numeric(), stringsAsFactors = FALSE)
 
 for (i in seq_along(N)) {
-  correlation_value <- cor(
-    x = output_risk_combined_num[[i]],
-    y = output_risk_combined_num$`crop_totals_sales_measured_in_$`,
-    method = "spearman",
-    use = "pairwise.complete.obs"
-  )
-  correlation_vector[i] <- correlation_value
+  if (N[i] != "crop_totals_sales_measured_in_$") {
+    test_result <- cor.test(
+      x = output_risk_combined_num[[i]],
+      y = output_risk_combined_num$`crop_totals_sales_measured_in_$`,
+      method = "spearman",
+      use = "complete.obs"
+    )
+
+    correlation_results <- rbind(correlation_results, data.frame(
+      column = N[i],
+      correlation = test_result$estimate,
+      p_value = test_result$p.value
+    ))
+  }
 }
 
-correlation_df <- data.frame(
-  column = N,
-  correlation = correlation_vector
-) |>
+correlation_df <- correlation_results |>
   arrange(desc(correlation)) |>
-  filter(!is.na(correlation)) |>
-  filter(column != "crop_totals_sales_measured_in_$")
+  filter(!is.na(correlation))
 
-knitr::kable(correlation_df)
-
-correlation_df <- correlation_df %>%
+correlation_df <- correlation_df |>
   mutate(category = case_when(
-    grepl("drought|wildfire|flood|Cold.Wave|tornado|ice.storm|winter.weather|strong.wind|hail|heat.wave|avalanche|Landslide|lightning", column, ignore.case = TRUE) ~ "naturalDisaster",
+    grepl("drought|wildfire|flood|Cold.Wave|tornado|ice.storm|winter.weather|strong.wind|hail|heat.wave|avalanche|Landslide|lightning", column, ignore.case = TRUE) ~ "nature",
     grepl("sweet_potatoes|sunflower|sorghum|wheat|oats|hay_|corn|sugarbeets|potatoes_|barley|beans|soybean|vegetable|orchards", column, ignore.case = TRUE) ~ "crops",
+    grepl("community|social|Social.Vulnerability.and.", column, ignore.case = TRUE) ~ "social",
     grepl("sheep|chicken|hogs|cattle|animal", column, ignore.case = TRUE) ~ "animals",
     grepl("area_operated", column, ignore.case = TRUE) ~ "area_operated",
     grepl("Expected.", column, ignore.case = TRUE) ~ "expectedLoss",
     grepl("national.risk.index", column, ignore.case = TRUE) ~ "riskIndex",
     grepl("farm_operations", column, ignore.case = TRUE) ~ "operations",
-    grepl("community|social", column, ignore.case = TRUE) ~ "social",
-    grepl("income|sales|farm_sales", column, ignore.case = TRUE) ~ "income",
+    grepl("income", column, ignore.case = TRUE) ~ "income",
     grepl("expense", column, ignore.case = TRUE) ~ "costs",
     grepl("ag_land", column, ignore.case = TRUE) ~ "agriculturalLand",
+    grepl("farm_sales_", column, ignore.case = TRUE) ~ "salesQuantity",
     TRUE ~ "other"
   )) |>
-  arrange(category)
+  arrange(category, p_value) |>
+  rename(predictor = column)
+
+knitr::kable(correlation_df)
+view(correlation_df)
 
 split_dfs <- split(correlation_df, correlation_df$category)
 list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
 
-
 # Correlogram ggcorrplot()
-temp <- output_risk_combined[sapply(output_risk_combined, is.numeric)]
-corr <- round(cor(temp, method = "spearman"),3)
-matrix <- cor_pmat(temp)
-
-# Data too large for legibility
+# temp <- output_risk_combined[sapply(output_risk_combined, is.numeric)]
+# corr <- round(cor(temp, method = "spearman"),3)
+# matrix <- cor_pmat(temp)
+#
+# # Data too large for legibility
 # corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
 #                        lab = FALSE, insig = "blank", title = "Correlation Plot") +
 #   theme(
@@ -94,8 +95,10 @@ matrix <- cor_pmat(temp)
 #   )
 # corrplot
 
-
-
 # Creates multiple correlograms with a random sample of 30 variables without replacement:
-source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/create_correlogram_function.R")
-create_correlograms(temp, chunk_size = 30)
+# source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/create_correlogram_function.R")
+# create_correlograms(temp, chunk_size = 30)
+
+
+
+

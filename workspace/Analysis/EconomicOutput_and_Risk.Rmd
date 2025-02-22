@@ -8,8 +8,15 @@ knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALS
 library(tidyverse)
 library(readr)
 library(data.table)
+library(dplyr)
 ```
 
 ## What is the relationship between health risk concentrations and economic output?
 $\\$
 #### Calculate correlations between environmental exposures and farm sales (and/or other econ. variables) to understand economic linkages. 
+
+```{r}
+source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/EconomicOutput_and_Risk_Correlations.R")
+process_risk_data("~/internship/workspace/output_risk_combined.csv")
+```
+
