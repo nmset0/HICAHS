@@ -51,7 +51,7 @@ For the rest of my work, I also focused on Wildfire Hazard Type Risk Index Score
 
 Following my graphical examination, I calculated correlations using three methods in R. The first method directly calculates only the [correlation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor) between two variables. The results can be found below. The second method calculates the [correlation between a pair of variables and the significance level](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor.test). The last creates a [linear model](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm) with the response variable being total workers, from which I extracted the $R^2$ value.
 
-Linear Model Summaries:
+##### Linear Model Summaries:
 
 ```{r cor}
 MaxTemp_WorkerTotal_lm <- lm(total_workers ~ mean_temperature, data = Risk_H2AWorkers)
@@ -66,7 +66,7 @@ cat("\nLinear Model of Fire Exposure Total and Worker Totals (All States): \n")
 stargazer(FireExpTotal_WorkerTotal_lm, type = "text", title = "Summary Statistics of Coefficients")
 ```
 
-Correlation Coefficients:
+##### Correlation Coefficients by State:
 
 ```{r}
 analyze_states <- function(data, states) {
@@ -102,12 +102,14 @@ results_df <- analyze_states(Risk_H2AWorkers, states)
 kable(results_df, caption = "Correlation between Total Workers and Predictors by State", digits = 4)
 ```
 
-Only a few of the relationships were found to be significantly correlated.
+According to these Table 1, only a few of the relationships are significantly correlated.
 
 ```{r}
 cat("Number of Significant Correlations (p < 0.05):", sum(results_df$P_Value<0.05), "\n")
 kable(results_df[results_df$P_Value < 0.05, ], caption = "Significant Correlations Found (p < 0.05)", digits = 4)
 ```
+
+To analyze all possible correlations within the data, I calculated the correlation coefficient for total workers against all other variables, and created a [correlogram](https://www.rdocumentation.org/packages/ggcorrplot/versions/0.1.4.1/topics/ggcorrplot). According to the graph, worker totals is very correlated with the mean temperature of the county.
 
 ```{r corrplot}
 correlation_vector <- c()
@@ -117,14 +119,21 @@ correlation_vector <- c()
         correlation_value <- cor(x = Risk_H2AWorkers_num[[i]], y = Risk_H2AWorkers_num$total_workers, method = "spearman")
         correlation_vector <- c(correlation_vector, correlation_value)
       }
-        correlation_df <- data.frame(column = N, correlation = correlation_vector) |> arrange(desc(correlation))
-          correlation_df <-  correlation_df[-1, ]
+
+# create data frame of corr values
+correlation_df <- data.frame(column = N, correlation = correlation_vector) |> 
+  arrange(desc(correlation)) |> 
+  rename(Predictor = column) |> 
+  rename(Correlation = correlation)
+
+# delete self-correlation
+correlation_df <-  correlation_df[-1, ]
 
 # Correlogram ggcorrplot()
 temp <- Risk_H2AWorkers[sapply(Risk_H2AWorkers, is.numeric)]
 corr <- round(cor(temp, method = "spearman"),2)
 matrix <- cor_pmat(temp)
-corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
+corrplot <- ggcorrplot(corr, p.mat = matrix, method = "square", type = "lower", 
     lab = TRUE, lab_size = 1.6, insig = "blank", title = "Correlation Plot") +
     theme(axis.text.x = element_text(size = 4.1, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 4.1)
@@ -135,3 +144,5 @@ print(tibble(correlation_df), n = nrow(correlation_df))
 cat("\n\n")
 corrplot
 ```
+
+See 'correlogram.png' for a clearer image.
