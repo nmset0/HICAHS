@@ -19,10 +19,13 @@ output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_co
 
 #### Calculate correlations between environmental exposures and farm sales (and/or other econ. variables) to understand economic linkages.
 
+A p-value of 0 reflects that it is statistically impossible to reach these results under a true null hypothesis.
+
 ```{r, include = FALSE}
 source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/outputriskfunction.R")
 process_risk_data(output_risk_combined, "crop_totals_sales_measured_in_$")
 correlation_df <- correlation_df[-1,]
+correlation_df$p_value <- round(correlation_df$p_value, digits = 4)
 split_dfs <- split(correlation_df, correlation_df$category)
 list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
 ```
@@ -30,11 +33,11 @@ list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
 #### Correlation Coefficients between predictor $X$ and `Crop Total Sales ($)`
 
 ```{r}
-tibble(income[,-4])
+tibble(income[,-4]) |> arrange(predictor)
 ```
 
 ```{r}
-tibble(salesQuantity[,-4])
+tibble(salesQuantity[,-4]) |> arrange(desc(predictor))
 ```
 
 ```{r}
@@ -50,7 +53,8 @@ tibble(agriculturalLand[,-4])
 ```
 
 ```{r}
-tibble(area_operated[,-4]) |> arrange(predictor)
+area_operated <- area_operated[c(6, 7, 4, 2, 1, 3, 8, 5),]
+tibble(area_operated[,-4])
 ```
 
 ```{r}
@@ -80,3 +84,11 @@ tibble(social[,-4]) |> arrange(predictor)
 ```{r}
 tibble(other[,-4])
 ```
+
+```{r}
+cat("Count of Significant (True) and Non-Significant (False) Correlations (p < 0.05) \n")
+table(correlation_df$significance)
+
+tibble(correlation_df[correlation_df$significance==TRUE, c(1,3)])
+```
+
