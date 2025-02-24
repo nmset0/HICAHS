@@ -1,6 +1,7 @@
 rm(list = ls())
 library(tidyverse)
 library(dplyr)
+library(ggcorrplot)
 
 output_risk_combined <- readr::read_csv("workspace/output_risk_combined.csv")
 
@@ -55,7 +56,7 @@ correlation_df <- correlation_results |>
 
 correlation_df <- correlation_df |>
   mutate(category = case_when(
-    grepl("drought|wildfire|flood|Cold.Wave|tornado|ice.storm|winter.weather|strong.wind|hail|heat.wave|avalanche|Landslide|lightning", column, ignore.case = TRUE) ~ "nature",
+    grepl("drought|wildfire|Cold.Wave|tornado|ice.storm|winter.weather|strong.wind|hail|heat.wave|avalanche|Landslide|lightning", column, ignore.case = TRUE) ~ "nature",
     grepl("sweet_potatoes|sunflower|sorghum|wheat|oats|hay_|corn|sugarbeets|potatoes_|barley|beans|soybean|vegetable|orchards", column, ignore.case = TRUE) ~ "crops",
     grepl("community|social|Social.Vulnerability.and.", column, ignore.case = TRUE) ~ "social",
     grepl("sheep|chicken|hogs|cattle|animal", column, ignore.case = TRUE) ~ "animals",
@@ -73,15 +74,60 @@ correlation_df <- correlation_df |>
   rename(predictor = column)
 
 knitr::kable(correlation_df)
-view(correlation_df)
+#view(correlation_df)
 
 # See 'outputriskfunction.R' for final correlation analysis method
 
-split_dfs <- split(correlation_df, correlation_df$category)
-list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
+# split_dfs <- split(correlation_df, correlation_df$category)
+# list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
 
 
 
+
+output_environmentalRisk <- output_risk_combined  |>
+  select(matches("farm_sales_|drought|wildfire|flood|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income")) |>
+  select(where(is.numeric))
+output_environmentalRisk[is.na(output_environmentalRisk)] <- 0
+subset_df <- output_environmentalRisk[, grep("income|sales|farm_sales", names(output_environmentalRisk), ignore.case = TRUE), drop = FALSE]
+
+
+risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",
+                "ice\\.storm", "winter\\.weather", "strong\\.wind", "hail",
+                "heat\\.wave", "avalanche", "Landslide", "lightning")
+
+risk_dfs <- list()
+
+for (risk in risk_types) {
+  clean_risk_name <- gsub("\\\\", "", risk)
+
+  risk_dfs[[clean_risk_name]] <- output_environmentalRisk[, grepl(risk, names(output_environmentalRisk), ignore.case = TRUE)] |>
+    cbind(subset_df)
+}
+
+for (i in names(risk_dfs)) {
+  assign(i, risk_dfs[[i]])
+}
+
+
+# See create_correlogram_function.R
+# generate_corr_plot <- function(df_names) {
+#
+#   for (df_name in df_names) {
+#     df <- get(df_name, envir = .GlobalEnv)
+#     corr <- round(cor(df, method = "spearman"), 2)
+#     matrix <- cor_pmat(df)
+#     corrplot <- ggcorrplot(corr, p.mat = matrix, method = "square", type = "lower",
+#                            lab = TRUE, lab_size = 1, insig = "blank", title = paste("Correlation Plot:", df_name)) +
+#       theme(axis.text.x = element_text(size = 4, angle = 55, hjust = 1),
+#             axis.text.y = element_text(size = 4))
+#
+#     assign(paste(df_name, "_corrplot", sep = ""), corrplot, envir = .GlobalEnv)
+#   }
+# }
+
+# N <- c("drought", "wildfire", "flood", "Cold.Wave", "tornado", "ice.storm", "winter.weather", "strong.wind", "hail", "heat.wave", "avalanche", "Landslide", "lightning")
+# # Example usage with a list of data frame names
+# generate_corr_plot(N)
 
 
 
