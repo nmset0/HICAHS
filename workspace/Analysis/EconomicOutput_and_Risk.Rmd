@@ -18,11 +18,8 @@ opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, tidy
 ## What is the relationship between health risk concentrations and economic output?
 
 #### Calculate correlations between environmental exposures and farm sales (and/or other econ. variables) to understand economic linkages.
-
-A p-value of 0 reflects that it is statistically impossible to reach these results under a true null hypothesis.
 $\\$
-
-The values used as variables of economic output are listed below. 
+The values used as variables of economic output are listed below. Variables ending in "$_operation" denote "dollars per operation".
 $\\$
 ```{r}
 output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
