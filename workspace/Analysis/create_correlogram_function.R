@@ -6,7 +6,7 @@ generate_corr_plot <- function(df_names) {
     corr <- round(cor(df, method = "spearman"), 2)
     matrix <- cor_pmat(df)
     corrplot <- ggcorrplot(corr, p.mat = matrix, method = "square", type = "lower",
-                           lab = TRUE, lab_size = 1.6, insig = "blank", title = paste("Correlation Plot:", str_to_title(gsub("\\.", " ", df_name)))) +
+                           lab = TRUE, lab_size = 1.7, insig = "blank", title = paste("Correlation Plot:", str_to_title(gsub("\\.", " ", df_name)))) +
       theme(axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
             axis.text.y = element_text(size = 6.5))
 
