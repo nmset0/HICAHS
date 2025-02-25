@@ -67,10 +67,7 @@ $\\$
 Below are a series of correlation plots between variables of economic output and different weather/natural disaster predictors.
 $\\$
 
-```{r}
-
-
-
+```{r, fig.width = 9, fig.height = 9}
 risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",
                 "ice\\.storm", "winter\\.weather", "strong\\.wind", "hail",
                 "heat\\.wave", "avalanche", "Landslide", "lightning")
