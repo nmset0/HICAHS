@@ -3,7 +3,7 @@ library(tidyverse)
 library(dplyr)
 library(ggcorrplot)
 
-output_risk_combined <- readr::read_csv("workspace/output_risk_combined.csv")
+output_risk_combined <- readr::read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
 
 problematic_cols <- sapply(output_risk_combined, function(x) {
   is.character(x) && any(grepl("\\d+", x))

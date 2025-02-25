@@ -20,22 +20,13 @@ opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, tidy
 #### Calculate correlations between environmental exposures and farm sales (and/or other econ. variables) to understand economic linkages.
 
 A p-value of 0 reflects that it is statistically impossible to reach these results under a true null hypothesis.
-
-```{r, include = FALSE}
-output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
-# source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/outputriskfunction.R")
-# process_risk_data(output_risk_combined, "crop_totals_sales_measured_in_$")
-# correlation_df <- correlation_df[-1,]
-# correlation_df$p_value <- round(correlation_df$p_value, digits = 4)
-# split_dfs <- split(correlation_df, correlation_df$category)
-# list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
-```
-
-
-Below are a series of correlation plots between variables of economic output and different weather and natural disaster predictors.
 $\\$
 
+The values used as variables of economic output are listed below. 
+$\\$
 ```{r}
+output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
+
 output_risk_combined <- output_risk_combined |> mutate(across(everything(), ~ gsub(",", "", .)))
 
 cols <- names(output_risk_combined)[grepl("income|sales|farm_sales|income_net|commodity_totals|crop_totals_sales", 
@@ -54,11 +45,30 @@ output_risk_combined <- output_risk_combined |>
   }))
 
 output_environmentalRisk <- output_risk_combined  |>
-  select(matches("farm_sales_|drought|wildfire|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income")) |> select(where(is.numeric))
+  select(matches("farm_sales_|drought|wildfire|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income|sales|farm_sales|income_net|commodity_totals|crop_totals")) |> select(where(is.numeric))
 
 output_environmentalRisk[is.na(output_environmentalRisk)] <- 0
 
-subset_df <- output_environmentalRisk[, grep("income|sales|farm_sales|income_net|commodity_totals|crop_totals_sales", names(output_environmentalRisk), ignore.case = TRUE), drop = FALSE]
+good_cols <- grep("income|sales|farm_sales|income_net|commodity|crop", 
+                      names(output_environmentalRisk), 
+                      ignore.case = TRUE)
+
+bad_cols <- grep("cattle_incl_calves_operations_with_sales|cattle_incl_calves_sales_measured_in_head|hogs_operations_with_sales|hogs_sales_measured_in_head|chickens_broilers_operations_with_sales|chickens_broilers_sales_measured_in_head", 
+                     names(output_environmentalRisk), 
+                     ignore.case = TRUE)
+
+# Subset while excluding unwanted columns
+subset_df <- output_environmentalRisk[, setdiff(good_cols, bad_cols), drop = FALSE]
+
+list(names(subset_df))
+```
+
+$\\$
+Below are a series of correlation plots between variables of economic output and different weather/natural disaster predictors.
+$\\$
+
+```{r}
+
 
 
 risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",
@@ -83,15 +93,15 @@ N <- c("drought", "wildfire", "Cold.Wave", "tornado", "ice.storm", "winter.weath
 generate_corr_plot(N)
 
 print(drought_corrplot)
-print(heat.wave_corrplot)
-print(wildfire_corrplot)
-print(winter.weather_corrplot)
-print(Cold.Wave_corrplot)
-print(hail_corrplot)
-print(ice.storm_corrplot)
-print(strong.wind_corrplot)
-print(tornado_corrplot)
-print(lightning_corrplot)
-print(avalanche_corrplot)
+  print(heat.wave_corrplot)
+    print(wildfire_corrplot)
+      print(winter.weather_corrplot)
+        print(Cold.Wave_corrplot)
+          print(hail_corrplot)
+            print(ice.storm_corrplot)
+              print(strong.wind_corrplot)
+                print(tornado_corrplot)
+                  print(lightning_corrplot)
+                    print(avalanche_corrplot)
 ```
 
