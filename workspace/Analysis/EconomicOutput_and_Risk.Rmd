@@ -5,6 +5,7 @@ output: pdf_document
 ---
 
 ```{r, include = FALSE}
+rm(list=ls())
 library(knitr)
 library(tidyr)
 library(tidyverse)
@@ -22,84 +23,42 @@ A p-value of 0 reflects that it is statistically impossible to reach these resul
 
 ```{r, include = FALSE}
 output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
-source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/outputriskfunction.R")
-process_risk_data(output_risk_combined, "crop_totals_sales_measured_in_$")
-correlation_df <- correlation_df[-1,]
-correlation_df$p_value <- round(correlation_df$p_value, digits = 4)
-split_dfs <- split(correlation_df, correlation_df$category)
-list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
+# source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/outputriskfunction.R")
+# process_risk_data(output_risk_combined, "crop_totals_sales_measured_in_$")
+# correlation_df <- correlation_df[-1,]
+# correlation_df$p_value <- round(correlation_df$p_value, digits = 4)
+# split_dfs <- split(correlation_df, correlation_df$category)
+# list2env(split(correlation_df, correlation_df$category), envir = .GlobalEnv)
 ```
 
-#### Correlation Coefficients between predictor $X$ and `Crop Total Sales ($)`
 
-```{r}
-tibble(income[,-4]) |> arrange(predictor)
-```
-
-```{r}
-tibble(salesQuantity[,-4]) |> arrange(desc(predictor))
-```
-
-```{r}
-tibble(crops[,-4]) |> arrange(predictor)
-```
-
-```{r}
-tibble(animals[,-4]) |> arrange(predictor)
-```
-
-```{r}
-tibble(agriculturalLand[,-4])
-```
-
-```{r}
-area_operated <- area_operated[c(6, 7, 4, 2, 1, 3, 8, 5),]
-tibble(area_operated[,-4])
-```
-
-```{r}
-tibble(nature[,-4]) |> arrange(predictor)
-```
-
-```{r}
-tibble(costs[,-4])
-```
-
-```{r}
-tibble(expectedLoss[,-4])
-```
-
-```{r}
-tibble(operations[,-4])
-```
-
-```{r}
-tibble(riskIndex[,-4])
-```
-
-```{r}
-tibble(social[,-4]) |> arrange(predictor) 
-```
-
-```{r}
-tibble(other[,-4])
-```
-
-```{r}
-cat("Count of Significant (True) and Non-Significant (False) Correlations (p < 0.05) \n")
-table(correlation_df$significance)
-
-tibble(correlation_df[correlation_df$significance==TRUE, c(1,3)])
-```
 Below are a series of correlation plots between variables of economic output and different weather and natural disaster predictors.
 $\\$
 
 ```{r}
+output_risk_combined <- output_risk_combined |> mutate(across(everything(), ~ gsub(",", "", .)))
+
+cols <- names(output_risk_combined)[grepl("income|sales|farm_sales|income_net|commodity_totals|crop_totals_sales", 
+                                                   names(output_risk_combined), ignore.case = TRUE)]
+
+output_risk_combined <- output_risk_combined |> mutate(across(all_of(cols), as.numeric))
+
+output_risk_combined <- output_risk_combined |>
+  mutate(across(where(is.character), ~{
+    if(any(grepl("\\d+", .x))) {
+      cleaned <- gsub("[^0-9.-]", "", .x)
+      as.numeric(cleaned)
+    } else {
+      .x
+    }
+  }))
+
 output_environmentalRisk <- output_risk_combined  |>
-  select(matches("farm_sales_|drought|wildfire|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income")) |>
-  select(where(is.numeric))
+  select(matches("farm_sales_|drought|wildfire|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income")) |> select(where(is.numeric))
+
 output_environmentalRisk[is.na(output_environmentalRisk)] <- 0
-subset_df <- output_environmentalRisk[, grep("income|sales|farm_sales", names(output_environmentalRisk), ignore.case = TRUE), drop = FALSE]
+
+subset_df <- output_environmentalRisk[, grep("income|sales|farm_sales|income_net|commodity_totals|crop_totals_sales", names(output_environmentalRisk), ignore.case = TRUE), drop = FALSE]
 
 
 risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",

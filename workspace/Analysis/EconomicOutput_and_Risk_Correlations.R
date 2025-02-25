@@ -88,7 +88,7 @@ output_environmentalRisk <- output_risk_combined  |>
   select(matches("farm_sales_|drought|wildfire|flood|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income")) |>
   select(where(is.numeric))
 output_environmentalRisk[is.na(output_environmentalRisk)] <- 0
-subset_df <- output_environmentalRisk[, grep("income|sales|farm_sales", names(output_environmentalRisk), ignore.case = TRUE), drop = FALSE]
+subset_df <- output_environmentalRisk[, grep("income|sales|farm_sales|income_net_|commodity_totals|crop_totals_sales", names(output_environmentalRisk), ignore.case = TRUE), drop = FALSE]
 
 
 risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",
