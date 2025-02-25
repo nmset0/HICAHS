@@ -19,7 +19,8 @@ opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, tidy
 
 #### Calculate correlations between environmental exposures and farm sales (and/or other econ. variables) to understand economic linkages.
 $\\$
-The values used as variables of economic output are listed below. Variables ending in "$_operation" denote "dollars per operation".
+
+The values used as variables of economic output are listed below. Variables ending in "\$_operation" denote "dollars per operation".
 $\\$
 ```{r}
 output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
@@ -64,7 +65,7 @@ $\\$
 Below are a series of correlation plots between variables of economic output and different weather/natural disaster predictors.
 $\\$
 
-```{r, fig.width = 9, fig.height = 9}
+```{r, fig.width = 9.5, fig.height = 10}
 risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",
                 "ice\\.storm", "winter\\.weather", "strong\\.wind", "hail",
                 "heat\\.wave", "avalanche", "Landslide", "lightning")
