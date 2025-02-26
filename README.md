@@ -13,3 +13,5 @@ other indicators.
 Read the full description [here](https://github.com/nmset0/HICAHS/blob/main/HICAHS_intern_project.pdf).
 
 To see progress for Question 1, see [HealthRisk_Density.pdf](https://github.com/nmset0/HICAHS/blob/main/workspace/HealthRisk_Density.pdf). 
+
+To see progress for Question 2, visit [this link](https://nseto.shinyapps.io/correlation_econoutput_environmentalrisk/).
