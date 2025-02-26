@@ -1,0 +1,10 @@
+name: correlation_econoutput_environmentalrisk
+title:
+username: nseto
+account: nseto
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14100773
+bundleId: 9857469
+url: https://nseto.shinyapps.io/correlation_econoutput_environmentalrisk/
+version: 1

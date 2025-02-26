@@ -14,10 +14,7 @@ ui <- fluidPage(
       selectInput("response_var", "Select Response Variable:",
                   choices = NULL),  # Choices will be populated in server
 
-      checkboxInput("sort_corr", "Sort by correlation magnitude", TRUE),
-
-      textInput("url", "Enter URL:", "https://github.com"),
-      uiOutput("dynamic_link")
+      checkboxInput("sort_corr", "Sort by correlation magnitude", TRUE)
     ),
 
     mainPanel(
@@ -57,7 +54,7 @@ server <- function(input, output, session) {
   )
 
   # Load the preprocessed data
-  output_environmentalRisk <- readRDS("C:/Users/natha/OneDrive/Documents/internship/output_EnvironmentalRisk.rds")
+  output_environmentalRisk <- readRDS("output_EnvironmentalRisk.rds")
 
   # Define environmental risk variables
   environmental_risk_vars <- list(
@@ -147,10 +144,6 @@ server <- function(input, output, session) {
     }
   })
 
-  # Render dynamic link
-  output$dynamic_link <- renderUI({
-    a("Click here to visit the entered URL", href = input$url, target = "_blank")
-  })
 }
 
 # Run the application
