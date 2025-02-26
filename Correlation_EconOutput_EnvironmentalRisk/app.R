@@ -6,6 +6,24 @@ library(DT)
 ui <- fluidPage(
   titlePanel("Environmental Risk Correlation Analysis"),
 
+  tags$head(
+    tags$style(HTML("
+      .selectize-input {
+        width: 100% !important;
+      }
+      .selectize-dropdown {
+        width: auto !important;
+        max-width: none !important;
+      }
+      .selectize-dropdown-content {
+        max-width: none !important;
+        width: auto !important;
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+    "))
+  ),
+
   sidebarLayout(
     sidebarPanel(
       selectInput("dataset", "Select Dataset:",
