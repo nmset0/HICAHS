@@ -3,7 +3,7 @@
 ### Colorado State University
 #### Department of Economics
 
-Overview: The new HICAHS Data Hub (https://hicahs-centroid-collaboration-csurams.hub.arcgis.com/)
+Overview: The new [HICAHS Data Hub](https://hicahs-centroid-collaboration-csurams.hub.arcgis.com/)
 provides capacity for compelling visualizations of correlations between environmental risk and worker
 population concentrations in the Colorado, Montana, North Dakota, South Dakota, Utah, and Wyoming
 service area. Economic valuations associated with the extent of agricultural activity (e.g., sales) can also
