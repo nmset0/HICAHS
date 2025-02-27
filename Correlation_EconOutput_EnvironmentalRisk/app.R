@@ -32,14 +32,24 @@ ui <- fluidPage(
       selectInput("response_var", "Select Response Variable:",
                   choices = NULL),  # Choices will be populated in server
 
-      checkboxInput("sort_corr", "Sort by correlation magnitude", TRUE)
+      checkboxInput("sort_corr", "Sort by correlation magnitude", TRUE),
+      checkboxInput("show_pvalue_ranges", "Show p-value ranges", FALSE),
+      checkboxInput("show_corr_ranges", "Show correlation coefficient ranges", FALSE)
     ),
 
     mainPanel(
       tabsetPanel(
         tabPanel("Correlation Results",
                  br(),
-                 dataTableOutput("corr_table")
+                 dataTableOutput("corr_table"),
+                 conditionalPanel(
+                   condition = "input.show_pvalue_ranges",
+                   verbatimTextOutput("pvalue_summary")
+                 ),
+                 conditionalPanel(
+                   condition = "input.show_corr_ranges",
+                   verbatimTextOutput("corr_summary")
+                 )
         ),
         tabPanel("Dataset Summary",
                  verbatimTextOutput("data_summary"))
@@ -112,23 +122,26 @@ server <- function(input, output, session) {
     if (!response_var %in% colnames(df)) {
       return(data.frame(
         Predictor = "Response variable not found in this dataset",
-        Correlation = NA
+        Correlation = NA,
+        PValue = NA
       ))
     }
 
     all_predictors <- setdiff(colnames(df), response_variables)
     corr_data <- data.frame(
       Predictor = character(),
-      Correlation = numeric()
+      Correlation = numeric(),
+      PValue = numeric()
     )
 
     for (predictor in all_predictors) {
       if (is.numeric(df[[predictor]]) && is.numeric(df[[response_var]]) &&
           var(df[[predictor]], na.rm = TRUE) > 0 && var(df[[response_var]], na.rm = TRUE) > 0) {
-        cor_val <- cor(df[[response_var]], df[[predictor]], use = "pairwise.complete.obs")
+        cor_test <- cor.test(df[[response_var]], df[[predictor]], use = "pairwise.complete.obs")
         corr_data <- rbind(corr_data, data.frame(
           Predictor = predictor,
-          Correlation = round(cor_val, 3)
+          Correlation = round(cor_test$estimate, 3),
+          PValue = round(cor_test$p.value, 3)
         ))
       }
     }
@@ -144,6 +157,73 @@ server <- function(input, output, session) {
   output$corr_table <- renderDataTable({
     req(correlations())
     datatable(correlations(), options = list(pageLength = 25, autoWidth = TRUE), rownames = FALSE)
+  })
+
+  # Calculate p-value ranges summary
+  pvalue_summary <- reactive({
+    req(correlations())
+    corr_data <- correlations()
+    pvalues <- corr_data$PValue
+    if (is.null(pvalues)) return(NULL)
+
+    ranges <- list(
+      "0 - 0.049" = sum(pvalues <= 0.049),
+      "0 - 0.3" = sum(pvalues >= 0 & pvalues <= 0.3),
+      "0.31 - 0.6" = sum(pvalues > 0.3 & pvalues <= 0.6),
+      "0.61 - 0.8" = sum(pvalues > 0.6 & pvalues <= 0.8),
+      "0.81 - 0.99" = sum(pvalues > 0.8 & pvalues < 1)
+    )
+
+    total <- sum(unlist(ranges))
+    proportions <- lapply(ranges, function(x) round(x / total, 3))
+
+    list(ranges = ranges, proportions = proportions)
+  })
+
+  # Calculate correlation coefficient ranges summary
+  corr_summary <- reactive({
+    req(correlations())
+    corr_data <- correlations()
+    corrs <- corr_data$Correlation
+    if (is.null(corrs)) return(NULL)
+
+    ranges <- list(
+      "-1 to -0.8" = sum(corrs >= -1 & corrs < -0.8),
+      "-0.8 to -0.6" = sum(corrs >= -0.8 & corrs < -0.6),
+      "-0.6 to -0.3" = sum(corrs >= -0.6 & corrs < -0.3),
+      "-0.3 to 0" = sum(corrs >= -0.3 & corrs < 0),
+      "0 to 0.3" = sum(corrs >= 0 & corrs < 0.3),
+      "0.3 to 0.6" = sum(corrs >= 0.3 & corrs < 0.6),
+      "0.6 to 0.8" = sum(corrs >= 0.6 & corrs < 0.8),
+      "0.8 to 1" = sum(corrs >= 0.8 & corrs <= 1)
+    )
+
+    total <- sum(unlist(ranges))
+    proportions <- lapply(ranges, function(x) round(x / total, 3))
+
+    list(ranges = ranges, proportions = proportions)
+  })
+
+  # Render p-value ranges summary
+  output$pvalue_summary <- renderPrint({
+    req(pvalue_summary())
+    summary <- pvalue_summary()
+    cat("P-value Ranges Summary:\n\n")
+    cat("Range\t\tCount\t\tProportion\n")
+    for (range in names(summary$ranges)) {
+      cat(range, "\t", summary$ranges[[range]], "\t", summary$proportions[[range]], "\n")
+    }
+  })
+
+  # Render correlation coefficient ranges summary
+  output$corr_summary <- renderPrint({
+    req(corr_summary())
+    summary <- corr_summary()
+    cat("Correlation Coefficient Ranges Summary:\n\n")
+    cat("Range\t\tCount\t\tProportion\n")
+    for (range in names(summary$ranges)) {
+      cat(range, "\t", summary$ranges[[range]], "\t", summary$proportions[[range]], "\n")
+    }
   })
 
   # Dataset summary
