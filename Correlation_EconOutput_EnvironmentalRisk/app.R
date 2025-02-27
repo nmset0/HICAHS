@@ -133,11 +133,11 @@ server <- function(input, output, session) {
       Correlation = numeric(),
       PValue = numeric()
     )
-
+# TODO !!
     for (predictor in all_predictors) {
       if (is.numeric(df[[predictor]]) && is.numeric(df[[response_var]]) &&
           var(df[[predictor]], na.rm = TRUE) > 0 && var(df[[response_var]], na.rm = TRUE) > 0) {
-        cor_test <- cor.test(df[[response_var]], df[[predictor]], use = "pairwise.complete.obs")
+        cor_test <- cor.test(df[[response_var]], df[[predictor]], use = "pairwise.complete.obs")  
         corr_data <- rbind(corr_data, data.frame(
           Predictor = predictor,
           Correlation = round(cor_test$estimate, 3),
@@ -245,4 +245,4 @@ server <- function(input, output, session) {
 }
 
 # Run the application
-shinyApp(ui = ui, server = server)
+# shinyApp(ui = ui, server = server)
