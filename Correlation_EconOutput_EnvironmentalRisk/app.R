@@ -1,7 +1,6 @@
 library(shiny)
 library(dplyr)
 library(DT)
-
 # Define UI
 ui <- fluidPage(
   titlePanel("Environmental Risk Correlation Analysis"),
@@ -137,7 +136,7 @@ server <- function(input, output, session) {
     for (predictor in all_predictors) {
       if (is.numeric(df[[predictor]]) && is.numeric(df[[response_var]]) &&
           var(df[[predictor]], na.rm = TRUE) > 0 && var(df[[response_var]], na.rm = TRUE) > 0) {
-        cor_test <- cor.test(df[[response_var]], df[[predictor]], use = "pairwise.complete.obs")  
+        cor_test <- cor.test(df[[response_var]], df[[predictor]], method = "kendall", use = "pairwise.complete.obs")
         corr_data <- rbind(corr_data, data.frame(
           Predictor = predictor,
           Correlation = round(cor_test$estimate, 3),
@@ -167,8 +166,9 @@ server <- function(input, output, session) {
     if (is.null(pvalues)) return(NULL)
 
     ranges <- list(
-      "0 - 0.049" = sum(pvalues <= 0.049),
-      "0 - 0.3" = sum(pvalues >= 0 & pvalues <= 0.3),
+      "0" = sum(pvalues == 0),
+      "0 - 0.049" = sum(pvalues <= 0.04999),
+      "0.0001 - 0.3" = sum(pvalues > 0 & pvalues <= 0.3),
       "0.31 - 0.6" = sum(pvalues > 0.3 & pvalues <= 0.6),
       "0.61 - 0.8" = sum(pvalues > 0.6 & pvalues <= 0.8),
       "0.81 - 0.99" = sum(pvalues > 0.8 & pvalues < 1)
@@ -245,4 +245,4 @@ server <- function(input, output, session) {
 }
 
 # Run the application
-# shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)
