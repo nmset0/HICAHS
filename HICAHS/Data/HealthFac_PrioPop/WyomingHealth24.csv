@@ -1,944 +1,943 @@
-Code,City,County,,,Rural Health Clinics,,,Critical Access Hospitals,,,Hospitals,
+state,City,County,,,Rural Health Clinics,,,Critical Access Hospitals,,,Hospitals,
 ,,,,,,,,,,,,
-ADC,"Uinta Senior Citizens Center Inc. Evanston Adult DayHab
+wyoming,"Uinta Senior Citizens Center Inc. Evanston Adult DayHab
  1229 Uinta St.
  Evanston WY 82930",Uinta County,,,Uinta County,0,,Uinta County,0,,Uinta County,1
-ADC,"Uinta Senior Citizens Inc. Lyman Adult DayHab
+wyoming,"Uinta Senior Citizens Inc. Lyman Adult DayHab
  216 West Sage St.
  Lyman WY 82937",Uinta County,,,Sheridan County,0,,Sheridan County,0,,Sheridan County,1
-ADC,"Sheridan Senior Center: Day Break
+wyoming,"Sheridan Senior Center: Day Break
  241 Smith St.
  Sheridan WY 82801",Sheridan County,,,Lincoln County,1,,Lincoln County,2,,Lincoln County,0
-ADC,"Legacy Homes Assisted Living & Adult Day Care
+wyoming,"Legacy Homes Assisted Living & Adult Day Care
  2391 Muddy String Co Rd 117
  Thayne WY 83127",Lincoln County,,,Natrona County,0,,Natrona County,0,,Natrona County,2
-ASC,"Casper WY Endoscopy ASC LLC
+wyoming,"Casper WY Endoscopy ASC LLC
  dba/Sterling Surgery Center
  1441 Wilkins Circle
  Casper WY 82601",Natrona County,,,Laramie County,1,,Laramie County,0,,Laramie County,1
-ASC,"Central Wyoming Outpatient Surgery Center LLC
+wyoming,"Central Wyoming Outpatient Surgery Center LLC
  dba/Casper Surgical Center
  1201 East Third St.
  Casper WY 82601",Natrona County,,,Park County,2,,Park County,2,,Park County,0
-ASC,"Western Ambulatory Surgery LLC
+wyoming,"Western Ambulatory Surgery LLC
  1421 Wilkins Circle
  Casper WY 82601",Natrona County,,,Campbell County,0,,Campbell County,0,,Campbell County,1
-ASC,"Wyoming Surgical Center LLC
+wyoming,"Wyoming Surgical Center LLC
  4140 Centennial Hills Blvd
  Suite C
  Casper WY 82609",Natrona County,,,Teton County,0,,Teton County,0,,Teton County,1
-ASC,"Center for Dermatologic Surgery
+wyoming,"Center for Dermatologic Surgery
  123 Western Hills Blvd
  Cheyenne WY 82009",Laramie County,,,Fremont County,1,,Fremont County,0,,Fremont County,1
-ASC,"Cheyenne Ocular Surgery LLC
+wyoming,"Cheyenne Ocular Surgery LLC
  dba/Cheyenne Eye Surgery
  1300 East 20th St.
  Cheyenne WY 82001",Laramie County,,,Albany County,0,,Albany County,0,,Albany County,1
-ASC,"Cheyenne Surgical Center LLC
+wyoming,"Cheyenne Surgical Center LLC
  dba/High Plains Surgery Center
  2301 House Ave Suite 200
  Cheyenne WY 82001",Laramie County,,,Sweetwater County,1,,Sweetwater County,0,,Sweetwater County,2
-ASC,"Wyoming Endoscopy Center LLC
+wyoming,"Wyoming Endoscopy Center LLC
  7220 Commons Circle
  Cheyenne WY 82009",Laramie County,,,Johnson County,0,,Johnson County,1,,Johnson County,0
-ASC,"Northern Wyoming Surgical Center LLC
+wyoming,"Northern Wyoming Surgical Center LLC
  732 Lindsay Lane
  Cody WY 82414",Park County,,,Converse County,2,,Converse County,1,,Converse County,0
-ASC,"Premier Surgical Center LLC
+wyoming,"Premier Surgical Center LLC
  195 Overthrust Rd
  Evanston WY 82930",Uinta County,,,Weston County,2,,Weston County,1,,Weston County,0
-ASC,"Advanced Surgical Care of Wyoming LLC
+wyoming,"Advanced Surgical Care of Wyoming LLC
  51 Town Center Drive, Suite 140
  Gillette WY 82718",Campbell County,,,Crook County,3,,Crook County,1,,Crook County,0
-ASC,"The Center for Surgical Excellence Inc.
+wyoming,"The Center for Surgical Excellence Inc.
  1503 Cressett St.
  Gillette WY 82716",Campbell County,,,Hot Springs County,2,,Hot Springs County,1,,Hot Springs County,0
-ASC,"Northeast Wyoming Surgery Center LLC
+wyoming,"Northeast Wyoming Surgery Center LLC
  1307 West Third St., Suite B
  Gillette WY 82716",Campbell County,,,Goshen County,1,,Goshen County,1,,Goshen County,0
-ASC,"Powder River Surgery Center
+wyoming,"Powder River Surgery Center
  906 W 6th Street, Suite C
  Gillette WY 82716",Campbell County,,,Platte County,3,,Platte County,1,,Platte County,0
-ASC,"Teton Outpatient Services LLC
+wyoming,"Teton Outpatient Services LLC
  150 Buffalo Way
  Jackson WY 83001",Teton County,,,Washakie County,1,,Washakie County,1,,Washakie County,0
-ASC,"Ambulatory Surgery Clinic
+wyoming,"Ambulatory Surgery Clinic
  1150 W Main St.
  Lander WY 82520",Fremont County,,,Big Horn County,4,,Big Horn County,2,,Big Horn County,0
-ASC,"Western Wyoming Medical LLC
+wyoming,"Western Wyoming Medical LLC
  535 East Main St., Suite C
  Lander WY 82520",Fremont County,,,Niobrara County,1,,Niobrara County,1,,Niobrara County,0
-ASC,"Premier Bone and Joint Ambulatory Surgical Center
+wyoming,"Premier Bone and Joint Ambulatory Surgical Center
  1909 Vista Dr.
  Laramie WY 82070",Albany County,,,Carbon County,1,,Carbon County,1,,Carbon County,1
-ASC,"Rock Springs Plastic Surgery Center
+wyoming,"Rock Springs Plastic Surgery Center
  1180 College Dr #3-3
  Rock Springs WY 82901",Sweetwater County,,,Bear Lake County,0,,Bear Lake County,0,,Bear Lake County,0
-ASC,"Sweetwater Surgery Center LLC
+wyoming,"Sweetwater Surgery Center LLC
  2761 Commercial Way
  Rock Springs WY 82901",Sweetwater County,,,Bonneville County,0,,Bonneville County,0,,Bonneville County,0
-ASC,"Sheridan Surgical Center LLC
+wyoming,"Sheridan Surgical Center LLC
  1524 West 5th St.
  Sheridan WY 82801",Sheridan County,,,Maricopa County,0,,Maricopa County,0,,Maricopa County,0
-ALF,"Beyond Home Assisted Living 
+wyoming,"Beyond Home Assisted Living 
  153 Doyle Child Cir.
  Afton WY 83110",Lincoln County,,,Utah County,0,,Utah County,0,,Utah County,0
-ALF,"Agape Manor Inc.
+wyoming,"Agape Manor Inc.
  830 North Main St.
  Buffalo WY 82834",Johnson County,,,Mesa County,0,,Mesa County,0,,Mesa County,0
-ALF,"Veterans' Home of Wyoming
+wyoming,"Veterans' Home of Wyoming
  700 Veterans' Lane
  Buffalo WY 82834",Johnson County,,,Scotts Bluff County,0,,Scotts Bluff County,0,,Scotts Bluff County,0
-ALF,"Willow Creek Homes of Buffalo
+wyoming,"Willow Creek Homes of Buffalo
  1 North Klondike
  Buffalo WY 82834",Johnson County,,,Sublette County,0,,Sublette County,0,,Sublette County,0
-ALF,"Casper Assisted Living LLC
+wyoming,"Casper Assisted Living LLC
  dba/Garden Square of Casper
  1950 South Beverly St.
  Casper WY 82609",Natrona County,,,,,,,,,,
-ALF,"EMG Casper MW LLC
+wyoming,"EMG Casper MW LLC
  dba/Edgewood Meadow Wind 
  3955 East 12th St.
  Casper WY 82609",Natrona County,,,,,,,,,,
-ALF,"EMG Casper PP LLC
+wyoming,"EMG Casper PP LLC
  dba/Edgewood Park Place Assisted Living Community
  1930 East 12th St.
  Casper WY 82601",Natrona County,,,,,,,,,,
-ALF,"EP-MPAL LLC
+wyoming,"EP-MPAL LLC
  dba/Mountain Plaza Assisted Living
  4154 Talon Dr.
  Casper WY 82604",Natrona County,,,,,,,,,,
-ALF,"TSMM Management LLC
+wyoming,"TSMM Management LLC
  dba/Primrose Retirement Community of Casper
  1865 South Beverly St.
  Casper WY 82609",Natrona County,,,,,,,,,,
-ALF,"EMG Cheyenne AW LLC
+wyoming,"EMG Cheyenne AW LLC
  dba/Aspen Wind Assisted Living Community
  4010 North College Dr.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-ALF,"Cheyenne Retirement Investors Limited Partnership
+wyoming,"Cheyenne Retirement Investors Limited Partnership
  dba/Pointe Frontier Retirement Community
  1406 Prairie Ave.
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-ALF,"Primrose Retirement Community of Cheyenne
+wyoming,"Primrose Retirement Community of Cheyenne
  1530 Dorothy Lane
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-ALF,"Cottonwood Creek of Cheyenne
+wyoming,"Cottonwood Creek of Cheyenne
  6800 Faith Drive
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-ALF,"EMG Cheyenne SH LLC
+wyoming,"EMG Cheyenne SH LLC
  dba/Sierra Hills Assisted Living Community
  4606 North College Dr.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-ALF,"Absaroka Senior Living
+wyoming,"Absaroka Senior Living
  2401 Cougar Ave.
  Cody WY 82414",Park County,,,,,,,,,,
-ALF,"Dubois Assisted Living Inc.
+wyoming,"Dubois Assisted Living Inc.
  dba/Warm Valley Lodge Assisted Living
  5643 US Hwy 26
  Dubois WY 82513",Fremont County,,,,,,,,,,
-ALF,"Mountain Lodge LLC
+wyoming,"Mountain Lodge LLC
  1110 Birch Street
  Douglas WY 82633",Converse County,,,,,,,,,,
-ALF,"Compassionate Journey LLC
+wyoming,"Compassionate Journey LLC
  624 Twin Ridge Ave.
  Evanston WY 82930",Uinta County,,,,,,,,,,
-ALF,"Willow Creek Homes of Evanston
+wyoming,"Willow Creek Homes of Evanston
  1949 West Uinta St.
  Evanston WY 82930",Uinta County,,,,,,,,,,
-ALF,"Gillette Retirement LLC
+wyoming,"Gillette Retirement LLC
  dba/Primrose Retirement Community of Gillette
  921 Mountain Meadow Lane
  Gillette WY 82716",Campbell County,,,,,,,,,,
-ALF,"Mission at The Villa
+wyoming,"Mission at The Villa
  1445 Uinta Dr.
  Green River WY 82935",Sweetwater County,,,,,,,,,,
-ALF,"Showboat Retirement Center
+wyoming,"Showboat Retirement Center
  150 Wyoming St.
  Lander WY 82520",Fremont County,,,,,,,,,,
-ALF,"EMG Laramie LLC
+wyoming,"EMG Laramie LLC
  dba/Spring Wind Assisted Living Community
  1072 North 22nd St.
  Laramie WY 82072",Albany County,,,,,,,,,,
-ALF,"Cambria Heights LLC
+wyoming,"Cambria Heights LLC
  dba/Mondell Heights Retirement Community
  106 East Main St
  Newcastle WY 82701",Weston County,,,,,,,,,,
-ALF,"Heartland Assisted Living
+wyoming,"Heartland Assisted Living
  777 Ave. H
  Powell WY 82435",Park County,,,,,,,,,,
-ALF,"Homestead Assisted Living
+wyoming,"Homestead Assisted Living
  950 Homestead Ave.
  Riverton WY 82501",Fremont County,,,,,,,,,,
-ALF,"EP-RSAL LLC
+wyoming,"EP-RSAL LLC
  dba/Deer Trail Assisted Living
  2360 Reagan Ave.
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-ALF,"Cascades of Sugarland Ridge
+wyoming,"Cascades of Sugarland Ridge
  1551 Sugarland Drive
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-ALF,"Wyoming Assisted Living LLC
+wyoming,"Wyoming Assisted Living LLC
  108 Abby Lane
  Sundance WY 82729",Crook County,,,,,,,,,,
-ALF,"Legacy Homes Assisted Living & Adult Day Care
+wyoming,"Legacy Homes Assisted Living & Adult Day Care
  2391 Muddystring Co Rd 117
  Thayne WY 83127",Lincoln County,,,,,,,,,,
-ALF,"Wyoming Pioneer Home
+wyoming,"Wyoming Pioneer Home
  141 Pioneer Home Dr.
  Thermopolis WY 82443",Hot Springs County,,,,,,,,,,
-ALF,"Evergreen Plaza Assisted Living Facility
+wyoming,"Evergreen Plaza Assisted Living Facility
  536 East 20th Avenue
  Torrington, WY 82240",Goshen County,,,,,,,,,,
-ALF,"Platte County Legacy Home and Assisted Living
+wyoming,"Platte County Legacy Home and Assisted Living
  98 19th St.
  Wheatland WY 82201",Platte County,,,,,,,,,,
-BH,"Willow Creek Homes of Cody
+wyoming,"Willow Creek Homes of Cody
  2716 Cougar Ave.
  Cody WY 82414",Park County,,,,,,,,,,
-BH,"Willow Creek Homes of Gillette
+wyoming,"Willow Creek Homes of Gillette
  2300 Harder Dr.
  Gillette WY 82718",Campbell County,,,,,,,,,,
-BH,"Willow Creek Homes of Sheridan
+wyoming,"Willow Creek Homes of Sheridan
  561 Avoca Ave.
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-BH,"Evergreen Court
+wyoming,"Evergreen Court
  2010 East F St.
  Torrington WY 82240",Goshen County,,,,,,,,,,
-BH,"Willow Creek Homes of Worland
+wyoming,"Willow Creek Homes of Worland
  711 South 15th St.
  Worland WY 82401",Washakie County,,,,,,,,,,
-"CORF/
- REHAB","Gottsche Rehabilitation Center
+wyoming,"Gottsche Rehabilitation Center
  148 East Arapahoe
  Thermopolis WY 82443",Hot Springs County,,,,,,,,,,
-CAH,"Star Valley Health
+wyoming,"Star Valley Health
  901 Adams St.
  Afton WY 83110",Lincoln County,,,,,,,,,,
-CAH,"South Big Horn County Critical Access Hospital
+wyoming,"South Big Horn County Critical Access Hospital
  388 South US Hwy 20
  Basin WY 82410",Big Horn County,,,,,,,,,,
-CAH,"Johnson County Memorial Hospital
+wyoming,"Johnson County Memorial Hospital
  dba/Johnson County Healthcare Center
  497 West Lott
  Buffalo WY 82834",Johnson County,,,,,,,,,,
-CAH,"West Park Hospital District
+wyoming,"West Park Hospital District
  dba/Cody Regional Health
  707 Sheridan Ave.
  Cody WY 82414",Park County,,,,,,,,,,
-CAH,"Memorial Hospital of Converse County
+wyoming,"Memorial Hospital of Converse County
  111 South 5th St.
  Douglas WY 82633",Converse County,,,,,,,,,,
-CAH,"South Lincoln Hospital District
+wyoming,"South Lincoln Hospital District
  dba/South Lincoln Medical Center
  711 Onyx St.
  Kemmerer WY 83101",Lincoln County,,,,,,,,,,
-CAH,"North Big Horn Hospital District
+wyoming,"North Big Horn Hospital District
  1115 Lane 12
  Lovell WY 82431",Big Horn County,,,,,,,,,,
-CAH,"Niobrara County Hospital District
+wyoming,"Niobrara County Hospital District
  921 South Ballancee Ave.
  Lusk WY 82225",Niobrara County,,,,,,,,,,
-CAH,"Weston County Hospital District
+wyoming,"Weston County Hospital District
  dba/Weston County Health Services
  1124 Washington Blvd
  Newcastle WY 82701",Weston County,,,,,,,,,,
-CAH,"Powell Valley Hospital
+wyoming,"Powell Valley Hospital
  777 Ave H
  Powell WY 82435",Park County,,,,,,,,,,
-CAH,"Memorial Hospital of Carbon County 
+wyoming,"Memorial Hospital of Carbon County 
  2221 West Elm St.
  Rawlins WY 82301",Carbon County,,,,,,,,,,
-CAH,"Crook County Medical Services District
+wyoming,"Crook County Medical Services District
  713 Oak St.
  Sundance WY 82729",Crook County,,,,,,,,,,
-CAH,"Hot Springs County Hospital District
+wyoming,"Hot Springs County Hospital District
  dba/Hot Springs County Memorial Hospital
  150 East Arapahoe
  Thermopolis WY 82443",Hot Springs County,,,,,,,,,,
-CAH,"Community Hospital
+wyoming,"Community Hospital
  2000 Campbell Dr.
  Torrington WY 82240",Goshen County,,,,,,,,,,
-CAH,"Platte County Memorial Hospital
+wyoming,"Platte County Memorial Hospital
  201 14th St.
  Wheatland WY 82201",Platte County,,,,,,,,,,
-CAH,"Washakie Medical Center
+wyoming,"Washakie Medical Center
  400 South 15th St. 
  Worland WY 82401",Washakie County,,,,,,,,,,
-ESRD,"USRC Casper LLC
+wyoming,"USRC Casper LLC
  dba/US Renal Care Casper Dialysis
  1300 Venture Way, Suite 100
  Casper WY 82609",Natrona County,,,,,,,,,,
-ESRD,"Wyoming Kidney Center LLC
+wyoming,"Wyoming Kidney Center LLC
  dba/US Renal Care Wyoming Dialysis
  1141 Wilkins Circle
  Casper WY 82601",Natrona County,,,,,,,,,,
-ESRD,"Bio-Medical Applications of Wyoming LLC
+wyoming,"Bio-Medical Applications of Wyoming LLC
  dba/Fresenius Medical Care of Cheyenne
  1739 Meadowland Dr.
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-ESRD,"CHWY Partners, LLC
+wyoming,"CHWY Partners, LLC
  dba/US Renal Care Cheyenne Dialysis
  1760 Prairie Avenue, Suite 102
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-ESRD,"Big Horn Basin Regional Dialysis Center LLC
+wyoming,"Big Horn Basin Regional Dialysis Center LLC
  dba/Cody Regional Health Dialysis LLC
  424 Yellowstone Ave. Ste. 150
  Cody WY 82414",Park County,,,,,,,,,,
-ESRD,"Evanston Dialysis Center
+wyoming,"Evanston Dialysis Center
  112 Yellowcreek Dr.
  Evanston WY 82930",Uinta County,,,,,,,,,,
-ESRD,"Wind River Dialysis Center
+wyoming,"Wind River Dialysis Center
  11 Shipton Lane
  Fort Washakie WY 82514",Fremont County,,,,,,,,,,
-ESRD,"Campbell County Memorial Hospital Dialysis Center
+wyoming,"Campbell County Memorial Hospital Dialysis Center
  501 South Burma Ave.
  Gillette WY 82716",Campbell County,,,,,,,,,,
-ESRD,"Ivinson Memorial Hospital Dialysis Services
+wyoming,"Ivinson Memorial Hospital Dialysis Services
  255 North 30th St.
  Laramie WY 82072",Albany County,,,,,,,,,,
-ESRD,"Memorial Hospital of Sweetwater County Dialysis Unit
+wyoming,"Memorial Hospital of Sweetwater County Dialysis Unit
  1180 College Dr.
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-ESRD,"Watt Dialysis Center LLC
+wyoming,"Watt Dialysis Center LLC
  1401 West 5th St.
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-FQHC,"Community Health Center of Central Wyoming
+wyoming,"Community Health Center of Central Wyoming
  dba/Community Health Center of Central Wyoming-Conwell Clinic
  5000 Blackmore Road
  Casper WY 82601",Natrona County,,,,,,,,,,
-FQHC,"Community Health Center of Central Wyoming Inc.
+wyoming,"Community Health Center of Central Wyoming Inc.
  2546 East 2nd Street, Suite 600
  Casper WY 82609",Natrona County,,,,,,,,,,
-FQHC,"Health Care for the Homeless Clinic
+wyoming,"Health Care for the Homeless Clinic
  1514 East 12 St.
  Casper WY 82601",Natrona County,,,,,,,,,,
-FQHC,"University of Wyoming
+wyoming,"University of Wyoming
  dba/University of Wyoming Family Medicine Residency-Casper
  1522E A St.
  Casper WY 82601",Natrona County,,,,,,,,,,
-FQHC,"Cheyenne Health and Wellness Center
+wyoming,"Cheyenne Health and Wellness Center
  2508 East Fox Farm Rd #1A
  Cheyenne WY 82007",Laramie County,,,,,,,,,,
-FQHC,"Laramie County Health Care for the Homeless
+wyoming,"Laramie County Health Care for the Homeless
  dba/Crossroads Healthcare Clinic
  1620 Central Ave. Ste. 30
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-FQHC,"University of Wyoming
+wyoming,"University of Wyoming
  dba/University of Wyoming Family Medicine 
  820 East 17th St.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-FQHC,"Dubois Medical Clinic
+wyoming,"Dubois Medical Clinic
  5647 US Highway 26
  Dubois WY 82513",Fremont County,,,,,,,,,,
-FQHC,"Bear Lake Community Health Center
+wyoming,"Bear Lake Community Health Center
  dba/Evanston Community Health Center
  75 Yellow Creek Rd Ste. 102
  Evanston WY 82930",Uinta County,,,,,,,,,,
-FQHC,"Bighorn Valley Health Center Inc
+wyoming,"Bighorn Valley Health Center Inc
  dba/One Health
  444 Greybull Avenue
  Greybull WY 82426",Big Horn County,,,,,,,,,,
-FQHC,"Community Health Center of Central Wyoming Inc.
+wyoming,"Community Health Center of Central Wyoming Inc.
  dba/Fremont County Pediatrics Lander
  115 Wyoming Street
  Lander WY 82520",Fremont County,,,,,,,,,,
-FQHC,"University of Wyoming
+wyoming,"University of Wyoming
  dba/ Albany Community Health Clinic
  1174 N 22nd Street
  Laramie WY 82070",Albany County,,,,,,,,,,
-FQHC,"Bighorn Valley Health Center Inc
+wyoming,"Bighorn Valley Health Center Inc
  dba/One Health
  229 E Main St
  Lovell WY 82431",Big Horn County,,,,,,,,,,
-FQHC,"Montana Migrant & Seasonal Farmworkers Council, Inc.
+wyoming,"Montana Migrant & Seasonal Farmworkers Council, Inc.
  dba/Ag Worker Health & Services
  233 East 2nd Street
  Powell, WY 82435",Park County,,,,,,,,,,
-FQHC,"Bighorn Valley Health Center Inc
+wyoming,"Bighorn Valley Health Center Inc
  dba/One Health
  126 North Bent Street
  Powell WY 82435",Park County,,,,,,,,,,
-FQHC,"Bighorn Valley Health Center Inc
+wyoming,"Bighorn Valley Health Center Inc
  dba/One Health
  128 North Bent Street
  Powell WY 82435",Park County,,,,,,,,,,
-FQHC,"Bighorn Valley Health Center Inc
+wyoming,"Bighorn Valley Health Center Inc
  dba/One Health
  130 North Bent Street, Suite B
  Powell WY 82435",Park County,,,,,,,,,,
-FQHC,"Community Health Center of Central Wyoming Inc.
+wyoming,"Community Health Center of Central Wyoming Inc.
  1035 Rose Ln Bldg
  Riverton WY 82501",Fremont County,,,,,,,,,,
-FQHC,"Riverton Community Health Center
+wyoming,"Riverton Community Health Center
  2002 West Sunset Dr., Ste. 2
  Riverton WY 82501",Fremont County,,,,,,,,,,
-FQHC,"Bear Lake Community Health Center
+wyoming,"Bear Lake Community Health Center
  dba/Rock Springs Community Health Center
  2620 Commercial Way, Suite 140
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-FQHC,"Bighorn Valley Health Center Inc
+wyoming,"Bighorn Valley Health Center Inc
  dba/One Health
  201 E 5th St
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-FQHC,"Northwest Community Action Programs
+wyoming,"Northwest Community Action Programs
  1922 Robertson
  Worland WY 82401",Washakie County,,,,,,,,,,
-HHA,"Symbii Home Health
+wyoming,"Symbii Home Health
  770 Washington St, Suite #B
  Afton WY 83110",Lincoln County,,,,,,,,,,
-HHA,"Buffalo Senior Center
+wyoming,"Buffalo Senior Center
  671 West Fetterman Street
  Buffalo WY 82834",Johnson County,,,,,,,,,,
-HHA,"Johnson County Healthcare Center Home Health Agency
+wyoming,"Johnson County Healthcare Center Home Health Agency
  497 West Lott
  Buffalo WY 82834",Johnson County,,,,,,,,,,
-HHA,"All About Family Inc.
+wyoming,"All About Family Inc.
  195 Pronghorn
  Casper WY 82601",Natrona County,,,,,,,,,,
-HHA,"Bear Country Home Healthcare LLC
+wyoming,"Bear Country Home Healthcare LLC
  340 W 1st Street
  Casper WY 82601",Natrona County,,,,,,,,,,
-HHA,"CaringEdge Healthcare of Casper LLC
+wyoming,"CaringEdge Healthcare of Casper LLC
  5870 E 2nd Street
  Casper WY 82609",Natrona County,,,,,,,,,,
-HHA,"Casper Home Health LLC
+wyoming,"Casper Home Health LLC
  126 N Wilson
  Casper WY 82601",Natrona County,,,,,,,,,,
-HHA,"EH Health Home Health of the Northwest LLC
+wyoming,"EH Health Home Health of the Northwest LLC
  dba/Enhabit Home Health
  907 North Poplar St., Ste. 277
  Casper WY 82601",Natrona County,,,,,,,,,,
-HHA,"Epsilon Health Solutions LLC
+wyoming,"Epsilon Health Solutions LLC
  145 S Durbin St., Suite 105
  Casper WY 82601",Natrona County,,,,,,,,,,
-HHA,"Intermountain Home Companions Inc.
+wyoming,"Intermountain Home Companions Inc.
  dba/Intermountain Home Health
  800 Werner Court #125
  Casper WY 82601",Natrona County,,,,,,,,,,
-HHA,"Advantage Healthcare LLC
+wyoming,"Advantage Healthcare LLC
  109 E 17th St., Suite 223
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-HHA,"Continue Care Home Health Agency Inc.
+wyoming,"Continue Care Home Health Agency Inc.
  410 Manewal Dr.
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-HHA,"Eden Home Health of Cheyenne 
+wyoming,"Eden Home Health of Cheyenne 
  dba/Eden Home Health
   2232 Dell Range Blvd, Suite 100
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-HHA,"EH Health Home Health of the Northwest LLC
+wyoming,"EH Health Home Health of the Northwest LLC
  dba/Enhabit Home Health 
  4024 Laramie St.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-HHA,"Humble Horizon Home Health LLC
+wyoming,"Humble Horizon Home Health LLC
  4016 Laramie Street
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-HHA,"Memorial Hospital of Laramie County 
+wyoming,"Memorial Hospital of Laramie County 
  dba/Cheyenne Regional Medical Center Home Care Services
  2600 East 18th St.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-HHA,"Village Caregiving LLC
+wyoming,"Village Caregiving LLC
  1920 Thomes Ave., Suite 610
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-HHA,"Cody Regional Health Home Health
+wyoming,"Cody Regional Health Home Health
  1021 9th St.
  Cody WY 82414",Park County,,,,,,,,,,
-HHA,"Hands 2 Help LLC
+wyoming,"Hands 2 Help LLC
  178 Blackburn St.
  Cody WY 82414",Park County,,,,,,,,,,
-HHA,"Best Home Health & Hospice LLC
+wyoming,"Best Home Health & Hospice LLC
  105 Yellow Creek Road
  Evanston WY 82930",Uinta County,,,,,,,,,,
-HHA,"Integrity Home Care
+wyoming,"Integrity Home Care
  204 Troy Court
  Evanston WY 82930",Uinta County,,,,,,,,,,
-HHA,"Uinta Home Health
+wyoming,"Uinta Home Health
  1229 Uinta St.
  Evanston WY 82931",Uinta County,,,,,,,,,,
-HHA,"Campbell County Memorial Hospital Home Health
+wyoming,"Campbell County Memorial Hospital Home Health
  300 South Burma Ave.
  Gillette WY 82716",Campbell County,,,,,,,,,,
-HHA,"Campbell County Public Health Nursing Services
+wyoming,"Campbell County Public Health Nursing Services
  2301 South 4-J Rd
  Gillette WY 82718",Campbell County,,,,,,,,,,
-HHA,"Davis Home Health LLC
+wyoming,"Davis Home Health LLC
  dba/Healing Hearts Home Health
  902 East 3rd St.
  Gillette WY 82716",Campbell County,,,,,,,,,,
-HHA,"Kindred Souls of Wyoming LLC
+wyoming,"Kindred Souls of Wyoming LLC
  801 E 4th Street, Ste. #7
  Gillette WY 82716",Campbell County,,,,,,,,,,
-HHA,"TenderCare Home Health
+wyoming,"TenderCare Home Health
  400 S Gillette Ave., Ste. 109
  Gillette WY 82716",Campbell County,,,,,,,,,,
-HHA,"Wyoming Home Health Inc.
+wyoming,"Wyoming Home Health Inc.
  dba/Home and Care Gillette
  1103 E Boxelder Rd, Suite J-B
  Gillette WY 82718",Campbell County,,,,,,,,,,
-HHA,"BCBU, Inc. 
+wyoming,"BCBU, Inc. 
  dba/Rocky Mountain Home Care-Green River
  175 Riverview Dr. Suite A
  Green River WY 82935",Sweetwater County,,,,,,,,,,
-HHA,"hAvn Medical
+wyoming,"hAvn Medical
  155 West Gill Avenue
  Jackson WY 83002",Teton County,,,,,,,,,,
-HHA,"St John's Home Care
+wyoming,"St John's Home Care
  555 East Broadway, Ste. 115
  Jackson WY 83001",Teton County,,,,,,,,,,
-HHA,"Senior Center of Jackson Hole Inc.
+wyoming,"Senior Center of Jackson Hole Inc.
  830 E Hansen Ave.
  Jackson WY 83001",Teton County,,,,,,,,,,
-HHA,"EH Health Home Health of the Northwest LLC
+wyoming,"EH Health Home Health of the Northwest LLC
  dba/Enhabit Home Health 
  230 North First St.
  Lander WY 82520",Fremont County,,,,,,,,,,
-HHA,"Orion Homecare, LLC 
+wyoming,"Orion Homecare, LLC 
  dba/Enhabit Home Health
  1275 N 15th Street, Suite 121
  Laramie WY 82072",Albany County,,,,,,,,,,
-HHA,"Premium Health at Home Inc.
+wyoming,"Premium Health at Home Inc.
  1262 N 22nd St., Suite B
  Laramie WY 82070",Albany County,,,,,,,,,,
-HHA,"Quality Home Health Care Inc.
+wyoming,"Quality Home Health Care Inc.
  2523 E Garfield, Ste. D
  Laramie WY 82070",Albany County,,,,,,,,,,
-HHA,"Weston County Hospital District
+wyoming,"Weston County Hospital District
  dba/Weston County Health Services 
  725 Washington Blvd
  Newcastle WY 82701",Weston County,,,,,,,,,,
-HHA,"Hyland Nursing Service, LLC
+wyoming,"Hyland Nursing Service, LLC
  306 1/2 N Bent St
  Powell WY 82435",Park County,,,,,,,,,,
-HHA,"Compassionate Home Care LTD
+wyoming,"Compassionate Home Care LTD
  155 Trail Dr.
  Ranchester WY 82839",Sheridan County,,,,,,,,,,
-HHA,"Premium Health at Home Rawlins LLC
+wyoming,"Premium Health at Home Rawlins LLC
  405 W Cedar St., Suite B
  Rawlins WY 82301",Carbon County,,,,,,,,,,
-HHA,"Four Corners Healthcare LLC
+wyoming,"Four Corners Healthcare LLC
  614 E Main St., Suite C
  Riverton WY 82501",Fremont County,,,,,,,,,,
-HHA,"Grand Valley In-Home 24hr Nursing
+wyoming,"Grand Valley In-Home 24hr Nursing
  804 Cheryl Sue Dr
  Riverton WY 82501",Fremont County,,,,,,,,,,
-HHA,"Rock Springs Young at Heart 
+wyoming,"Rock Springs Young at Heart 
  2400 Reagan Ave.
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-HHA,"Devoted to Home LLC
+wyoming,"Devoted to Home LLC
  532 Val Vista St., Suite 104
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-HHA,"Sheridan Memorial Hospital Home Care
+wyoming,"Sheridan Memorial Hospital Home Care
  1401 W 5th St.
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-HHA,"the Hub?on Smith, Help at Home
+wyoming,"the Hub?on Smith, Help at Home
  211 Smith Street
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-HHA,"Wyoming Home Health & Hospice Big Horn Inc.
+wyoming,"Wyoming Home Health & Hospice Big Horn Inc.
  dba//Home and Care Sheridan
  304 Coffeen Ave., Suite B
  Sheridan, WY 82801",Sheridan County,,,,,,,,,,
-HHA,"Premier Home Health Inc.
+wyoming,"Premier Home Health Inc.
  487A North Main St., Ste. 2
  Thayne WY 83127",Lincoln County,,,,,,,,,,
-HHA,"Community Home Health Services LLC
+wyoming,"Community Home Health Services LLC
  224 S 6th St.
  Thermopolis WY 82443",Hot Springs County,,,,,,,,,,
-HHA,"Cowboy Cares Inc.
+wyoming,"Cowboy Cares Inc.
  dba/Cowboy Cares Home Health & Hospice
  39806 Business Loop 80, Suite 2
  Urie WY 82937",Uinta County,,,,,,,,,,
-HHA,"Washakie County Senior Citizens Center
+wyoming,"Washakie County Senior Citizens Center
  300 S 14th Street
  Worland WY 82401",Washakie County,,,,,,,,,,
-HHA,"Bear Lake Memorial Hospital Home Health
+wyoming,"Bear Lake Memorial Hospital Home Health
  465 Washington St.
  Montpelier ID 83254",Bear Lake County,,,,,,,,,,
-HHA,"Critical Nurse Staffing, LLC
+wyoming,"Critical Nurse Staffing, LLC
  dba/CNSCares
  1552 S. Midway Avenue
  Ammon ID 83406",Bonneville County,,,,,,,,,,
-HHA,"Enliven Home Infusion Specialists LLC
+wyoming,"Enliven Home Infusion Specialists LLC
  700 N Estrella Pkwy, Suite 235
  Goodyear AZ 85338",Maricopa County,,,,,,,,,,
-HHA,"Legacy Home Health LLC
+wyoming,"Legacy Home Health LLC
  140 North 100 East
  American Fork UT 84003",Utah County,,,,,,,,,,
-HHA,"Nuclear Care Partners LLC
+wyoming,"Nuclear Care Partners LLC
  631 24 1/2 Road, Suite C
  Grand Junction CO 81505",Mesa County,,,,,,,,,,
-HSPC,"Symbii Hospice
+wyoming,"Symbii Hospice
  770 Washington St, Suite #2
  Afton WY 83110",Lincoln County,,,,,,,,,,
-HSPC,"Susie Bowling Lawrence Hospice
+wyoming,"Susie Bowling Lawrence Hospice
  497 West Lott
  Buffalo WY 82834",Johnson County,,,,,,,,,,
-HSPC,"CaringEdge Hospice of Casper LLC
+wyoming,"CaringEdge Hospice of Casper LLC
  5870 E 2nd St.
  Casper WY 82601",Natrona County,,,,,,,,,,
-HSPC,"Central Wyoming Hospice Program
+wyoming,"Central Wyoming Hospice Program
  319 South Wilson St.
  Casper WY 82601",Natrona County,,,,,,,,,,
-HSPC,"EH Hospice of the West LLC
+wyoming,"EH Hospice of the West LLC
  dba/Enhabit Hospice
  907 North Poplar St., Ste 277
  Casper WY 82601",Natrona County,,,,,,,,,,
-HSPC,"Eden Hospice at Cheyenne LLC
+wyoming,"Eden Hospice at Cheyenne LLC
  dba/Eden Hospice
  Aspen Ridge Building, 2232 Dell Range Blvd, Suite 100
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-HSPC,"EH Hospice of the West LLC
+wyoming,"EH Hospice of the West LLC
  dba/Enhabit Hospice
  4024 Laramie St.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-HSPC,"Memorial Hospital of Laramie County 
+wyoming,"Memorial Hospital of Laramie County 
  dba/Cheyenne Regional Davis Hospice Center
  6000 Sycamore Rd
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-HSPC,"Nobel Care Hospice Inc.
+wyoming,"Nobel Care Hospice Inc.
  1607 Capitol Ave., Ste. 326
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-HSPC,"Cody Regional Health Spirit Mountain Hospice 
+wyoming,"Cody Regional Health Spirit Mountain Hospice 
  707 Sheridan Ave.
  Cody WY 82414",Park County,,,,,,,,,,
-HSPC,"Best Home Health & Hospice LLC
+wyoming,"Best Home Health & Hospice LLC
  105 Yellow Creek Road
  Evanston WY 82930",Uinta County,,,,,,,,,,
-HSPC,"Hospice of Campbell County Memorial Hospital
+wyoming,"Hospice of Campbell County Memorial Hospital
  300 South Burma Ave.
  Gillette WY 82718",Campbell County,,,,,,,,,,
-HSPC,"Wyoming Home Health Inc.
+wyoming,"Wyoming Home Health Inc.
  dba/Sharon's Home Health & Hospice
  1103 E Boxelder Rd, Suite J-B
  Gillette WY 82718",Campbell County,,,,,,,,,,
-HSPC,"St John's Hospice
+wyoming,"St John's Hospice
  555 E Broadway Ave., Suite 115
  Jackson WY 83001",Teton County,,,,,,,,,,
-HSPC,"EH Hospice of the West LLC
+wyoming,"EH Hospice of the West LLC
  dba/Enhabit Hospice
  230 North First St.
  Lander WY 82520",Fremont County,,,,,,,,,,
-HSPC,"Hospice of Laramie
+wyoming,"Hospice of Laramie
  1754 Centennial Drive
  Laramie WY 82070",Albany County,,,,,,,,,,
-HSPC,"Stillwater Hospice of Northern Wyoming
+wyoming,"Stillwater Hospice of Northern Wyoming
  210 N Bent St.
  Powell WY 82435",Park County,,,,,,,,,,
-HSPC,"Help for Health Hospice
+wyoming,"Help for Health Hospice
  1240 College View Dr.
  Riverton WY 82501",Fremont County,,,,,,,,,,
-HSPC,"Hospice of Sweetwater County 
+wyoming,"Hospice of Sweetwater County 
  333 Broadway Ste. 220
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-HSPC,"Sheridan Memorial Hospital Hospice
+wyoming,"Sheridan Memorial Hospital Hospice
  1401 W 5th St.
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-HSPC,"Cowboy Cares Inc.
+wyoming,"Cowboy Cares Inc.
  dba/Cowboy Cares Home Health & Hospice
  39806 Business Loop 80, Suite 2
  Lyman WY 82937",Uinta County,,,,,,,,,,
-HSPC,"Regional West Medical Center Hospice
+wyoming,"Regional West Medical Center Hospice
  3701 Ave. B
  Scottsbluff NE 69361",Scotts Bluff County,,,,,,,,,,
-R-HOSP,"Elkhorn Valley Rehabilitation Hospital LLC
+wyoming,"Elkhorn Valley Rehabilitation Hospital LLC
  5715 East 2nd St
  Casper WY 82609",Natrona County,,,,,,,,,,
-HOSP,"Summit Medical Center LLC
+wyoming,"Summit Medical Center LLC
  6350 E 2nd St
  Casper WY 82609",Natrona County,,,,,,,,,,
-HOSP,"Wyoming Medical Center
+wyoming,"Wyoming Medical Center
  1233 East 2nd St
  Casper WY 82601",Natrona County,,,,,,,,,,
-HOSP,"Memorial Hospital of Laramie County 
+wyoming,"Memorial Hospital of Laramie County 
  dba/Cheyenne Regional Medical Center
  214 East 23rd St
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-HOSP,"Evanston Regional Hospital
+wyoming,"Evanston Regional Hospital
  190 Arrowhead Dr.
  Evanston WY 82930",Uinta County,,,,,,,,,,
-HOSP,"Campbell County Hospital District 
+wyoming,"Campbell County Hospital District 
  dba/Campbell County Health
  501 South Burma Ave.
  Gillette WY 82717",Campbell County,,,,,,,,,,
-HOSP,"Teton County Hospital District
+wyoming,"Teton County Hospital District
  dba/St John's Health
  625 East Broadway
  Jackson WY 83001",Teton County,,,,,,,,,,
-HOSP,"Ivinson Memorial Hospital
+wyoming,"Ivinson Memorial Hospital
  255 North 30th St.
  Laramie WY 82072",Albany County,,,,,,,,,,
-HOSP,"Riverton Memorial Hospital LLC
+wyoming,"Riverton Memorial Hospital LLC
  dba/SageWest Health Care
  2100 West Sunset Dr.
  Riverton WY 82501",Fremont County,,,,,,,,,,
-HOSP,"Aspen Mountain Medical Center LLC
+wyoming,"Aspen Mountain Medical Center LLC
  4401 College Dr.
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-HOSP,"Memorial Hospital of Sweetwater County 
+wyoming,"Memorial Hospital of Sweetwater County 
  dba/County of Sweetwater
  1200 College Dr.
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-HOSP,"Platte Valley Healthcare Project
+wyoming,"Platte Valley Healthcare Project
  dba/North Platte Valley Medical Center
  1300 West Bridge Ave.
  Saratoga WY 82331",Carbon County,,,,,,,,,,
-HOSP,"Memorial Hospital of Sheridan County
+wyoming,"Memorial Hospital of Sheridan County
  dba/Sheridan Memorial Hospital
  1401 West 5th St.
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-ICF/IID,"Canyons ICF/MR at Wyoming Life Resource Center
+wyoming,"Canyons ICF/MR at Wyoming Life Resource Center
  8204 Wyoming Highway 789
  Lander WY 82520",Fremont County,,,,,,,,,,
-NH,"Star Valley Care Center
+wyoming,"Star Valley Care Center
  130 Hospital Lane
  Afton WY 83110",Lincoln County,,,,,,,,,,
-NH,"Wyoming Retirement Center
+wyoming,"Wyoming Retirement Center
  890 Highway 20 So
  Basin WY 82410",Big Horn County,,,,,,,,,,
-NH,"Amie Holt Care Center
+wyoming,"Amie Holt Care Center
  dba/Johnson County Healthcare Center
  497 West Lott
  Buffalo WY 82834",Johnson County,,,,,,,,,,
-NH,"Wyoming Veterans' Skilled Nursing Facility
+wyoming,"Wyoming Veterans' Skilled Nursing Facility
  700 Veterans' Lane
  Buffalo WY 82834",Johnson County,,,,,,,,,,
-NH,"Casper Opco LLC
+wyoming,"Casper Opco LLC
  dba/Casper Mountain Rehabilitation and Care Center
  4305 South Poplar Street
  Casper WY 82601",Natrona County,,,,,,,,,,
-NH,"Casper Operations LLC
+wyoming,"Casper Operations LLC
  dba/Life Care Center of Casper
  4041 South Poplar St.
  Casper WY 82601",Natrona County,,,,,,,,,,
-NH,"EmpRes at Casper LLC
+wyoming,"EmpRes at Casper LLC
  dba/Shepherd of the Valley Rehabilitation and Wellness
  60 Magnolia Street
  Casper WY 82604",Natrona County,,,,,,,,,,
-NH,"Cheyenne Operations LLC
+wyoming,"Cheyenne Operations LLC
  dba/Life Care Center of Cheyenne
  1330 Prairie Ave.
  Cheyenne WY 82009",Laramie County,,,,,,,,,,
-NH,"EmpRes at Cheyenne LLC
+wyoming,"EmpRes at Cheyenne LLC
  dba/Granite Rehabilitation and Wellness
  3128 Boxelder Dr.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-NH,"Cheyenne OpCo LLC
+wyoming,"Cheyenne OpCo LLC
  dba/Polaris Rehabilitation and Care Center
  2700 East 12th St.
  Cheyenne WY 82001",Laramie County,,,,,,,,,,
-NH,"West Park Hospital District 
+wyoming,"West Park Hospital District 
  dba/Cody Regional Health Long Term Care Center
  707 Sheridan Ave.
  Cody WY 82414",Park County,,,,,,,,,,
-NH,"Douglas Care Center LLC
+wyoming,"Douglas Care Center LLC
  1108 Birch St.
  Douglas WY 82633",Converse County,,,,,,,,,,
-NH,"North Big Horn Hospital District
+wyoming,"North Big Horn Hospital District
  dba/Rocky Mountain Care - Evanston
  475 Yellow Creek Rd
  Evanston WY 82930",Uinta County,,,,,,,,,,
-NH,"Morning Star Care Center
+wyoming,"Morning Star Care Center
  4 North Fork Rd
  Fort Washakie WY 82514",Fremont County,,,,,,,,,,
-NH,"Campbell County Hospital District
+wyoming,"Campbell County Hospital District
  dba/Legacy Living and Rehabilitation Center
  1000 S Douglas Hwy
  Gillette WY 82716",Campbell County,,,,,,,,,,
-NH,"Mission Health Services
+wyoming,"Mission Health Services
  dba/Mission at Castle Rock 
  1445 Uinta Dr.
  Green River WY 82935",Sweetwater County,,,,,,,,,,
-NH,"Teton County Hospital District
+wyoming,"Teton County Hospital District
  dba/St John's Health Sage Living
  625 East Broadway, Building B
  Jackson WY 83001",Teton County,,,,,,,,,,
-NH,"South Lincoln Nursing Center
+wyoming,"South Lincoln Nursing Center
  711 Onyx St.
  Kemmerer WY 83101",Lincoln County,,,,,,,,,,
-NH,"Mountain View Skilled Nursing Community at Wyoming Life Resource Center
+wyoming,"Mountain View Skilled Nursing Community at Wyoming Life Resource Center
  8204 Wyoming State Highway 789
  Lander WY 82520",Fremont County,,,,,,,,,,
-NH,"Westward Heights Care Center
+wyoming,"Westward Heights Care Center
  150 Caring Way
  Lander WY 82520",Fremont County,,,,,,,,,,
-NH,"Cottonwood Health and Rehabilitation
+wyoming,"Cottonwood Health and Rehabilitation
  503 South 18th St.
  Laramie WY 82070",Albany County,,,,,,,,,,
-NH,"New Horizons Care Center
+wyoming,"New Horizons Care Center
  1111 Lane 12
  Lovell WY 82431",Big Horn County,,,,,,,,,,
-NH,"Weston County Hospital District
+wyoming,"Weston County Hospital District
  dba/Weston County Health Services
  1124 Washington Blvd
  Newcastle WY 82701",Weston County,,,,,,,,,,
-NH,"Sublette County Health
+wyoming,"Sublette County Health
  333 North Bridger Ave
  Pinedale WY 82941",Sublette County,,,,,,,,,,
-NH,"Powell Valley Care Center
+wyoming,"Powell Valley Care Center
  777 Ave. H
  Powell WY 82435",Park County,,,,,,,,,,
-NH,"EmpRes at Rawlins LLC
+wyoming,"EmpRes at Rawlins LLC
  dba/Rawlins Rehabilitation and Wellness
  542 16th St.
  Rawlins WY 82301",Carbon County,,,,,,,,,,
-NH,"EmpRes at Riverton LLC
+wyoming,"EmpRes at Riverton LLC
  dba/Wind River Rehabilitation and Wellness
  1002 Forest Dr.
  Riverton WY 82501",Fremont County,,,,,,,,,,
-NH,"EmpRes at Rock Springs LLC
+wyoming,"EmpRes at Rock Springs LLC
  dba/Sage View Care Center
  1325 Sage St.
  Rock Springs WY 82901",Sweetwater County,,,,,,,,,,
-NH,"Alternative Elder Living Inc.
+wyoming,"Alternative Elder Living Inc.
  dba/Green House Living for Sheridan
  2311 Shirley Cove
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-NH,"Sheridan Opco LLC
+wyoming,"Sheridan Opco LLC
  dba/Big Horn Rehabilitation and Care Center
  1851 Big Horn Ave.
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-NH,"Westview Operations LLC
+wyoming,"Westview Operations LLC
  dba/Westview Health Care Center
  1990 West Loucks St.
  Sheridan WY 82801",Sheridan County,,,,,,,,,,
-NH,"Crook County Medical Services District Long Term Care
+wyoming,"Crook County Medical Services District Long Term Care
  713 Oak St.
  Sundance WY 82729",Crook County,,,,,,,,,,
-NH,"EmpRes at Thermopolis LLC
+wyoming,"EmpRes at Thermopolis LLC
  dba/Thermopolis Rehabilitation and Wellness
  1210 Canyon Hills Rd
  Thermopolis WY 82443",Hot Springs County,,,,,,,,,,
-NH,"Goshen Healthcare Community
+wyoming,"Goshen Healthcare Community
  2009 Laramie St.
  Torrington WY 82240",Goshen County,,,,,,,,,,
-NH,"Platte County Legacy Home
+wyoming,"Platte County Legacy Home
  100 19th St.
  Wheatland WY 82201",Platte County,,,,,,,,,,
-NH,"SNH WY Tenant LLC 
+wyoming,"SNH WY Tenant LLC 
  dba/Worland Healthcare and Rehabilitation Center
  1901 Howell Ave.
  Worland WY 82401",Washakie County,,,,,,,,,,
-OPT,"Rocky Mountain Therapy
+wyoming,"Rocky Mountain Therapy
  2546 E 2nd St. Bldg. 500
  Casper WY 82601",Natrona County,,,,,,,,,,
-OPT,"Laramie Peaks Therapies LLC
+wyoming,"Laramie Peaks Therapies LLC
  207 Holly Ave.
  Saratoga WY 82331",Carbon County,,,,,,,,,,
-OPT,"Bear Lodge Rehabilitation Services
+wyoming,"Bear Lodge Rehabilitation Services
  225 S Hwy 585
  Sundance WY 82729",Crook County,,,,,,,,,,
-PSYCH,"UHS of Wyoming Inc.
+wyoming,"UHS of Wyoming Inc.
  dba/Wyoming Behavioral Institute
  2521 East 15th St.
  Casper WY 82601",Natrona County,,,,,,,,,,
-PSYCH,"Wyoming State Hospital
+wyoming,"Wyoming State Hospital
  251 Yellowstone River Road
  Evanston WY 82931",Uinta County,,,,,,,,,,
-PRTF,"Wyoming Behavioral Health
+wyoming,"Wyoming Behavioral Health
  2521 East 15th St.
  Casper WY 82609",Natrona County,,,,,,,,,,
-PRTF,"St Joseph's Children's Home
+wyoming,"St Joseph's Children's Home
  1419 Main St.
  Torrington WY 82240",Goshen County,,,,,,,,,,
-RHC,"Big Horn Clinic
+wyoming,"Big Horn Clinic
  156 North 6th St.
  Basin WY 82410",Big Horn County,,,,,,,,,,
-RHC,"West Park Hospital District 
+wyoming,"West Park Hospital District 
  dba/Cody Regional Health Basin Rural Health Clinic
  525 N 5th Street
  Basin WY 82410",Big Horn County,,,,,,,,,,
-RHC,"Midway Clinic
+wyoming,"Midway Clinic
  388 Highway 20 So
  Basin WY 82410",Big Horn County,,,,,,,,,,
-RHC,"SCL Health Medical Group-Billings LLC
+wyoming,"SCL Health Medical Group-Billings LLC
  dba/Intermountain Health Cody Clinic
  424 Yellowstone Ave, Suite 310
  Cody WY 82414",Park County,,,,,,,,,,
-RHC,"West Park Hospital District 
+wyoming,"West Park Hospital District 
  dba/Cody Regional Health 
  424 Yellowstone Ave.
  Cody WY 82414",Park County,,,,,,,,,,
-RHC,"South Lincoln Hospital District
+wyoming,"South Lincoln Hospital District
  dba/Arrowhead Family Medicine
  195 Feather Way Suite 100
  Evanston WY 82930",Uinta County,,,,,,,,,,
-RHC,"Glenrock Hospital District
+wyoming,"Glenrock Hospital District
  dba/Glenrock Health Center
  925 West Birch
  Glenrock WY 82637",Converse County,,,,,,,,,,
-RHC,"Castle Rock Hospital District
+wyoming,"Castle Rock Hospital District
  1400 Uinta Dr.
  Green River WY 82935",Sweetwater County,,,,,,,,,,
-RHC,"Platte County Memorial Hospital
+wyoming,"Platte County Memorial Hospital
  dba/Banner Medical Clinic Guernsey
  1 E Whalen Street
  Guernsey WY 82214",Platte County,,,,,,,,,,
-RHC,"Register Cliff Rural Health Clinic
+wyoming,"Register Cliff Rural Health Clinic
  650 W Whalen St.
  Guernsey WY 82214",Platte County,,,,,,,,,,
-RHC,"Hulett Clinic
+wyoming,"Hulett Clinic
  122 Main St.
  Hulett WY 82720",Crook County,,,,,,,,,,
-RHC,"South Lincoln Hospital District
+wyoming,"South Lincoln Hospital District
  dba South Lincoln Medical Clinic
  711 Onyx Street
  Kemmerer, WY 83101-3212",Lincoln County,,,,,,,,,,
-RHC,"North Big Horn Hospital Clinic
+wyoming,"North Big Horn Hospital Clinic
  1115 Lane 12
  Lovell WY 82431",Big Horn County,,,,,,,,,,
-RHC,"Rawhide Rural Health Clinic
+wyoming,"Rawhide Rural Health Clinic
  921 Ballancee Ave.
  Lusk WY 82225",Niobrara County,,,,,,,,,,
-RHC,"Evanston Hospital Corporation
+wyoming,"Evanston Hospital Corporation
  dba/Bridger Valley Medical Group
  107 North Main St.
  Lyman WY 82937",Uinta County,,,,,,,,,,
-RHC,"Medicine Bow Health Center
+wyoming,"Medicine Bow Health Center
  dba/Medicine Bow Rural Healthcare District
  514 Idaho Dr.
  Medicine Bow WY 82329",Carbon County,,,,,,,,,,
-RHC,"Moorcroft Clinic
+wyoming,"Moorcroft Clinic
  208 North Big Horn
  Moorcroft WY 82721",Crook County,,,,,,,,,,
-RHC,"Evanston Hospital Corporation
+wyoming,"Evanston Hospital Corporation
  dba/Bridger Valley Medical Group
  531 Parkway Dr.
  Mountain View WY 82939",Uinta County,,,,,,,,,,
-RHC,"Weston County Hospital District
+wyoming,"Weston County Hospital District
  1121 Washington Blvd
  Newcastle WY 82701",Weston County,,,,,,,,,,
-RHC,"Kimball County Hospital
+wyoming,"Kimball County Hospital
  dba/Pine Bluffs KHS Health Clinic
  117 E 4 St.
  Pine Bluffs WY 82082",Laramie County,,,,,,,,,,
-RHC,"Hot Springs County Hospital District
+wyoming,"Hot Springs County Hospital District
  dba/Hot Springs Health Riverton
  2002 W. Sunset Dr., Ste. 3
  Riverton WY 82501",Fremont County,,,,,,,,,,
-RHC,"Oregon Trails
+wyoming,"Oregon Trails
  525 Birch St.
  Rolling Hills WY 82637",Converse County,,,,,,,,,,
-RHC,"Sundance Clinic
+wyoming,"Sundance Clinic
  713 Oak St.
  Sundance WY 82729",Crook County,,,,,,,,,,
-RHC,"Hot Springs County Hospital District
+wyoming,"Hot Springs County Hospital District
  dba/Hot Springs Health Thermopolis
  120 North C Ave.
  Thermopolis WY 82443",Hot Springs County,,,,,,,,,,
-RHC,"Hot Springs County Hospital District
+wyoming,"Hot Springs County Hospital District
  dba/Hot Springs Health Shoshoni 
  150 E Arapahoe St
  Thermopolis WY 82443",Hot Springs County,,,,,,,,,,
-RHC,"Community Hospital
+wyoming,"Community Hospital
  dba/Banner Medical Clinic Torrington
  625 Albany Ave.
  Torrington WY 82240",Goshen County,,,,,,,,,,
-RHC,"Weston County Health Services
+wyoming,"Weston County Health Services
  dba/Weston County Health Services
  717 Pine St.
  Upton WY 82730",Weston County,,,,,,,,,,
-RHC,"Platte County Memorial Hospital
+wyoming,"Platte County Memorial Hospital
  dba/Banner Medical Clinic Wheatland
  201 14th St., Annex Bldg.
  Wheatland WY 82201",Platte County,,,,,,,,,,
-RHC,"Hot Springs Health Worland
+wyoming,"Hot Springs Health Worland
  1125 Charles Ave.
  Worland WY 82401",Washakie County,,,,,,,,,,

@@ -136,7 +136,7 @@ server <- function(input, output, session) {
     for (predictor in all_predictors) {
       if (is.numeric(df[[predictor]]) && is.numeric(df[[response_var]]) &&
           var(df[[predictor]], na.rm = TRUE) > 0 && var(df[[response_var]], na.rm = TRUE) > 0) {
-        cor_test <- cor.test(df[[response_var]], df[[predictor]], method = "kendall", use = "pairwise.complete.obs")
+        cor_test <- cor.test(df[[response_var]], df[[predictor]], method = "spearman", use = "pairwise.complete.obs")
         corr_data <- rbind(corr_data, data.frame(
           Predictor = predictor,
           Correlation = round(cor_test$estimate, 3),

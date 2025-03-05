@@ -3,7 +3,7 @@ generate_corr_plot <- function(df_names) {
   for (df_name in df_names) {
 
     df <- get(df_name, envir = .GlobalEnv)
-    corr <- round(cor(df, method = "kendall", use = "pairwise.complete.obs"), 2)
+    corr <- round(cor(df, method = "spearman", use = "pairwise.complete.obs"), 2)
     matrix <- cor_pmat(df)
     corrplot <- ggcorrplot(corr, p.mat = matrix, method = "square", type = "lower",
                            lab = TRUE, lab_size = 1.7, insig = "blank", title = paste("Correlation Plot:", str_to_title(gsub("\\.", " ", df_name)))) +
