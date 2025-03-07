@@ -5,4 +5,17 @@ output: pdf_document
 date: "`r Sys.Date()`"
 ---
 
-meow
+### (3) What is the relationship between health risk concentrations and healthcare market supply?
+
+#### (goal is to ultimately assess health care supply-side institutional capacities and possible gaps)
+
+##### First pass: calculate correlations between environmental risk variables and health care services/ infrastructure (particularly for data series identified as targeting “migrant” health) but others too 
+
+
+Data Required:
+  - healthcare facilities
+    - immigrant health centers
+  - environmental risks
+  - health problems
+  - migrant population
+  
