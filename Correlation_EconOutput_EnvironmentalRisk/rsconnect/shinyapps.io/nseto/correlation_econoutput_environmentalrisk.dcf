@@ -5,7 +5,7 @@ account: nseto
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14100773
-bundleId: 9893454
+bundleId: 9902744
 url: https://nseto.shinyapps.io/correlation_econoutput_environmentalrisk/
 version: 1
 asMultiple: FALSE
