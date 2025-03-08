@@ -16,7 +16,7 @@ utah <- read_excel("~/internship/workspace/Health Facility Data/UtahHealth24_xls
 montana <- read_excel("~/internship/workspace/Health Facility Data/MontanaHealth24_xlsx.xlsx")
 
 # H2-A population
-h2a_population <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv")
+h2a_population <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") |> arrange(state, county)
 
 # Function for Healthcare.rmd
 healthcare <- function() {
@@ -186,4 +186,16 @@ assign("h2aPopulationCorrelations", h2aPopulationCorrelations, envir = globalenv
 
 stateFacilityCorrelations()
 
+
+# Total H2-A workers per county & health conditions reported:
+# co_data$total_workers_h2a[is.na(co_data$total_workers_h2a)] <- 0
+# df <- co_data |> select(state, county, short_question_text, total_workers_h2a)
+#
+# # Pivot the data
+# pivoted_df <- df %>%
+#   group_by(county) %>%
+#   pivot_wider(names_from = short_question_text, values_from = total_workers_h2a, values_fn = sum)
+#
+# # View the resulting data frame
+# pivoted_df |> left_join(h2a_population |> filter(state == "Colorado"), by = "county") |> select(-state.y) |> view()
 
