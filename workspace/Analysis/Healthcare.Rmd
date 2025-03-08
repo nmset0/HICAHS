@@ -4,18 +4,84 @@ author: "Nathan Seto"
 output: pdf_document
 date: "`r Sys.Date()`"
 ---
+```{r setup, include = FALSE}
+# rm(list = ls())
+library(knitr)
+library(formatR)
+library(tidyverse)
+library(readxl)
+library(readr)
+library(ggcorrplot)
+library(ggplot2)
+opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
+```
 
 ### (3) What is the relationship between health risk concentrations and healthcare market supply?
 
 #### (goal is to ultimately assess health care supply-side institutional capacities and possible gaps)
 
-##### First pass: calculate correlations between environmental risk variables and health care services/ infrastructure (particularly for data series identified as targeting “migrant” health) but others too 
-
+##### First pass: calculate correlations between environmental risk variables and health care services/ infrastructure (particularly for data series identified as targeting “migrant” health) but others too
 
 Data Required:
-  - healthcare facilities
-    - immigrant health centers
-  - environmental risks
-  - health problems
-  - migrant population
-  
+
+-   healthcare facilities
+
+-   immigrant health centers
+
+-   environmental risks
+
+-   health problems $\checkmark$
+
+-   migrant population $\checkmark$
+
+may have to analyze state by state
+
+
+```{r}
+# health risks
+health <- read_csv("~/internship/workspace/PLACES__Local_Data_for_Better_Health__County_Data_2024_release_20250306.csv")
+colnames(health) <- tolower(names(health))
+state_names <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
+health <- filter(health, state %in% state_names) |> arrange(stateabbr, county) |> select(-locationid)
+
+# health facilities
+colorado <- read_excel("~/internship/workspace/Health Facility Data/ColoradoHealth24_xlsx.xlsx", sheet = 2)
+wyoming <- read_excel("~/internship/workspace/Health Facility Data/WyomingHealth24_xlsx.xlsx", sheet = 2)
+south_dakota <- read_excel("~/internship/workspace/Health Facility Data/SouthDakotaHealth24_xlsx.xlsx", sheet = 2)
+north_dakota <- read_excel("~/internship/workspace/Health Facility Data/NorthDakotaHealth24_xlsx.xlsx")
+utah <- read_excel("~/internship/workspace/Health Facility Data/UtahHealth24_xlsx.xlsx", sheet = 2)
+montana <- read_excel("~/internship/workspace/Health Facility Data/MontanaHealth24_xlsx.xlsx")
+
+# H2-A population
+h2a_population <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv")
+
+source("C:/Users/natha/OneDrive/Documents/internship/workspace/Processing/Healthcare.R")
+healthcare()
+```
+
+
+```{r}
+ggplot(data = na.omit(co_data), aes(y = total_workers_h2a, x = Hospitals, group = county, color = county)) + 
+  geom_point(size = 4, alpha = 0.5) + 
+  theme_minimal() +
+  theme(legend.position = "none") + 
+  labs(title = "Hospitals")
+
+```
+
+```{r}
+cor.test(co_data$Hospitals, co_data$total_workers_h2a, 
+         method = "spearman", 
+         conf.level = 0.95, 
+         continuity = F, 
+         use = "complete.pairwise.obs", 
+         exact = F)
+
+cor.test(co_data$Community_Clinics, co_data$total_workers_h2a, 
+         method = "spearman", 
+         conf.level = 0.95, 
+         continuity = F, 
+         use = "complete.pairwise.obs", 
+         exact = F)
+```
+
