@@ -63,16 +63,10 @@ rm("colorado", "montana", "utah", "north_dakota", "south_dakota", "wyoming")
 ```
 
 
-```{r}
-ggplot(data = na.omit(co_data), aes(y = total_workers_h2a, x = Hospitals, group = county, color = county)) + 
-  geom_point(size = 4, alpha = 0.5) + 
-  theme_minimal() +
-  theme(legend.position = "none") + 
-  labs(title = "Hospitals")
-
-```
+Below is a table of correlations between the total number of H-2A workers and health facilities per county.
 
 ```{r}
+# correlating between number of H-2A workers and the given health facilities
 stateFacilityCorrelations()
 kable(h2aPopulationCorrelations)
 ```
