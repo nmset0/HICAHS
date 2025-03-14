@@ -221,7 +221,8 @@ stateFacilityCorrelations()
 weather_facility_load <- function() {
   disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv") |>
     select(-1) |>
-    select(!contains("coastal"))
+    select(!contains("coastal")) |>
+    select(-GlobalID)
   disaster[is.na(disaster)] <- 0
   assign("disaster", disaster, envir = globalenv())
 
@@ -233,9 +234,8 @@ weather_facility_load <- function() {
     full_data <- left_join(state_disaster, data_frames[[i]], by = 'county') |>
       select(-state.y) |>
       rename(state = state.x) |>
-      select(-GlobalID) |>
-      select(where(is.numeric)) |>
-      select(where(~ !all(replace_na(. == 0, FALSE))))
+      select(where(is.numeric))
+      #select(where(~ !all(replace_na(. == 0, FALSE))))
     full_data_list[[states[i]]] <- full_data
   }
 
@@ -299,6 +299,7 @@ assign("predictors", predictor_variables, envir = .GlobalEnv)
 }
 create_response_predictors()
 
+
 # corr_data <- data.frame(
 #   Predictor = character(),
 #   Response = character(),
@@ -337,7 +338,7 @@ for (r in response) {
     if (!(r %in% names(colorado_full))) {
       next
     }
-    cor_test <- cor.test(colorado_full[[r]], colorado_full[[predictor]], method = "spearman", exact = F, use = "pairwise.complete.obs")
+    cor_test <- cor.test(y = colorado_full[[r]], x = colorado_full[[predictor]], method = "spearman", exact = F, use = "pairwise.complete.obs")
 
     colorado_corr <- rbind(colorado_corr, data.frame(
       Predictor = predictor,
@@ -353,4 +354,29 @@ colorado_corr <- colorado_corr |> arrange(desc(Correlation))
 
 
 
+utah_corr <- data.frame(
+  Predictor = character(),
+  Response = character(),
+  Correlation = numeric(),
+  PValue = numeric(),
+  Significance = logical()
+)
+for (r in response) {
+  for (predictor in predictors) {
+    if (!(r %in% names(utah_full))) {
+      next
+    }
+    cor_test <- cor.test(utah_full[[r]], utah_full[[predictor]], method = "spearman", exact = F, use = "pairwise.complete.obs")
+
+    colorado_corr <- rbind(utah_corr, data.frame(
+      Predictor = predictor,
+      Response = r,
+      Correlation = round(cor_test$estimate, 2),
+      PValue = round(cor_test$p.value, 3),
+      Significance = ifelse(cor_test$p.value <= 0.05, TRUE, FALSE)
+    )
+    )
+  }
+}
+utah_corr <- utah_corr |> arrange(desc(Correlation))
 
