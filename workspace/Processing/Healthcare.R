@@ -241,7 +241,6 @@ weather_facility_load <- function() {
 
   utah_full <- full_data_list[["Utah"]]
   utah_full <- utah_full |> mutate(id = 1:nrow(utah_full), .before = `Population (2020)`)
-  names(utah_full)[318:length(utah_full)] <- gsub(" ", "_", names(utah_full)[318:length(utah_full)])
 
   colorado_full <- full_data_list[["Colorado"]]
   colorado_full <- colorado_full |> mutate(id = 1:nrow(colorado_full), .before = `Population (2020)`)
@@ -281,15 +280,15 @@ response_variables <- c("Hospitals",
               "Critical_Access_Hospitals",
               "Mammography",
               "Home_Health_Agency",
-              "Assisted_Living_Facility_-_Type_I",
-              "Assisted_Living_Facility_-_Type_II",
-              "End_Stage_Renal_Disease_Facility",
-              "Birthing_Center",
-              "Abortion_Clinic",
-              "Nursing_Care_Facility",
-              "Small_Health_Care_Facility",
-              "Small_Health_Care_Facility_-_Type_N",
-              "Personal_Care_Agency")
+              "Assisted Living Facility - Type_I",
+              "Assisted Living Facility - Type_II",
+              "End Stage Renal Disease_Facility",
+              "Birthing Center",
+              "Abortion Clinic",
+              "Nursing Care Facility",
+              "Small Health Care_Facility",
+              "Small Health Care_Facility - Type_N",
+              "Personal Care Agency")
 
 predictor_variables <- setdiff(colnames(colorado_full), response_variables)[-c(1:5)]
 
@@ -325,58 +324,42 @@ create_response_predictors()
 # }
 
 
-colorado_corr <- data.frame(
-  Predictor = character(),
-  Response = character(),
-  Correlation = numeric(),
-  PValue = numeric(),
-  Significance = logical()
-)
 
-for (r in response) {
-  for (predictor in predictors) {
-    if (!(r %in% names(colorado_full))) {
-      next
+
+
+healthFacility_envir_correlations <- function(data, response, predictors) {
+  corr_df <- data.frame(
+    Predictor = character(),
+    Response = character(),
+    Correlation = numeric(),
+    PValue = numeric(),
+    Significance = logical()
+  )
+
+  for (r in response) {
+    for (predictor in predictors) {
+      if (!(r %in% names(data)) || !(predictor %in% names(data))) {
+        next
+      }
+      cor_test <- cor.test(data[[r]], data[[predictor]], method = "spearman", exact = FALSE, use = "pairwise.complete.obs")
+
+      corr_df <- rbind(corr_df, data.frame(
+        Predictor = predictor,
+        Response = r,
+        Correlation = round(cor_test$estimate, 2),
+        PValue = round(cor_test$p.value, 3),
+        Significance = ifelse(cor_test$p.value <= 0.05, TRUE, FALSE)
+      ))
     }
-    cor_test <- cor.test(y = colorado_full[[r]], x = colorado_full[[predictor]], method = "spearman", exact = F, use = "pairwise.complete.obs")
-
-    colorado_corr <- rbind(colorado_corr, data.frame(
-      Predictor = predictor,
-      Response = r,
-      Correlation = round(cor_test$estimate, 2),
-      PValue = round(cor_test$p.value, 3),
-      Significance = ifelse(cor_test$p.value <= 0.05, TRUE, FALSE)
-    )
-    )
   }
+
+  corr_df <- corr_df |> arrange(desc(Correlation))
+  return(corr_df)
 }
-colorado_corr <- colorado_corr |> arrange(desc(Correlation))
 
-
-
-utah_corr <- data.frame(
-  Predictor = character(),
-  Response = character(),
-  Correlation = numeric(),
-  PValue = numeric(),
-  Significance = logical()
-)
-for (r in response) {
-  for (predictor in predictors) {
-    if (!(r %in% names(utah_full))) {
-      next
-    }
-    cor_test <- cor.test(utah_full[[r]], utah_full[[predictor]], method = "spearman", exact = F, use = "pairwise.complete.obs")
-
-    colorado_corr <- rbind(utah_corr, data.frame(
-      Predictor = predictor,
-      Response = r,
-      Correlation = round(cor_test$estimate, 2),
-      PValue = round(cor_test$p.value, 3),
-      Significance = ifelse(cor_test$p.value <= 0.05, TRUE, FALSE)
-    )
-    )
-  }
-}
-utah_corr <- utah_corr |> arrange(desc(Correlation))
-
+colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors)
+utah_corr <- healthFacility_envir_correlations(utah_full, response, predictors)
+wyoming_corr <- healthFacility_envir_correlations(wyoming_full, response, predictors)
+montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors)
+northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response, predictors)
+southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors)
