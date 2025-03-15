@@ -45,7 +45,7 @@ output_risk_combined <- output_risk_combined |>
   }))
 
 output_environmentalRisk <- output_risk_combined  |>
-  select(matches("farm_sales_|drought|wildfire|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income|sales|farm_sales|income_net|commodity_totals|crop_totals")) |> select(where(is.numeric))
+  select(matches("Riverine|farm_sales_|drought|wildfire|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income|sales|farm_sales|income_net|commodity_totals|crop_totals")) |> select(where(is.numeric))
 
 output_environmentalRisk[is.na(output_environmentalRisk)] <- 0
 
@@ -88,7 +88,7 @@ $\\$
 ```{r, fig.width = 9.5, fig.height = 10}
 risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",
                 "ice\\.storm", "winter\\.weather", "strong\\.wind", "hail",
-                "heat\\.wave", "avalanche", "Landslide", "lightning")
+                "heat\\.wave", "avalanche", "Landslide", "lightning", "Riverine Flooding")
 
 risk_dfs <- list()
 
@@ -104,7 +104,7 @@ for (i in names(risk_dfs)) {
 
 source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/create_correlogram_function.R")
 
-N <- c("drought", "wildfire", "Cold.Wave", "tornado", "ice.storm", "winter.weather", "strong.wind", "hail", "heat.wave", "avalanche", "Landslide", "lightning")
+N <- c("drought", "wildfire", "Cold.Wave", "tornado", "ice.storm", "winter.weather", "strong.wind", "hail", "heat.wave", "avalanche", "Landslide", "lightning", "Riverine Flooding")
 generate_corr_plot(N)
 
 print(drought_corrplot)
@@ -118,6 +118,7 @@ print(drought_corrplot)
                 print(tornado_corrplot)
                   print(lightning_corrplot)
                     print(avalanche_corrplot)
+                      print(`Riverine Flooding_corrplot`)
 ```
 
 ##### Problems with Data Structure

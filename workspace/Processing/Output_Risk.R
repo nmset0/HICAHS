@@ -54,7 +54,7 @@ disaster <- disaster |> select(-National.Risk.Index.ID) |> select(-GlobalID) |> 
 # (otherwise whole row will become NA when matching order (below))
 disaster$county[disaster$county == "lamoure"] <- "la moure"
 
-disaster <- disaster |> select(-matches("flooding|earthquake|hurricane|tsunami|volcanic", ignore.case = TRUE))
+disaster <- disaster |> select(-matches("hurricane|tsunami|volcanic", ignore.case = TRUE))
 #----------------------------------------Merge Data---------------------------------------#
 # preparing to merge: matching order of datasets based on `county`
 disaster <- disaster[match(paste(ag_output_wide$state, ag_output_wide$county),
@@ -75,5 +75,5 @@ view(output_risk_combined)
 
 
 # write_csv(output_risk_combined, file = "~/internship/workspace/output_risk_combined.csv")
-
+# saveRDS(output_risk_combined, file = "output_EnvironmentalRisk2.rds")
 

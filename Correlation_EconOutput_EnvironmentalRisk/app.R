@@ -96,7 +96,9 @@ server <- function(input, output, session) {
     "Hail Only" = grep("hail", names(output_environmentalRisk), value = TRUE, ignore.case = TRUE),
     "Heat Wave Only" = grep("heat.wave", names(output_environmentalRisk), value = TRUE, ignore.case = TRUE),
     "Landslide Only" = grep("Landslide", names(output_environmentalRisk), value = TRUE, ignore.case = TRUE),
-    "Lightning Only" = grep("lightning", names(output_environmentalRisk), value = TRUE, ignore.case = TRUE)
+    "Lightning Only" = grep("lightning", names(output_environmentalRisk), value = TRUE, ignore.case = TRUE),
+    "Riverine Flooding Only" = grep("Riverine.Flooding", names(output_environmentalRisk), value = TRUE, ignore.case = TRUE),
+    "Earthquake Only" = grep("Earthquake", names(output_environmentalRisk), value = TRUE, ignore.case = TRUE)
   )
 
   # Update dataset selector choices
@@ -132,11 +134,11 @@ server <- function(input, output, session) {
       Correlation = numeric(),
       PValue = numeric()
     )
-# TODO !!
-    for (predictor in all_predictors) {
+
+      for (predictor in all_predictors) {
       if (is.numeric(df[[predictor]]) && is.numeric(df[[response_var]]) &&
           var(df[[predictor]], na.rm = TRUE) > 0 && var(df[[response_var]], na.rm = TRUE) > 0) {
-        cor_test <- cor.test(df[[response_var]], df[[predictor]], method = "spearman", use = "pairwise.complete.obs")
+        cor_test <- cor.test(df[[response_var]], df[[predictor]], method = "spearman", use = "pairwise.complete.obs", exact = FALSE)
         corr_data <- rbind(corr_data, data.frame(
           Predictor = predictor,
           Correlation = round(cor_test$estimate, 3),
