@@ -221,7 +221,9 @@ stateFacilityCorrelations()
 weather_facility_load <- function() {
   disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv") |>
     select(-1) |>
-    select(!contains("coastal")) |>
+    select(!contains("coastal", ignore.case = TRUE),
+           !contains("tsunami", ignore.case = TRUE),
+           !contains("hurricane", ignore.case = TRUE)) |>
     select(-GlobalID)
   disaster[is.na(disaster)] <- 0
   assign("disaster", disaster, envir = globalenv())
@@ -235,7 +237,7 @@ weather_facility_load <- function() {
       select(-state.y) |>
       rename(state = state.x) |>
       select(where(is.numeric))
-      #select(where(~ !all(replace_na(. == 0, FALSE))))
+    #select(where(~ !all(replace_na(. == 0, FALSE))))
     full_data_list[[states[i]]] <- full_data
   }
 
@@ -270,30 +272,30 @@ weather_facility_load <- function() {
 weather_facility_load()
 
 create_response_predictors <- function() {
-data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
-response_variables <- c("Hospitals",
-              "Community_Clinics",
-              "Free_Standing_Emergency_Departments",
-              "Rehabilitation_Hospitals",
-              "Rural_Clinics",
-              "Rural_Health_Clinics",
-              "Critical_Access_Hospitals",
-              "Mammography",
-              "Home_Health_Agency",
-              "Assisted Living Facility - Type_I",
-              "Assisted Living Facility - Type_II",
-              "End Stage Renal Disease_Facility",
-              "Birthing Center",
-              "Abortion Clinic",
-              "Nursing Care Facility",
-              "Small Health Care_Facility",
-              "Small Health Care_Facility - Type_N",
-              "Personal Care Agency")
+  data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
+  response_variables <- c("Hospitals",
+                          "Community_Clinics",
+                          "Free_Standing_Emergency_Departments",
+                          "Rehabilitation_Hospitals",
+                          "Rural_Clinics",
+                          "Rural_Health_Clinics",
+                          "Critical_Access_Hospitals",
+                          "Mammography",
+                          "Home_Health_Agency",
+                          "Assisted Living Facility - Type_I",
+                          "Assisted Living Facility - Type_II",
+                          "End Stage Renal Disease_Facility",
+                          "Birthing Center",
+                          "Abortion Clinic",
+                          "Nursing Care Facility",
+                          "Small Health Care_Facility",
+                          "Small Health Care_Facility - Type_N",
+                          "Personal Care Agency")
 
-predictor_variables <- setdiff(colnames(colorado_full), response_variables)[-c(1:5)]
+  predictor_variables <- setdiff(colnames(colorado_full), response_variables)[-c(1:5)]
 
-assign("response", response_variables, envir = .GlobalEnv)
-assign("predictors", predictor_variables, envir = .GlobalEnv)
+  assign("response", response_variables, envir = .GlobalEnv)
+  assign("predictors", predictor_variables, envir = .GlobalEnv)
 
 }
 create_response_predictors()
@@ -341,7 +343,7 @@ healthFacility_envir_correlations <- function(data, response, predictors) {
       if (!(r %in% names(data)) || !(predictor %in% names(data))) {
         next
       }
-      cor_test <- cor.test(data[[r]], data[[predictor]], method = "spearman", exact = FALSE, use = "pairwise.complete.obs")
+      cor_test <- cor.test(data[[r]], data[[predictor]], method = "spearman", exact = FALSE)
 
       corr_df <- rbind(corr_df, data.frame(
         Predictor = predictor,
@@ -360,6 +362,7 @@ healthFacility_envir_correlations <- function(data, response, predictors) {
 colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors)
 utah_corr <- healthFacility_envir_correlations(utah_full, response, predictors)
 wyoming_corr <- healthFacility_envir_correlations(wyoming_full, response, predictors)
-montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors)
 northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response, predictors)
 southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors)
+montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors)
+
