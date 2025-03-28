@@ -18,6 +18,7 @@ state_facility_load <- function() {
   north_dakota <- read_excel("~/internship/workspace/Health Facility Data/NorthDakotaHealth24_xlsx.xlsx")
   utah <- read_excel("~/internship/workspace/Health Facility Data/UtahHealth24_xlsx.xlsx", sheet = 2)
   montana <- read_excel("~/internship/workspace/Health Facility Data/MontanaHealth24_xlsx.xlsx")
+  montana$county <- str_to_title(montana$county)
 
   # H2-A population
   h2a_population <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") |> arrange(state, county)
@@ -226,6 +227,9 @@ weather_facility_load <- function() {
            !contains("hurricane", ignore.case = TRUE)) |>
     select(-GlobalID)
   disaster[is.na(disaster)] <- 0
+
+  colnames(disaster) <- gsub(" ", "", colnames(disaster))
+
   assign("disaster", disaster, envir = globalenv())
 
   data_frames <- list(colorado, montana, north_dakota, south_dakota, utah, wyoming)
@@ -242,55 +246,69 @@ weather_facility_load <- function() {
   }
 
   utah_full <- full_data_list[["Utah"]]
-  utah_full <- utah_full |> mutate(id = 1:nrow(utah_full), .before = `Population (2020)`)
+  utah_full <- utah_full |> mutate(id = 1:nrow(utah_full), .before = `Population(2020)`)
 
   colorado_full <- full_data_list[["Colorado"]]
-  colorado_full <- colorado_full |> mutate(id = 1:nrow(colorado_full), .before = `Population (2020)`)
+  colorado_full <- colorado_full |> mutate(id = 1:nrow(colorado_full), .before = `Population(2020)`)
 
   wyoming_full <- full_data_list[["Wyoming"]]
-  wyoming_full <- wyoming_full |> mutate(id = 1:nrow(wyoming_full), .before = `Population (2020)`)
+  wyoming_full <- wyoming_full |> mutate(id = 1:nrow(wyoming_full), .before = `Population(2020)`)
 
   montana_full <- full_data_list[["Montana"]]
-  montana_full <- montana_full |> mutate(id = 1:nrow(montana_full), .before = `Population (2020)`)
+  montana_full <- montana_full |> mutate(id = 1:nrow(montana_full), .before = `Population(2020)`)
 
   northDakota_full <- full_data_list[["North Dakota"]]
-  northDakota_full <- northDakota_full |> mutate(id = 1:nrow(northDakota_full), .before = `Population (2020)`)
+  northDakota_full <- northDakota_full |> mutate(id = 1:nrow(northDakota_full), .before = `Population(2020)`)
 
   southDakota_full <- full_data_list[["South Dakota"]]
-  southDakota_full <-  southDakota_full |> mutate(id = 1:nrow(southDakota_full), .before = `Population (2020)`)
-  names(southDakota_full)[300:301] <- c("Rural_Health_Hospitals", "Critical_Access_Hospitals")
+  southDakota_full <-  southDakota_full |> mutate(id = 1:nrow(southDakota_full), .before = `Population(2020)`)
+  names(southDakota_full)[300:301] <- c("RuralHealthHospitals", "CriticalAccessHospitals")
+
+  data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
+  assign("data_frames2", data_frames2, envir = .GlobalEnv)
+
+  for (i in 1:length(data_frames2)) {
+    colnames(data_frames2[[i]]) <- gsub("_", "", colnames(data_frames2[[i]]))
+    colnames(data_frames2[[i]]) <- gsub("-", "", colnames(data_frames2[[i]]))
+  }
 
   # Add to global environment
-  assign("colorado_full", colorado_full, envir = .GlobalEnv)
-  assign("utah_full", utah_full, envir = .GlobalEnv)
-  assign("wyoming_full", wyoming_full, envir = .GlobalEnv)
-  assign("montana_full", montana_full, envir = .GlobalEnv)
-  assign("northDakota_full", northDakota_full, envir = .GlobalEnv)
-  assign("southDakota_full", southDakota_full, envir = .GlobalEnv)
+  # assign("colorado_full", colorado_full, envir = .GlobalEnv)
+  # assign("utah_full", utah_full, envir = .GlobalEnv)
+  # assign("wyoming_full", wyoming_full, envir = .GlobalEnv)
+  # assign("montana_full", montana_full, envir = .GlobalEnv)
+  # assign("northDakota_full", northDakota_full, envir = .GlobalEnv)
+  # assign("southDakota_full", southDakota_full, envir = .GlobalEnv)
+
+  names(data_frames2) <- c("colorado_full", "utah_full", "wyoming_full", "montana_full", "northDakota_full", "southDakota_full")
+
+  for (name in names(data_frames2)) {
+    assign(name, data_frames2[[name]], envir = .GlobalEnv)
+  }
 
 }
 weather_facility_load()
 
 create_response_predictors <- function() {
-  data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
+  # data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
   response_variables <- c("Hospitals",
-                          "Community_Clinics",
-                          "Free_Standing_Emergency_Departments",
-                          "Rehabilitation_Hospitals",
-                          "Rural_Clinics",
-                          "Rural_Health_Clinics",
-                          "Critical_Access_Hospitals",
+                          "CommunityClinics",
+                          "FreeStandingEmergencyDepartments",
+                          "RehabilitationHospitals",
+                          "RuralClinics",
+                          "RuralHealthClinics",
+                          "CriticalAccessHospitals",
                           "Mammography",
-                          "Home_Health_Agency",
-                          "Assisted Living Facility - Type_I",
-                          "Assisted Living Facility - Type_II",
-                          "End Stage Renal Disease_Facility",
-                          "Birthing Center",
-                          "Abortion Clinic",
-                          "Nursing Care Facility",
-                          "Small Health Care_Facility",
-                          "Small Health Care_Facility - Type_N",
-                          "Personal Care Agency")
+                          "HomeHealthAgency",
+                          "AssistedLivingFacilityTypeI",
+                          "AssistedLivingFacilityTypeII",
+                          "EndStageRenalDiseaseFacility",
+                          "BirthingCenter",
+                          "AbortionClinic",
+                          "NursingCareFacility",
+                          "SmallHealthCareFacility",
+                          "SmallHealthCareFacilityTypeN",
+                          "PersonalCareAgency")
 
   predictor_variables <- setdiff(colnames(colorado_full), response_variables)[-c(1:5)]
 
@@ -301,32 +319,6 @@ create_response_predictors <- function() {
 create_response_predictors()
 
 
-# corr_data <- data.frame(
-#   Predictor = character(),
-#   Response = character(),
-#   Correlation = numeric(),
-#   PValue = numeric()
-#   )
-#
-# for (d in data_frames2) {
-#   for(p in predictors) {
-#     for (r in response) {
-#       if (is.numeric(d[[p]]) && is.numeric(d[[r]])) {
-#
-#         cor_test <- cor.test(d[[r]], d[[p]], method = "spearman", exact = F)
-#
-#         corr_data <- rbind(corr_data, data.frame(
-#           Predictor = as.character(p),
-#           Response = as.character(r),
-#           Correlation = round(cor_test$estimate, 3),
-#           PValue = round(cor_test$p.value, 3)))
-#       }
-#     }
-#   }
-# }
-
-
-
 
 
 healthFacility_envir_correlations <- function(data, response, predictors) {
@@ -335,7 +327,7 @@ healthFacility_envir_correlations <- function(data, response, predictors) {
     Response = character(),
     Correlation = numeric(),
     PValue = numeric(),
-    Significance = logical()
+    Sig = logical()
   )
 
   for (r in response) {
@@ -350,7 +342,7 @@ healthFacility_envir_correlations <- function(data, response, predictors) {
         Response = r,
         Correlation = round(cor_test$estimate, 2),
         PValue = round(cor_test$p.value, 3),
-        Significance = ifelse(cor_test$p.value <= 0.05, TRUE, FALSE)
+        Sig = ifelse(cor_test$p.value <= 0.05, TRUE, FALSE)
       ))
     }
   }
@@ -359,10 +351,14 @@ healthFacility_envir_correlations <- function(data, response, predictors) {
   return(corr_df)
 }
 
-colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors)
-utah_corr <- healthFacility_envir_correlations(utah_full, response, predictors)
-wyoming_corr <- healthFacility_envir_correlations(wyoming_full, response, predictors)
-northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response, predictors)
-southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors)
-montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors)
+# colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors) |> na.omit()
+# utah_corr <- healthFacility_envir_correlations(utah_full, response, predictors) |> na.omit()
+# wyoming_corr <- healthFacility_envir_correlations(wyoming_full, response, predictors) |> na.omit()
+# northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response, predictors) |> na.omit()
+# southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors) |> na.omit()
+# montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors) |> na.omit()
+
+
+
+
 

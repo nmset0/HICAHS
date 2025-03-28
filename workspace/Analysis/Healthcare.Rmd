@@ -13,7 +13,9 @@ library(readxl)
 library(readr)
 library(ggcorrplot)
 library(ggplot2)
+library(reporter)
 opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
+
 ```
 
 ### (3) What is the relationship between health risk concentrations and healthcare market supply?
@@ -45,11 +47,63 @@ healthcare()
 ```
 
 
-Below is a table of correlations between the total number of H-2A workers and health facilities per county.
+Correlations between the total number of H-2A workers and healthcare facilities.
 
 ```{r}
 # correlating between number of H-2A workers and the given health facilities
 stateFacilityCorrelations()
-kable(h2aPopulationCorrelations)
+kable(h2aPopulationCorrelations, longtable = TRUE)
+
+# write.csv(h2aPopulationCorrelations, file = "h2aPopulationCorrelations.csv")
+```
+
+
+Correlations between environmental factors and healthcare facilities.
+
+```{r}
+weather_facility_load()
+create_response_predictors()
+
+colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors) |> na.omit()
+utah_corr <- healthFacility_envir_correlations(utah_full, response, predictors) |> na.omit()
+wyoming_corr <- healthFacility_envir_correlations(wyoming_full, response, predictors) |> na.omit()
+northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response, predictors) |> na.omit()
+southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors) |> na.omit()
+montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors) |> na.omit()
+
+kable(colorado_corr, longtable = TRUE)
+kable(wyoming_corr, longtable = TRUE)
+kable(utah_corr, longtable = TRUE)
+kable(montana_corr,longtable = TRUE)
+kable(southDakota_corr,longtable = TRUE)
+kable(northDakota_corr,longtable = TRUE)
+# states <- list(
+#   colorado = colorado_corr,
+#   utah = utah_corr,
+#   wyoming = wyoming_corr,
+#   northDakota = northDakota_corr,
+#   southDakota = southDakota_corr,
+#   montana = montana_corr
+# )
+# 
+# 
+# for (state in names(states)) {
+#   tbl <- create_table(states[[state]]) |>
+#     titles(paste(toupper(substr(state, 1, 2)), "Env. and Health Correlation")) |>
+#     column_defaults(width = 1, align = "center") |> 
+#     define("Predictor", width = 1, align = "left") |>  
+#     define("Response", width = 1, align = "left") |>  
+#     define("Correlation", width = 0.75, align = "center") |>
+#     define("PValue", width = 0.5, align = "center") |>
+#     define("Sig", width = 0.5, align = "center")
+#   
+#   rpt <- create_report(paste("Healthcare_Correlations/", state, ".pdf", sep = ""),
+#                        output_type = "PDF", font_size = 10) |>
+#     page_footer("Page [pg] of [tpg]") |>
+#     add_content(tbl)
+#   
+#   # Write the report to a file
+#   write_report(rpt)
+# }
 ```
 
