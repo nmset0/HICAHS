@@ -28,7 +28,7 @@ Data Required:
 
 -   healthcare facilities $\checkmark$
 
--   immigrant health centers
+-   immigrant health centers $\checkmark$
 
 -   environmental risks $\checkmark$
 
@@ -37,11 +37,12 @@ Data Required:
 -   H2-A population $\checkmark$
 
 
-Correlations may be less reliable because I cannot group by county because R won't have enough observations to work with. Also, the states have different sets of health facility data, where some states have more/less recorded types of facilities. I could remove those differing variables, but then the only facility type in common would be hospitals, and I don't want to limit the data in this manner. When calculating correlations, I separated data by state, then aggregated all the data sets after calculating the coefficients. Only one correlation with Total H2A Workers was found to be not significant: Critical Access Hospitals in South Dakota.
+Correlations may be less reliable because I cannot group by county because R won't have enough observations to work with. Also, the states have different sets of health facility data, where some states have more or less recorded types of facilities. I could remove those differing variables, but then the only facility type in common would be hospitals, and I don't want to limit the data so much. When calculating correlations, I separated data by state, then aggregated all the data sets after calculating the coefficients. Only one correlation with Total H2A Workers was found to be not significant: Critical Access Hospitals in South Dakota.
 
 
 ```{r}
 source("C:/Users/natha/OneDrive/Documents/internship/workspace/Processing/Healthcare.R")
+migrant_health_centers()
 state_facility_load()
 healthcare()
 ```
@@ -52,7 +53,8 @@ Correlations between the total number of H-2A workers and healthcare facilities.
 ```{r}
 # correlating between number of H-2A workers and the given health facilities
 stateFacilityCorrelations()
-kable(h2aPopulationCorrelations, longtable = TRUE)
+h2aPopulationCorrelations <- h2aPopulationCorrelations |> mutate(PValue = round(PValue, 3)) |> arrange(desc(Correlation))
+kable(h2aPopulationCorrelations, longtable = TRUE, align =c("l", "l", "l", "c", "c", "c"))
 
 # write.csv(h2aPopulationCorrelations, file = "h2aPopulationCorrelations.csv")
 ```
@@ -107,3 +109,4 @@ kable(northDakota_corr,longtable = TRUE)
 # }
 ```
 
+ 

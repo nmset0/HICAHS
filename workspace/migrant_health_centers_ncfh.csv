@@ -1,0 +1,58 @@
+state,abbrev,county,city,site_name,health_center_name,address,zip_code,geolocation
+colorado,co,larimer,fort collins,salud fort collins blue spruce,"salud family health, inc",1635 blue spruce dr,80524,"40.61028176951384, -105.07248525277728"
+colorado,co,larimer,loveland,loveland community health center/dental,sunrise community health,302 3rd st se,80537,"40.3902411634632, -105.07247037116407"
+colorado,co,larimer,estes park,salud estes park,"salude family health, inc",1950 redtail hawk dr,80517,"40.38882134982074, -105.48908745092574"
+colorado,co,weld,windsor,sunrise windsor clinic,sunrise community health,1039 main st unit g,80550,"40.478455511205816, -104.91543745092574"
+colorado,co,weld,greeley,monfort children's clinic,sunris community health,100 n 11th ave,80631,"40.43442721307447, -104.69612566626947"
+colorado,co,weld,evans,sunrise cesar chavez outreach program,sunrise community health,2930 11th ave,80620,"40.38873404408418, -104.69262177116407"
+colorado,co,weld,frederick,salud frederick,"salud family health, inc",5995 iris pkwy,80530,"40.111875687314054, -104.94275357791015"
+colorado,co,weld,fort lupton,salude mobile unit,"salud family health, inc",203 s rollie ave,80621,"40.07774683639799, -104.80585359325389"
+colorado,co,morgan,fort morgan,salud fort morgan,"salud family health, inc",729 e railroad ave,80401,"40.24915323622999, -103.78957276441798"
+colorado,co,adams,brighton,salud brighton,"salud family health, inc",1860 e egbert st,80601,"39.982925162498375, -104.79985255952337"
+colorado,co,adams,commerce city,salud commerce city,"salud family health, inc",6255 north quebec st,80022,"39.81047071152249, -104.90398468958197"
+colorado,co,arapahoe,aurora,salud aurora,"salud family health, inc",562 sable blvd ste 100,80011,"39.724392055547405, -104.81874860674608"
+colorado,co,logan,sterling,salud sterling,"salud family health, inc",1410 s 7th ave,80751,"40.61201683311447, -103.22188572023829"
+colorado,co,delta,delta,river valley family health center of delta,"olathe community clinic, inc",1250 valley view dr,81416,"38.60616902624744, -107.98377423558203"
+colorado,co,montrose,olathe,"olathe community clinic, inc","olathe community clinic, inc",308 main st,81425,NA
+colorado,co,chaffee,buena vista,valley-wide buena vista,"valley-wide health systems, inc",707 us highway 24 n,81211,"38.8475898407647, -106.13536293375695"
+colorado,co,fremont,canon city,valley-wide canon city,"valley-wide health systems, inc",121 n 6th st,81212,"38.44152080899976, -105.23899985264897"
+colorado,co,saguache,moffat,moffat family health center,"valley-wide health systems, inc",545 moffat way,81143,"38.00020561569836, -105.9077529067461"
+colorado,co,montrose,montrose,river valley family health center of montrose,"olathe community clinic, inc",1010 rio grand ave,81401,"38.46805730478161, -107.87478967116407"
+colorado,co,rio grande,monte vista,edward m kennedy health clinic,"valley-wide health systems, inc",925 2nd ave,81144,"37.57966258343313, -106.14582959140238"
+colorado,co,saguache,center,center dental clinic,"valley-wide health systems, inc",135 e 6th st,81125,"37.750636520745566, -106.11193510674609"
+colorado,co,alamosa,alamosa,vwhs mobile health unit,"valley-wide health systems, inc",106 blanca ave suite 300,81101,NA
+colorado,co,conejos,la jara,la jara dental clinic,"valley-wide health systems, inc",421 walnut st,81140,"37.27313123217778, -105.95982086071494"
+colorado,co,conejos,sanford,sanford school district,"valley-wide health systems, inc",755 second st,81151,"37.257469920358986, -105.90864334724918"
+colorado,co,conejos,antonito,guadalupe health center,"valley-wide health systems, inc",10th street and dahlia,81120,"37.080921362503986, -106.01550100304308"
+colorado,co,costilla,san luis,"san luis health center, ernesto pacheco dental clinic, san luis physical therapy and rehabilitiation","valley-wide health systems, inc",233 main st ste b,81152,"37.198444209377115, -105.42753654907425"
+colorado,co,pueblo,pueblo,colorado avenue clinic,"pueblo community health center, inc",300 colorado ave,81004,"38.257445581313576, -104.6237272085976"
+colorado,co,pueblo,avondale,avondale clinic,"pueblo community health center, inc",328 avondale blvd,81022,"38.23806711737125, -104.35012467791016"
+colorado,co,huerfano,walsenburg,spanish peaks regional health center specialty clinic,"pueblo community health center, inc",23450 us highway 160,81089,"37.600480158360675, -104.83241432026475"
+colorado,co,las animas,trinidad,salud trinidad,"salud family health, inc",911 robinson ave,81082,"37.166678127953915, -104.52048572870763"
+colorado,co,kiowa,eads,valley-wide counseling and support center - eads,"valley-wide health systems, inc",14833 s rittgers st,81036,"38.47572558795792, -102.77676620859762"
+colorado,co,otero,rocky ford,"rocky ford clinic, rocky ford dental clinic","valley-wide health systems, inc",903 s 12th st,81067,"38.04495596647034, -103.72028840304307"
+colorado,co,otero,la junta,la junta clinic,"valley-wide health systems, inc",1012 belmont ave,81050,"37.97864264975214, -103.55608073746"
+colorado,co,bent,las animas,las animas clinic and las animas dental,"valley-wide health systems, inc",245 vine ave,81054,"38.070953418569395, -103.22842850862406"
+colorado,co,prowers,lamar,high plains adult community health center,high plains community health center,201 kendall dr,81052,"38.06946733623636, -102.61142548265326"
+colorado,co,prowers,holly,high plains holly clinic,high plains community health center,410 colorado st,81047,"38.053810885434444, -102.12326134908265"
+colorado,co,baca,springfield,valley-wide counseling and support center - springfield,"valley-wide health systems, inc",189 e 9th,81073,"37.40538709933943, -102.61533993558993"
+utah,ut,salt lake,salt lake city,"community health centers, inc - central city","community health centers, inc",610 s 200 e ste b,84111,"40.75586419684852, -111.8857080932539"
+utah,ut,salt lake,west valley city,"community health centers, inc - ellis r shipp","community health centers, inc",4535 s 5600 w,84120,"40.671856239711204, -112.02326705939507"
+utah,ut,salt lake,midvale,"community health centers, inc 72nd street clinic","community health centers, inc",220 w 7200 s,84047,"40.62142371570411, -111.89711705198904"
+utah,ut,box elder,brigham city,"community health centers, inc - brigham city","community health centers, inc",980 medical dr ste 1,84302,"41.49101474923361, -112.02615466733275"
+utah,ut,box elder,tremonton,bear river health clinic,"community health centers, inc",440 w 600 n,84337,"41.719775117478065, -112.17255859325388"
+wyoming,wy,park,powell,ag worker health and services,"montana migrant council, inc",212 west 6th street,82435,NA
+montana,mt,flathead,bigfork,ag worker health and services,"montana migrant council, inc",00 general delivery,NA,NA
+montana,mt,lake,polson,"montana migrant and seasonal farmworkers council, inc","montana migrant council, inc",general delivery,59860,NA
+montana,mt,missoula,missoula,ag worker health and services - mobile medical unit,"montana migrant council, inc",6385 us highway 10 w,59808,NA
+montana,mt,missoula,lolo,ag worker health and services,"montana migrant council, inc",9801 valley grove dr,59847,"46.77672563594552, -114.08870585888987"
+montana,mt,beaverhead,dillon,ag worker health and services,"montana migrant council, inc",116 n washington st,59725,"45.21767409989702, -112.63330810291478"
+montana,mt,bozeman,belgrade,chp-belgrade,"community health partners, inc",19 e main st,59714,"45.77612099041835, -111.17622186865262"
+montana,mt,bozeman,bozeman,chp - bozeman,"community health partners, inc",1695 tschache lane,59718,"45.697080473670404, -111.05861247793662"
+montana,mt,park,livingston,"community health partners, inc","community health partners, inc",112 w lewis st,59047,"45.660627224689826, -110.55875648823098"
+montana,mt,carbon,bridger,mobile dental,"montana migrant council, inc",000 general delivery,59014,NA
+montana,mt,yellowstone,billings,transport vehicle,"montana migrant council, inc",3318 3rd ave n ste 200,59101,"45.78037216530188, -108.51342803849683"
+montana,mt,rosebud,forsyth,"montana migrant council, inc","montana migrant council, inc",000 general delivery,59327,NA
+montana,mt,dawson,glendive,"montana migrant council, inc","montana migrant council, inc",general delivery,59330,NA
+montana,mt,richland,fairview,ag worker health and services,"montana migrant council, inc",35111 county road 134,59221,"47.8459069043549, -104.06690512023832"
+north dakota,nd,walsh,grafton,community health service inc - grafton,"community health services, inc",1113 w 11th st,58237,"48.40438674462137, -97.41619013743355"
