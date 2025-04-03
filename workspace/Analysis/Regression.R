@@ -10,6 +10,7 @@ library(randomForest)
 library(tree)
 library(reprtree)
 library(caret)
+library(ggplot2)
 
 colnames(colorado_full) <- gsub("\\(\\$\\)", "", colnames(colorado_full))
 colnames(colorado_full) <- gsub("[()]", "", colnames(colorado_full))
@@ -87,8 +88,20 @@ random_forest_model <- function(response_variable, tuningLength, numTrees) {
 
   ordered_importance <- importance_df[order(-importance_df$Importance), ]
   print(ordered_importance)
-  varImpPlot(rf_model)
+  varimpplot <- varImpPlot(rf_model)
 }
 
 
-random_forest_model("Hospitals", 25, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+random_forest_model("Hospitals", 15, 1000)
+
+
+
