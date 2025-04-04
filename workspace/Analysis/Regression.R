@@ -16,12 +16,12 @@ colnames(colorado_full) <- gsub("\\(\\$\\)", "", colnames(colorado_full))
 colnames(colorado_full) <- gsub("[()]", "", colnames(colorado_full))
 
 
-exposure_columns <- grep("ExposureTotal", colnames(colorado_full), value = TRUE)
-exposure_columns_formula <- paste(exposure_columns, collapse = " + ")
-model_formula <- as.formula(paste("migranthealthcenters ~ AgricultureValue + NationalRiskIndexValueComposite + ", exposure_columns_formula))
-model <- glm(model_formula, data = colorado_full[,-1])
-
-summary(model)
+# exposure_columns <- grep("ExposureTotal", colnames(colorado_full), value = TRUE)
+# exposure_columns_formula <- paste(exposure_columns, collapse = " + ")
+# model_formula <- as.formula(paste("migranthealthcenters ~ AgricultureValue + NationalRiskIndexValueComposite + ", exposure_columns_formula))
+# model <- glm(model_formula, data = colorado_full[,-1])
+#
+# summary(model)
 
 
 

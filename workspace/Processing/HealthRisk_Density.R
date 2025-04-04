@@ -3,7 +3,6 @@
 # Data Cleaning
 
 library(tidyverse)
-library(readxl)
 
 # Clean environment
 rm(list = ls())
