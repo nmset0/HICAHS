@@ -1,3 +1,8 @@
+# Reduce redundancy
+# Remove variables with little meaning or effect
+# Clean data structure
+
+
 # Packages
 library(readr)
 library(dplyr)
@@ -32,20 +37,23 @@ disaster_2 <- filter(disaster_raw, state %in% state_names) # Retrieve HICAHS sta
       # Remove empty columns
       disaster_2 <- disaster_2[, !names(disaster_2) %in% names(numeric_cols)[sapply(disaster_2[names(numeric_cols)], function(col) sum(col == 0) > 0)]]
         disaster_2 <- disaster_2 |> select(-grep("Percentile", colnames(disaster_2), ignore.case = T))
-          # Remove irrelevant natural disasters
-          disaster_2 <- disaster_2 |> select(-grep("coastal|Tsunami|hurricane|volcanic|CoastalFlooding", colnames(disaster_2), ignore.case = T))
-            # Remove columns where sd(column) = 0
-            disaster_2 <- disaster_2[, !apply(disaster_2, 2, function(col) length(unique(col)) == 1)]
+          # VST defined by FEMA: might be unnecessary. Variables are also substantially larger than the rest of the data.
+          disaster_2 <- disaster_2 |> select(-grep("PopulationEquivalence", colnames(disaster_2), ignore.case = T))
+            # Remove irrelevant natural disasters
+            disaster_2 <- disaster_2 |> select(-grep("coastal|Tsunami|hurricane|volcanic|CoastalFlooding", colnames(disaster_2), ignore.case = T))
+              # Remove columns where sd(column) = 0
+              disaster_2 <- disaster_2[, !apply(disaster_2, 2, function(col) length(unique(col)) == 1)]
 
 # Specific variable removal                                                 GIS?
-disaster_3 <- disaster_2 |> select(-GlobalID, -NationalRiskIndexID, -ShapeArea, -ShapeLength)
+disaster_3 <- disaster_2 |> select(-GlobalID, -NationalRiskIndexID, -ShapeArea, -ShapeLength, -CommunityRiskFactorValue)
 disaster_3 <- disaster_3 |> mutate(id = 1:nrow(disaster_3), .before = state)
+disaster_3 <- disaster_3 |> rename(AreaSqMi = Areasqmi)
 
-# Df of Totals columns
+# Df of "Totals" columns
 disaster_4 <- disaster_2 |>
   select(names(disaster_2)[2:4], matches("Total", ignore.case = TRUE))
 
-#write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")
+write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")
 
 
 

@@ -164,10 +164,8 @@ stateFacilityCorrelations <- function() {
 
 weather_facility_load <- function() {
   # Load and process disaster data
-  disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
-  disaster <- disaster |>
-    select(-`National Risk Index ID`, -GlobalID) |>
-    select(-grep("coastal|Tsunami|hurricane|earthquake|volcanic", colnames(disaster), ignore.case = TRUE))
+  disaster <- read_csv("~/internship/workspace/Written Datasets/Disaster_clean.csv")
+  disaster <- disaster |> select(-grep("coastal|Tsunami|hurricane|volcanic", colnames(disaster), ignore.case = TRUE))
   disaster[is.na(disaster)] <- 0
   colnames(disaster) <- gsub(" ", "", colnames(disaster))
 
@@ -190,7 +188,7 @@ weather_facility_load <- function() {
 
   # Add ID column and filter out non-numeric columns
   add_id_and_filter_numeric <- function(df) {
-    df |> mutate(id = 1:nrow(df), .before = `Population(2020)`) |> select(where(is.numeric))
+    df |> mutate(id = 1:nrow(df), .before = `Population2020`) |> select(where(is.numeric))
   }
 
   full_data_list <- lapply(full_data_list, add_id_and_filter_numeric)
