@@ -59,7 +59,6 @@ ui <- fluidPage(
 
 # Define server
 server <- function(input, output, session) {
-  # List of response variables
   response_variables <- c(
     "commodity_totals_sales_measured_in_$",
     "commodity_totals_sales_measured_in_$_operation",

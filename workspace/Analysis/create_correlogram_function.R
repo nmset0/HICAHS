@@ -14,6 +14,6 @@ generate_corr_plot <- function(df_names) {
   }
 }
 
-N <- c("drought", "wildfire", "Cold.Wave", "tornado", "ice.storm", "winter.weather", "strong.wind", "hail", "heat.wave", "avalanche", "Landslide", "lightning")
-# Example usage with a list of data frame names
-generate_corr_plot(N)
+# N <- c("drought", "wildfire", "Cold.Wave", "tornado", "ice.storm", "winter.weather", "strong.wind", "hail", "heat.wave", "avalanche", "Landslide", "lightning", "Riverine.Flooding")
+# # Example usage with a list of data frame names
+# generate_corr_plot(N)

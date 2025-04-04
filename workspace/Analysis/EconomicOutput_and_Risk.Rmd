@@ -47,6 +47,8 @@ output_risk_combined <- output_risk_combined |>
 output_environmentalRisk <- output_risk_combined  |>
   select(matches("Riverine|farm_sales_|drought|wildfire|Cold\\.Wave|tornado|ice\\.storm|winter\\.weather|strong\\.wind|hail|heat\\.wave|avalanche|Landslide|lightning|income|sales|farm_sales|income_net|commodity_totals|crop_totals")) |> select(where(is.numeric))
 
+colnames(output_environmentalRisk) <- gsub("\\.\\.\\.|\\.\\.|\\.", "", colnames(output_environmentalRisk))
+
 output_environmentalRisk[is.na(output_environmentalRisk)] <- 0
 
 good_cols <- grep("income|sales|farm_sales|income_net|commodity|crop", 
@@ -86,9 +88,9 @@ $\\$
 Below are a series of correlation plots between variables of economic output and different weather/natural disaster predictors. The main focus is the rectangle towards the center of the plots, more prominent in some plots than others. The disaster/weather variables are naturally correlated with each other a majority of the time. The response variables are naturally correlated with each other to some degree. This is to be expected.
 $\\$
 ```{r, fig.width = 9.5, fig.height = 10}
-risk_types <- c("drought", "wildfire", "Cold\\.Wave", "tornado",
-                "ice\\.storm", "winter\\.weather", "strong\\.wind", "hail",
-                "heat\\.wave", "avalanche", "Landslide", "lightning", "Riverine Flooding")
+risk_types <- c("drought", "wildfire", "ColdWave", "tornado",
+                "icestorm", "winterweather", "strongwind", "hail",
+                "heatwave", "avalanche", "Landslide", "lightning", "Riverine")
 
 risk_dfs <- list()
 
@@ -104,21 +106,21 @@ for (i in names(risk_dfs)) {
 
 source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/create_correlogram_function.R")
 
-N <- c("drought", "wildfire", "Cold.Wave", "tornado", "ice.storm", "winter.weather", "strong.wind", "hail", "heat.wave", "avalanche", "Landslide", "lightning", "Riverine Flooding")
+N <- c("drought", "wildfire", "ColdWave", "tornado", "icestorm", "winterweather", "strongwind", "hail", "heatwave", "avalanche", "Landslide", "lightning", "Riverine")
 generate_corr_plot(N)
 
 print(drought_corrplot)
-  print(heat.wave_corrplot)
+  print(heatwave_corrplot)
     print(wildfire_corrplot)
-      print(winter.weather_corrplot)
-        print(Cold.Wave_corrplot)
+      print(winterweather_corrplot)
+        print(ColdWave_corrplot)
           print(hail_corrplot)
-            print(ice.storm_corrplot)
-              print(strong.wind_corrplot)
+            print(icestorm_corrplot)
+              print(strongwind_corrplot)
                 print(tornado_corrplot)
                   print(lightning_corrplot)
                     print(avalanche_corrplot)
-                      print(`Riverine Flooding_corrplot`)
+                      print(Riverine_corrplot)
 ```
 
 ##### Problems with Data Structure
