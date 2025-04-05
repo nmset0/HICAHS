@@ -73,12 +73,38 @@ northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response
 southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors) |> na.omit()
 montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors) |> na.omit()
 
-kable(colorado_corr, longtable = TRUE)
-kable(wyoming_corr, longtable = TRUE)
-kable(utah_corr, longtable = TRUE)
-kable(montana_corr,longtable = TRUE)
-kable(southDakota_corr,longtable = TRUE)
-kable(northDakota_corr,longtable = TRUE)
+```
+```{r}
+colorado_corr_filtered <- colorado_corr |> filter(Sig == TRUE)
+knitr::kable(colorado_corr_filtered)
+cat("Number of Correlations Not Statistically Signifcant: ", nrow(colorado_corr) - nrow(colorado_corr_filtered))
+```
+```{r}
+wyoming_corr_filtered <- wyoming_corr |> filter(Sig == TRUE)
+knitr::kable(wyoming_corr_filtered)
+cat("Number of Correlations Not Statistically Signifcant: ", nrow(wyoming_corr) - nrow(wyoming_corr_filtered))
+```
+```{r}
+utah_corr_filtered <- utah_corr |> filter(Sig == TRUE)
+knitr::kable(utah_corr_filtered)
+cat("Number of Correlations Not Statistically Signifcant: ", nrow(utah_corr) - nrow(utah_corr_filtered))
+```
+```{r}
+southDakota_corr_filtered <- southDakota_corr |> filter(Sig == TRUE)
+knitr::kable(southDakota_corr_filtered)
+cat("Number of Correlations Not Statistically Signifcant: ", nrow(southDakota_corr) - nrow(southDakota_corr_filtered))
+```
+```{r}
+northDakota_corr_filtered <- northDakota_corr |> filter(Sig == TRUE)
+knitr::kable(northDakota_corr_filtered)
+cat("Number of Correlations Not Statistically Signifcant: ", nrow(northDakota_corr) - nrow(northDakota_corr_filtered))
+```
+```{r}
+montana_corr_filtered <- montana_corr |> filter(Sig == TRUE)
+knitr::kable(montana_corr_filtered)
+cat("Number of Correlations Not Statistically Signifcant: ", nrow(montana_corr) - nrow(montana_corr_filtered))
+```
+```{r}
 # states <- list(
 #   colorado = colorado_corr,
 #   utah = utah_corr,

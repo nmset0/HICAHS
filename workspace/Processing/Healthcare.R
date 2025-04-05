@@ -1,5 +1,7 @@
 library(tidyverse)
 library(readxl)
+library(ggplot2)
+library(ggcorrplot)
 # Everything is a function for use in .rmd files
 # (Should have done this before)
 
@@ -35,7 +37,7 @@ state_facility_load <- function() {
     }
     mhc_count$state <- tolower(mhc_count$state)
     data <- data |> left_join(mhc_count, by = c("state", "county"))
-    data$migrant_health_centers[is.na(data$migrant_health_centers)] <- 0
+    data$MigrantHealthCenters[is.na(data$MigrantHealthCenters)] <- 0
 
     assign(state, data, envir = .GlobalEnv)
   })
@@ -58,7 +60,7 @@ migrant_health_centers <- function() {
 
   mhc_count <- ncfh |>
     group_by(state, county) |>
-    summarise(migrant_health_centers = n(), .groups = "drop")
+    summarise(MigrantHealthCenters = n(), .groups = "drop")
   assign("mhc_count", mhc_count, envir = .GlobalEnv)
 }
 
@@ -193,6 +195,7 @@ weather_facility_load <- function() {
 
   full_data_list <- lapply(full_data_list, add_id_and_filter_numeric)
 
+
   # Assign individual state data frames
   assign("utah_full", full_data_list[["Utah"]], envir = .GlobalEnv)
   assign("colorado_full", full_data_list[["Colorado"]], envir = .GlobalEnv)
@@ -208,6 +211,13 @@ weather_facility_load <- function() {
     colnames(df) <- gsub(" ", "", colnames(df))
     df
   }
+
+  # colorado_full <- colorado_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # utah_full <- utah_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # wyoming_full <- wyoming_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # northDakota_full <- northDakota_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # southDakota_full <- southDakota_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # montana_full <- montana_full |> rename(MigrantHealthCenters = migranthealthcenters)
 
   # Apply cleaning function to each state data frame
   assign("utah_full", clean_column_names(utah_full), envir = .GlobalEnv)
@@ -240,7 +250,7 @@ create_response_predictors <- function() {
                           "SmallHealthCareFacility",
                           "SmallHealthCareFacilityTypeN",
                           "PersonalCareAgency",
-                          "migranthealthcenters")
+                          "MigrantHealthCenters")
 
   predictor_variables <- setdiff(colnames(colorado_full), response_variables)[-c(1:5)]
 
@@ -281,6 +291,7 @@ healthFacility_envir_correlations <- function(data, response, predictors) {
 }
 
 
+#data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
 
 
 # Calling functions
@@ -290,10 +301,35 @@ healthcare()
 stateFacilityCorrelations()
 weather_facility_load()
 create_response_predictors()
-colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors)
-# utah_corr <- healthFacility_envir_correlations(utah_full, response, predictors) |> na.omit()
-# wyoming_corr <- healthFacility_envir_correlations(wyoming_full, response, predictors) |> na.omit()
-# northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response, predictors) |> na.omit()
-# southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors) |> na.omit()
-# montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors) |> na.omit()
 
+colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors) |> na.omit()
+colorado_corr_filtered <- colorado_corr |> filter(Sig == TRUE)
+knitr::kable(colorado_corr_filtered)
+cat("Number of Correlations Not Statistically Signifcant: ", nrow(colorado_corr) - nrow(colorado_corr_filtered))
+
+
+
+data_for_feature_selection <- function() {
+  colorado_cut <- colorado_full[,1:which(names(colorado_full) == "Hospitals")]
+  montana_cut <- montana_full[,1:which(names(montana_full) == "Hospitals")]
+  utah_cut <- utah_full[,1:which(names(utah_full) == "Hospitals")]
+  utah_cut <- utah_cut |> dplyr::select(-c(100:103))
+  wyoming_cut <- wyoming_full[,1:which(names(wyoming_full) == "Hospitals")]
+  wyoming_cut <- wyoming_cut |> dplyr::select(-c(100:101))
+  northDakota_cut <- northDakota_full[,1:which(names(northDakota_full) == "Hospitals")]
+  northDakota_cut <- northDakota_cut |> select(-100)
+  southDakota_cut <- southDakota_full[,1:which(names(southDakota_full) == "Hospitals")]
+  southDakota_cut <- southDakota_cut |> dplyr::select(-c(100:101))
+
+  # print(ncol(colorado_cut))
+  # print(ncol(montana_cut))
+  # print(ncol(utah_cut))
+  # print(ncol(wyoming_cut))
+  # print(ncol(northDakota_cut))
+  # print(ncol(southDakota_cut))
+
+  feature_selection_data <- rbind(colorado_cut, montana_cut, utah_cut, wyoming_cut, northDakota_cut, southDakota_cut)
+  assign("feature_selection_data", feature_selection_data, envir = .GlobalEnv)
+}
+
+data_for_feature_selection()
