@@ -11,8 +11,7 @@ stateFacilityCorrelations()
 weather_facility_load()
 data_for_feature_selection()
 
-
-
+# Random Forest model for feature selection
 random_forest_model <- function(response_variable, tuningLength, numTrees) {
   # Check parameter classes
   if (!is.character(response_variable)) {
@@ -55,55 +54,12 @@ random_forest_model <- function(response_variable, tuningLength, numTrees) {
 }
 
 niter <- 10 # Whatever I want it to be
+
+start.time <- Sys.time()
 for (i in 1:niter) {
   random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
-  # random_forest_model("Hospitals", 10, 1000)
+  cat("Iteration: ", i)
 }
-
-
-# colnames(colorado_full) <- gsub("\\(\\$\\)", "", colnames(colorado_full))
-# colnames(colorado_full) <- gsub("[()]", "", colnames(colorado_full))
-
-
-# exposure_columns <- grep("ExposureTotal", colnames(colorado_full), value = TRUE)
-# exposure_columns_formula <- paste(exposure_columns, collapse = " + ")
-# model_formula <- as.formula(paste("migranthealthcenters ~ AgricultureValue + NationalRiskIndexValueComposite + ", exposure_columns_formula))
-# model <- glm(model_formula, data = colorado_full[,-1])
-#
-# summary(model)
-
-
-
-# Fit a random forest model
-# rf_model <- randomForest(Hospitals ~ ., data = feature_selection_data)
-# importance_values <- importance(rf_model)
-#
-# ordered_importance <- importance_values[order(-importance_values[, 1]), ]
-# importance_df <- data.frame(Variable = row.names(importance_values), Importance = importance_values[, 1])
-# print(importance_df[2:10,])
-#
-# varImpPlot(rf_model)
-
-# model <- glm(Hospitals ~ BuildingValue + IceStormExposureTotal +
-#                IceStormExposurePopulation +
-#                WinterWeatherExposureBuildingValue +
-#                WinterWeatherExposureTotal +
-#                IceStormExposurePopulationEquivalence +
-#                ColdWaveExposureBuildingValue +
-#                IceStormExposureBuildingValue +
-#                Population2020,
-#              data = colorado_full)
-
-
-# summary(model)
-
-
-
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
