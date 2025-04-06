@@ -43,6 +43,7 @@ disaster_2 <- filter(disaster_raw, state %in% state_names) # Retrieve HICAHS sta
             disaster_2 <- disaster_2 |> select(-grep("coastal|Tsunami|hurricane|volcanic|CoastalFlooding", colnames(disaster_2), ignore.case = T))
               # Remove columns where sd(column) = 0
               disaster_2 <- disaster_2[, !apply(disaster_2, 2, function(col) length(unique(col)) == 1)]
+                disaster_2 <- disaster_2 |> select(!grep("earthquake", colnames(disaster_2), ignore.case = T))
 
 # Specific variable removal                                                 GIS?
 disaster_3 <- disaster_2 |> select(-GlobalID, -NationalRiskIndexID, -ShapeArea, -ShapeLength, -CommunityRiskFactorValue)

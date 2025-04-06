@@ -25,7 +25,7 @@ $\\$
 The values used as variables of economic output are listed below. The predictor variables are all the variables in each data set that are not in the following list of variables. Variables ending in "\$_operation" denote "dollars per operation".
 $\\$
 ```{r}
-output_risk_combined <- read_csv("~/internship/workspace/Analysis/output_risk_combined.csv")
+output_risk_combined <- read_csv("~/internship/workspace/output_risk_combined.csv")
 
 output_risk_combined <- output_risk_combined |> mutate(across(everything(), ~ gsub(",", "", .)))
 
