@@ -2,8 +2,7 @@ library(tidyverse)
 library(readxl)
 library(ggplot2)
 library(ggcorrplot)
-# Everything is a function for use in .rmd files
-# (Should have done this before)
+
 
 state_facility_load <- function() {
   # health risks

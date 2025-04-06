@@ -1,10 +1,13 @@
 ---
-title: "Healthcare"
+title: "Healthcare Facilities and Risk Factors"
 author: "Nathan Seto"
-output: pdf_document
 date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
 ---
-```{r setup, include = FALSE}
+```{r setup, include = F}
 # rm(list = ls())
 library(knitr)
 library(formatR)
@@ -13,54 +16,395 @@ library(readxl)
 library(readr)
 library(ggcorrplot)
 library(ggplot2)
-library(reporter)
+library(leaflet)
+library(leaflet.extras)
+library(magrittr)
+library(sf)
 opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
-
 ```
+```{r functions, include = F}
+state_facility_load <- function() {
+  # health risks
+  health <- read_csv("~/internship/workspace/PLACES__Local_Data_for_Better_Health__County_Data_2024_release_20250306.csv")
+  colnames(health) <- tolower(names(health))
+  
+  states <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
+  
+  health <- filter(health, state %in% states) |> arrange(stateabbr, county) |> select(-locationid)
+  
+  # health facilities
+  facility_files <- list(
+    colorado = "~/internship/workspace/Health Facility Data/ColoradoHealth24_xlsx.xlsx",
+    wyoming = "~/internship/workspace/Health Facility Data/WyomingHealth24_xlsx.xlsx",
+    south_dakota = "~/internship/workspace/Health Facility Data/SouthDakotaHealth24_xlsx.xlsx",
+    north_dakota = "~/internship/workspace/Health Facility Data/NorthDakotaHealth24_xlsx.xlsx",
+    utah = "~/internship/workspace/Health Facility Data/UtahHealth24_xlsx.xlsx",
+    montana = "~/internship/workspace/Health Facility Data/MontanaHealth24_xlsx.xlsx"
+  )
+  
+  facilities <- lapply(names(facility_files), function(state) {
+    file <- facility_files[[state]]
+    data <- read_excel(file, sheet = ifelse(state %in% c("north_dakota", "montana"), 1, 2))
+    
+    if (state == "wyoming") {
+      data$county <- gsub(" County", "", data$county)
+    }
+    
+    if (state == "montana") {
+      data$county <- str_to_title(data$county)
+    }
+    mhc_count$state <- tolower(mhc_count$state)
+    data <- data |> left_join(mhc_count, by = c("state", "county"))
+    data$MigrantHealthCenters[is.na(data$MigrantHealthCenters)] <- 0
+    
+    assign(state, data, envir = .GlobalEnv)
+  })
+  
+  # H2-A population
+  h2a_population <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") |> arrange(state, county)
+  
+  assign("health", health, envir = .GlobalEnv)
+  assign("h2a_population", h2a_population, envir = .GlobalEnv)
+  assign("states", states, envir = .GlobalEnv)
+}
 
-### (3) What is the relationship between health risk concentrations and healthcare market supply?
 
-#### (goal is to ultimately assess health care supply-side institutional capacities and possible gaps)
-
-##### First pass: calculate correlations between environmental risk variables and health care services/infrastructure (particularly for data series identified as targeting “migrant” health) but others too
-
-Data Required:
-
--   healthcare facilities $\checkmark$
-
--   immigrant health centers $\checkmark$
-
--   environmental risks $\checkmark$
-
--   health problems $\checkmark$
-
--   H2-A population $\checkmark$
+migrant_health_centers <- function() {
+  # migrant health centers specifically
+  ncfh <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv")
+  ncfh$county <- str_to_title(ncfh$county)
+  ncfh$state <- str_to_title(ncfh$state)
+  assign("ncfh", ncfh, envir = .GlobalEnv)
+  
+  mhc_count <- ncfh |>
+    group_by(state, county) |>
+    summarise(MigrantHealthCenters = n(), .groups = "drop")
+  assign("mhc_count", mhc_count, envir = .GlobalEnv)
+}
 
 
-Correlations may be less reliable because I cannot group by county because R won't have enough observations to work with. Also, the states have different sets of health facility data, where some states have more or less recorded types of facilities. I could remove those differing variables, but then the only facility type in common would be hospitals, and I don't want to limit the data so much. When calculating correlations, I separated data by state, then aggregated all the data sets after calculating the coefficients. Only one correlation with Total H2A Workers was found to be not significant: Critical Access Hospitals in South Dakota.
+healthcare <- function() {
+  # Helper function to process state health data
+  process_state_health <- function(state_name, state_data) {
+    state_health <- subset(health, state == state_name)
+    state_health <- state_health |>
+      left_join(state_data, by = "county") |>
+      select(-state.y) |>
+      rename(state = state.x) |>
+      left_join(h2a_population, by = c("county", "state"))
+    
+    col_order <- c(head(names(state_health), -2), tail(names(state_health), 2)[2], tail(names(state_health), 2)[1])
+    state_health <- state_health[, col_order]
+    
+    state_health
+  }
+  
+  # Process each state's health data
+  co_health <- process_state_health("Colorado", colorado)
+  wy_health <- process_state_health("Wyoming", wyoming)
+  sdkt_health <- process_state_health("South Dakota", south_dakota)
+  ndkt_health <- process_state_health("North Dakota", north_dakota)
+  ut_health <- process_state_health("Utah", utah)
+  mt_health <- process_state_health("Montana", montana)
+  
+  # Add to global environment
+  assign("co_health", co_health, envir = .GlobalEnv)
+  assign("ut_health", ut_health, envir = .GlobalEnv)
+  assign("wy_health", wy_health, envir = .GlobalEnv)
+  assign("mt_health", mt_health, envir = .GlobalEnv)
+  assign("ndkt_health", ndkt_health, envir = .GlobalEnv)
+  assign("sdkt_health", sdkt_health, envir = .GlobalEnv)
+}
 
 
-```{r}
-source("C:/Users/natha/OneDrive/Documents/internship/workspace/Processing/Healthcare.R")
+stateFacilityCorrelations <- function() {
+  # Initialize all 6 data frames for storing correlation coefficients
+  init_corr_df <- function() {
+    data.frame(
+      Predictor = character(),
+      Correlation = numeric(),
+      PValue = numeric(),
+      Significance = numeric()
+    )
+  }
+  
+  co_corr <- init_corr_df()
+  mt_corr <- init_corr_df()
+  ndkt_corr <- init_corr_df()
+  sdkt_corr <- init_corr_df()
+  wy_corr <- init_corr_df()
+  ut_corr <- init_corr_df()
+  
+  # Helper function to calculate correlations
+  calculate_correlations <- function(health_data, state_name) {
+    predictors <- names(health_data[, (which(names(health_data) == "geolocation") + 1):(which(names(health_data) == "total_workers_h2a") - 1)])
+    corr_df <- init_corr_df()
+    for (predictor in predictors) {
+      cor_test <- cor.test(health_data[[predictor]], health_data$total_workers_h2a, method = "spearman", exact = FALSE, use = "pairwise.complete.obs")
+      corr_df <- rbind(corr_df, data.frame(
+        Predictor = predictor,
+        Correlation = round(cor_test$estimate, 3),
+        PValue = cor_test$p.value
+      ))
+    }
+    corr_df <- corr_df |>
+      mutate(Variable = "total_workers_h2a", .before = Predictor) |>
+      mutate(State = state_name, .before = Variable)
+    corr_df$Significance <- ifelse(corr_df$PValue <= 0.05, TRUE, FALSE)
+    corr_df
+  }
+  
+  # Calculate correlations for each state
+  co_corr <- calculate_correlations(co_health, "Colorado")
+  mt_corr <- calculate_correlations(mt_health, "Montana")
+  ndkt_corr <- calculate_correlations(ndkt_health, "North Dakota")
+  sdkt_corr <- calculate_correlations(sdkt_health, "South Dakota")
+  wy_corr <- calculate_correlations(wy_health, "Wyoming")
+  ut_corr <- calculate_correlations(ut_health, "Utah")
+  
+  # Binding the data together
+  h2aPopulationCorrelations <- rbind(co_corr, wy_corr, ndkt_corr, sdkt_corr, ut_corr, mt_corr) |> dplyr::arrange(State, Correlation)
+  assign("h2aPopulationCorrelations", h2aPopulationCorrelations, envir = globalenv())
+}
+
+
+weather_facility_load <- function() {
+  # Load and process disaster data
+  disaster <- read_csv("~/internship/workspace/Written Datasets/Disaster_clean.csv")
+  disaster <- disaster |> select(-grep("coastal|Tsunami|hurricane|volcanic", colnames(disaster), ignore.case = TRUE))
+  disaster[is.na(disaster)] <- 0
+  colnames(disaster) <- gsub(" ", "", colnames(disaster))
+  
+  assign("disaster", disaster, envir = globalenv())
+  
+  # Prepare a list of data frames for each state
+  data_frames <- list(colorado, montana, north_dakota, south_dakota, utah, wyoming)
+  full_data_list <- list()
+  
+  # Process data for each state
+  for (i in seq_along(states)) {
+    state_disaster <- subset(disaster, state == states[i])
+    full_data <- left_join(state_disaster, data_frames[[i]], by = 'county') |>
+      select(-state.y) |>
+      rename(state = state.x) |>
+      select(where(is.numeric))
+    full_data[is.na(full_data)] <- 0
+    full_data_list[[states[i]]] <- full_data
+  }
+  
+  # Add ID column and filter out non-numeric columns
+  add_id_and_filter_numeric <- function(df) {
+    df |> mutate(id = 1:nrow(df), .before = `Population2020`) |> select(where(is.numeric))
+  }
+  
+  full_data_list <- lapply(full_data_list, add_id_and_filter_numeric)
+  
+  
+  # Assign individual state data frames
+  assign("utah_full", full_data_list[["Utah"]], envir = .GlobalEnv)
+  assign("colorado_full", full_data_list[["Colorado"]], envir = .GlobalEnv)
+  assign("wyoming_full", full_data_list[["Wyoming"]], envir = .GlobalEnv)
+  assign("montana_full", full_data_list[["Montana"]], envir = .GlobalEnv)
+  assign("northDakota_full", full_data_list[["North Dakota"]], envir = .GlobalEnv)
+  assign("southDakota_full", full_data_list[["South Dakota"]], envir = .GlobalEnv)
+  
+  # Clean column names in the final data frames
+  clean_column_names <- function(df) {
+    colnames(df) <- gsub("_", "", colnames(df))
+    colnames(df) <- gsub("-", "", colnames(df))
+    colnames(df) <- gsub(" ", "", colnames(df))
+    df
+  }
+  
+  # colorado_full <- colorado_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # utah_full <- utah_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # wyoming_full <- wyoming_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # northDakota_full <- northDakota_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # southDakota_full <- southDakota_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  # montana_full <- montana_full |> rename(MigrantHealthCenters = migranthealthcenters)
+  
+  # Apply cleaning function to each state data frame
+  assign("utah_full", clean_column_names(utah_full), envir = .GlobalEnv)
+  assign("colorado_full", clean_column_names(colorado_full), envir = .GlobalEnv)
+  assign("wyoming_full", clean_column_names(wyoming_full), envir = .GlobalEnv)
+  assign("montana_full", clean_column_names(montana_full), envir = .GlobalEnv)
+  assign("northDakota_full", clean_column_names(northDakota_full), envir = .GlobalEnv)
+  assign("southDakota_full", clean_column_names(southDakota_full), envir = .GlobalEnv)
+}
+
+
+create_response_predictors <- function() {
+  # data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
+  response_variables <- c("Hospitals",
+                          "CommunityClinics",
+                          "FreeStandingEmergencyDepartments",
+                          "RehabilitationHospitals",
+                          "RuralClinics",
+                          "RuralHealthClinics",
+                          "CriticalAccessHospitals",
+                          "Mammography",
+                          "HomeHealthAgency",
+                          "AssistedLivingFacilityTypeI",
+                          "AssistedLivingFacilityTypeII",
+                          "EndStageRenalDiseaseFacility",
+                          "BirthingCenter",
+                          "AbortionClinic",
+                          "NursingCareFacility",
+                          "SmallHealthCareFacility",
+                          "SmallHealthCareFacilityTypeN",
+                          "PersonalCareAgency",
+                          "MigrantHealthCenters")
+  
+  predictor_variables <- setdiff(colnames(colorado_full), response_variables)[-c(1:5)]
+  
+  assign("response", response_variables, envir = .GlobalEnv)
+  assign("predictors", predictor_variables, envir = .GlobalEnv)
+  
+}
+
+
+healthFacility_envir_correlations <- function(data, response, predictors) {
+  corr_df <- data.frame(
+    Predictor = character(),
+    Response = character(),
+    Correlation = numeric(),
+    PValue = numeric(),
+    Sig = logical()
+  )
+  
+  for (r in response) {
+    for (predictor in predictors) {
+      if (!(r %in% names(data)) || !(predictor %in% names(data))) {
+        next
+      }
+      cor_test <- cor.test(data[[r]], data[[predictor]], method = "spearman", exact = FALSE)
+      
+      corr_df <- rbind(corr_df, data.frame(
+        Predictor = predictor,
+        Response = r,
+        Correlation = round(cor_test$estimate, 3),
+        PValue = round(cor_test$p.value, 3),
+        Sig = ifelse(cor_test$p.value <= 0.05, TRUE, FALSE)
+      ))
+    }
+  }
+  
+  corr_df <- corr_df |> arrange(desc(Correlation))
+  return(corr_df)
+}
+
+generate_corr_plot2 <- function(df_names) {
+  for (df_name in df_names) {
+    
+    df <- get(df_name, envir = .GlobalEnv)
+    corr <- round(cor(df, method = "spearman", use = "pairwise.complete.obs"), 2)
+    matrix <- cor_pmat(df)
+    corrplot <- ggcorrplot(corr, p.mat = matrix, method = "square", type = "lower",
+                           lab = TRUE, lab_size = 1.2, insig = "blank", title = paste("Correlation Plot:", str_to_title(gsub("\\.", " ", df_name)))) +
+      theme(axis.text.x = element_text(size = 4, angle = 90, hjust = 1, vjust = -0.5),
+            axis.text.y = element_text(size = 4))
+    
+    assign(paste(df_name, "_corrplot", sep = ""), corrplot, envir = .GlobalEnv)
+  }
+}
+
 migrant_health_centers()
 state_facility_load()
 healthcare()
+stateFacilityCorrelations()
+```
+## What is the relationship between health risk concentrations and healthcare market supply?
+
+#### (Goal is to ultimately assess health care supply-side institutional capacities and possible gaps)
+
+##### First pass: calculate correlations between environmental risk variables and health care services/infrastructure (particularly for data series identified as targeting “migrant” health) but others too
+
+
+
+### Exploration
+
+
+Counts of health facilities labeled as migrant health centers, according to the [National Center for Farmworker Health](https://public.tableau.com/app/profile/national.center.for.farmworker.health/viz/MigrantHealthCentersUDS2023/Dashboard1) (2023). 
+
+
+An option to export the data to a .csv was not found, so a data set was manually created by investigating each point within the HICAHS states. During the creation of the .csv used in my analysis, some facilities were found to be permanently closed. They have subsequently been excluded from the file.
+
+
+It must be kept in mind that some facilities in this list are mobile vans or seasonal locations, and three are purely administrative buildings.
+
+
+Given current knowledge, Wyoming and South Dakota have no facilities labeled as migrant health centers.
+$\\$
+
+```{r}
+result <- mhc_count |> 
+  group_by(state) |> 
+  summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
+
+result <- rbind(result, c("South Dakota", 0))
+
+ggplot(data = result, aes(x = state, y = as.numeric(total), fill = state)) + 
+  geom_bar(stat = "identity", color = "black") + 
+  labs(x = "State", y = "Migrant Health Centers", title = "Migrant Health Centers Per State (NCFH)") + 
+  scale_y_continuous(breaks = seq(from = 0, to = 45, by = 2)) + 
+  theme_minimal() + 
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+
+```
+```{r, include = FALSE, message = FALSE}
+hicahs_States <- invisible(st_read("~/internship/workspace/tl_2024_us_state/tl_2024_us_state.shp"))
+```
+
+```{r, echo = FALSE, eval = TRUE}
+
+migrantHealthCenter <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv")
+
+migrantHealthCenter <- migrantHealthCenter |> 
+  separate(geolocation, into = c("latitude", "longitude"), sep = ",", convert = TRUE)
+
+selected_states <- hicahs_States[hicahs_States$NAME %in% c("Wyoming", "Colorado", "Montana", "Utah", "North Dakota", "South Dakota"), ]
+map <- leaflet(migrantHealthCenter) |> 
+  addTiles() |> 
+  setView(lng = -104.001838, lat = 42.073804, zoom = 5.45) |> 
+  addProviderTiles(providers$Esri.WorldTopoMap) |> 
+  addCircleMarkers(lng = ~longitude, lat = ~latitude,
+                   fill = TRUE, 
+                   fillColor = "blue", 
+                   fillOpacity = 1,
+                   stroke = TRUE, 
+                   color = "turquoise", 
+                   radius = 3.5) |> 
+  addPolygons(data = selected_states,
+              fill = FALSE,
+              color = "black",
+              weight = 0.5,
+              opacity = 1)
+
+map
 ```
 
 
-Correlations between the total number of H-2A workers and healthcare facilities.
+
+### Correlations Between the Total Number of H-2A workers and Healthcare Facilities.
+$\\$
+
+Each state has different sets of health facility data, where some states have more or less recorded types of facilities. Utah especially has many more categories of healthcare facilities than any other state. I could remove those differing variables, but then the only facility type in common would be hospitals, and I don't want to limit the data to a singule type. When calculating correlations, I separated data by state, then aggregated all the data sets after calculating the coefficients. Only one correlation with Total H2A Workers was found to be not significant: Critical Access Hospitals in South Dakota.
+
+
 
 ```{r}
 # correlating between number of H-2A workers and the given health facilities
-stateFacilityCorrelations()
-h2aPopulationCorrelations <- h2aPopulationCorrelations |> mutate(PValue = round(PValue, 3)) |> arrange(desc(Correlation))
+
+h2aPopulationCorrelations <- h2aPopulationCorrelations |> mutate(PValue = round(PValue, 2)) |> arrange(desc(Correlation))
+h2aPopulationCorrelations$Variable <- gsub("_", "", h2aPopulationCorrelations$Variable)
+rownames(h2aPopulationCorrelations) <- NULL
 kable(h2aPopulationCorrelations, longtable = TRUE, align =c("l", "l", "l", "c", "c", "c"))
 
-# write.csv(h2aPopulationCorrelations, file = "h2aPopulationCorrelations.csv")
+#write.csv(h2aPopulationCorrelations, file = "h2aPopulationCorrelations.csv")
 ```
 
 
-Correlations between environmental factors and healthcare facilities.
+### Correlations Between Environmental Factors and Healthcare Facilities.
 
 ```{r}
 weather_facility_load()
@@ -73,66 +417,72 @@ northDakota_corr <- healthFacility_envir_correlations(northDakota_full, response
 southDakota_corr <- healthFacility_envir_correlations(southDakota_full, response, predictors) |> na.omit()
 montana_corr <- healthFacility_envir_correlations(montana_full, response, predictors) |> na.omit()
 
-```
-```{r}
-colorado_corr_filtered <- colorado_corr |> filter(Sig == TRUE)
-knitr::kable(colorado_corr_filtered)
-cat("Number of Correlations Not Statistically Signifcant: ", nrow(colorado_corr) - nrow(colorado_corr_filtered))
-```
-```{r}
-wyoming_corr_filtered <- wyoming_corr |> filter(Sig == TRUE)
-knitr::kable(wyoming_corr_filtered)
-cat("Number of Correlations Not Statistically Signifcant: ", nrow(wyoming_corr) - nrow(wyoming_corr_filtered))
-```
-```{r}
-utah_corr_filtered <- utah_corr |> filter(Sig == TRUE)
-knitr::kable(utah_corr_filtered)
-cat("Number of Correlations Not Statistically Signifcant: ", nrow(utah_corr) - nrow(utah_corr_filtered))
-```
-```{r}
-southDakota_corr_filtered <- southDakota_corr |> filter(Sig == TRUE)
-knitr::kable(southDakota_corr_filtered)
-cat("Number of Correlations Not Statistically Signifcant: ", nrow(southDakota_corr) - nrow(southDakota_corr_filtered))
-```
-```{r}
-northDakota_corr_filtered <- northDakota_corr |> filter(Sig == TRUE)
-knitr::kable(northDakota_corr_filtered)
-cat("Number of Correlations Not Statistically Signifcant: ", nrow(northDakota_corr) - nrow(northDakota_corr_filtered))
-```
-```{r}
-montana_corr_filtered <- montana_corr |> filter(Sig == TRUE)
-knitr::kable(montana_corr_filtered)
-cat("Number of Correlations Not Statistically Signifcant: ", nrow(montana_corr) - nrow(montana_corr_filtered))
-```
-```{r}
-# states <- list(
-#   colorado = colorado_corr,
-#   utah = utah_corr,
-#   wyoming = wyoming_corr,
-#   northDakota = northDakota_corr,
-#   southDakota = southDakota_corr,
-#   montana = montana_corr
-# )
-# 
-# 
-# for (state in names(states)) {
-#   tbl <- create_table(states[[state]]) |>
-#     titles(paste(toupper(substr(state, 1, 2)), "Env. and Health Correlation")) |>
-#     column_defaults(width = 1, align = "center") |> 
-#     define("Predictor", width = 1, align = "left") |>  
-#     define("Response", width = 1, align = "left") |>  
-#     define("Correlation", width = 0.75, align = "center") |>
-#     define("PValue", width = 0.5, align = "center") |>
-#     define("Sig", width = 0.5, align = "center")
-#   
-#   rpt <- create_report(paste("Healthcare_Correlations/", state, ".pdf", sep = ""),
-#                        output_type = "PDF", font_size = 10) |>
-#     page_footer("Page [pg] of [tpg]") |>
-#     add_content(tbl)
-#   
-#   # Write the report to a file
-#   write_report(rpt)
-# }
-```
+rownames(montana_corr) <- rownames(utah_corr) <- rownames(wyoming_corr) <- rownames(colorado_corr) <- rownames(northDakota_corr) <- rownames(southDakota_corr) <- NULL
 
- 
+```
+$\\$
+
+##### Colorado:
+
+```{r}
+cat("Number of Correlations Statistically Signifcant:", sum(colorado_corr$Sig==TRUE), "\n")
+cat("Percentage:", round(sum(colorado_corr$Sig==TRUE)/nrow(colorado_corr),4)*100, "%\n")
+cat("Number of Correlations Not Statistically Signifcant:",  sum(colorado_corr$Sig==FALSE), "\n")
+cat("Percentage:", round(sum(colorado_corr$Sig==FALSE)/nrow(colorado_corr),4)*100, "%")
+kable(colorado_corr)
+```
+$\\$
+
+##### Wyoming:
+
+```{r}
+cat("Number of Correlations Statistically Signifcant:", sum(wyoming_corr$Sig==TRUE), "\n")
+cat("Percentage:", round(sum(wyoming_corr$Sig==TRUE)/nrow(wyoming_corr),4)*100, "%\n")
+cat("Number of Correlations Not Statistically Signifcant:",  sum(wyoming_corr$Sig==FALSE), "\n")
+cat("Percentage:", round(sum(wyoming_corr$Sig==FALSE)/nrow(wyoming_corr),4)*100, "%")
+kable(wyoming_corr)
+```
+$\\$
+
+##### Utah:
+
+```{r}
+cat("Number of Correlations Statistically Signifcant:", sum(utah_corr$Sig==TRUE), "\n")
+cat("Percentage:", round(sum(utah_corr$Sig==TRUE)/nrow(utah_corr),4)*100, "%\n")
+cat("Number of Correlations Not Statistically Signifcant:",  sum(utah_corr$Sig==FALSE), "\n")
+cat("Percentage:", round(sum(utah_corr$Sig==FALSE)/nrow(utah_corr),4)*100, "%")
+kable(utah_corr)
+```
+$\\$
+
+##### South Dakota:
+
+```{r}
+cat("Number of Correlations Statistically Signifcant:", sum(southDakota_corr$Sig==TRUE), "\n")
+cat("Percentage:", round(sum(southDakota_corr$Sig==TRUE)/nrow(southDakota_corr),4)*100, "%\n")
+cat("Number of Correlations Not Statistically Signifcant:",  sum(southDakota_corr$Sig==FALSE), "\n")
+cat("Percentage:", round(sum(southDakota_corr$Sig==FALSE)/nrow(southDakota_corr),4)*100, "%")
+kable(southDakota_corr)
+```
+$\\$
+
+##### North Dakota:
+
+```{r}
+cat("Number of Correlations Statistically Signifcant:", sum(northDakota_corr$Sig==TRUE), "\n")
+cat("Percentage:", round(sum(northDakota_corr$Sig==TRUE)/nrow(northDakota_corr),4)*100, "%\n")
+cat("Number of Correlations Not Statistically Signifcant:",  sum(northDakota_corr$Sig==FALSE), "\n")
+cat("Percentage:", round(sum(northDakota_corr$Sig==FALSE)/nrow(northDakota_corr),4)*100, "%")
+kable(northDakota_corr)
+```
+$\\$
+
+##### Montana:
+
+```{r}
+cat("Number of Correlations Statistically Signifcant:", sum(montana_corr$Sig==TRUE), "\n")
+cat("Percentage:", round(sum(montana_corr$Sig==TRUE)/nrow(montana_corr),4)*100, "%\n")
+cat("Number of Correlations Not Statistically Signifcant:",  sum(montana_corr$Sig==FALSE), "\n")
+cat("Percentage:", round(sum(montana_corr$Sig==FALSE)/nrow(montana_corr),4)*100, "%")
+kable(montana_corr)
+```
