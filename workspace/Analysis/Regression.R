@@ -9,7 +9,7 @@ state_facility_load()
 healthcare()
 stateFacilityCorrelations()
 weather_facility_load()
-data_for_feature_selection()
+data_for_feature_selection("Hospitals")
 
 # Random Forest model for feature selection
 random_forest_model <- function(response_variable, tuningLength, numTrees) {

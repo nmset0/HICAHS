@@ -308,28 +308,19 @@ knitr::kable(colorado_corr_filtered)
 cat("Number of Correlations Not Statistically Signifcant: ", nrow(colorado_corr) - nrow(colorado_corr_filtered))
 
 
-
-data_for_feature_selection <- function() {
-  colorado_cut <- colorado_full[,1:which(names(colorado_full) == "Hospitals")]
-  montana_cut <- montana_full[,1:which(names(montana_full) == "Hospitals")]
-  utah_cut <- utah_full[,1:which(names(utah_full) == "Hospitals")]
-  utah_cut <- utah_cut |> dplyr::select(-c(100:103))
-  wyoming_cut <- wyoming_full[,1:which(names(wyoming_full) == "Hospitals")]
-  wyoming_cut <- wyoming_cut |> dplyr::select(-c(100:101))
-  northDakota_cut <- northDakota_full[,1:which(names(northDakota_full) == "Hospitals")]
-  northDakota_cut <- northDakota_cut |> select(-100)
-  southDakota_cut <- southDakota_full[,1:which(names(southDakota_full) == "Hospitals")]
-  southDakota_cut <- southDakota_cut |> dplyr::select(-c(100:101))
-
-  # print(ncol(colorado_cut))
-  # print(ncol(montana_cut))
-  # print(ncol(utah_cut))
-  # print(ncol(wyoming_cut))
-  # print(ncol(northDakota_cut))
-  # print(ncol(southDakota_cut))
+data_for_feature_selection <- function(predictor) {
+  colorado_cut <- colorado_full[,1:which(names(colorado_full) == predictor)]
+  montana_cut <- montana_full[,1:which(names(montana_full) == predictor)]
+  utah_cut <- utah_full[,1:which(names(utah_full) == predictor)]
+  utah_cut <- utah_cut |> dplyr::select(1:89, predictor)
+  wyoming_cut <- wyoming_full[,1:which(names(wyoming_full) == predictor)]
+  wyoming_cut <- wyoming_cut |> dplyr::select(1:89, predictor)
+  northDakota_cut <- northDakota_full[,1:which(names(northDakota_full) == predictor)]
+  northDakota_cut <- northDakota_cut |> select(1:89, predictor)
+  southDakota_cut <- southDakota_full[,1:which(names(southDakota_full) == predictor)]
+  southDakota_cut <- southDakota_cut |> dplyr::select(1:89, predictor)
 
   feature_selection_data <- rbind(colorado_cut, montana_cut, utah_cut, wyoming_cut, northDakota_cut, southDakota_cut)
   assign("feature_selection_data", feature_selection_data, envir = .GlobalEnv)
 }
-
-data_for_feature_selection()
+data_for_feature_selection("Hospitals")

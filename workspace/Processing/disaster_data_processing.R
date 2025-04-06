@@ -54,7 +54,16 @@ disaster_3 <- disaster_3 |> rename(AreaSqMi = Areasqmi)
 disaster_4 <- disaster_2 |>
   select(names(disaster_2)[2:4], matches("Total", ignore.case = TRUE))
 
-write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")
+disaster_5 <- disaster_raw |>
+  select(names(disaster_2)[2:4], matches("NumberofEvents|numberofevents|events|numberof", ignore.case = TRUE))
+disaster_5 <- disaster_5[, colSums(disaster_5 != 0) > 0]
+
+disaster_6 <- disaster_2 |>
+  select(names(disaster_2)[2:4], matches("Hail|Lightning|Tornado|Heat|Cold|WinterWeather|Drought|Ice|Landslide|Riverine|StrongWind", ignore.case = TRUE))
+
+
+# write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")
+# write_csv(disaster_6, file = "~/internship/workspace/Written Datasets/disaster_cut_clean.csv")
 
 
 
