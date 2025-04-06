@@ -8,7 +8,7 @@ library(readr)
 library(dplyr)
 
 # Clean .GlobalEnv
-rm(list = ls())
+# rm(list = ls())
 
 # Read data
 disaster_raw <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
