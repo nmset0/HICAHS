@@ -97,8 +97,10 @@ map
 
 # Correlations
 
-
-<small> *All correlations coefficients have been calculated with the 'cor.test()' function.* </small>
+<small> 
+*All correlations coefficients have been calculated with the 'cor.test()' function.* 
+*Tables are sorted by correlation coefficient in descending order.*
+</small>
 
 
 ### Correlations Between the Total Number of H-2A workers and Healthcare Facilities.
@@ -114,7 +116,7 @@ The two negative correlations that are significant, while in the minority, are n
 $\\$
 
 
-Table 1: Correlations between H-2A population numbers and healthcare facilities.
+Correlations between H-2A population numbers and healthcare facilities:
 
 ```{r}
 # correlating between number of H-2A workers and the given health facilities
@@ -148,12 +150,16 @@ rownames(montana_corr) <- rownames(utah_corr) <- rownames(wyoming_corr) <- rowna
 $\\$
 
 
-Natural disasters that had zero events have been excluded. These variables are those pertaining to wildfires, earthquakes, coastal flooding, tsunamis, volcanic activity, and hurricanes. All of these variables have been left empty by FEMA. While I do not agree with removing wildfires, it is unwise to perform correlation between a natural disaster and a response variable if, according to the data, the natural disaster in question never occurred during the time period the data pertains to. 
+Natural disasters that had zero events have been excluded. These variables are those pertaining to wildfires, earthquakes, coastal flooding, tsunamis, volcanic activity, and hurricanes. All of these variables have been left empty by FEMA. While I do not agree with removing wildfires, it is unwise to perform correlation between a natural disaster and a response variable if, according to the data, the natural disaster in question never occurred during the time period the data pertains to. Predictor variables not specifically pertaining to natural disasters have also been excluded, as they are not variables in question.
 
 
-Correlation between hospitals yield the highest coefficients. Utah and Montana are the states that do not conform to this expectation.
+Correlation between hospitals yield the highest coefficients. Utah and Montana are the states that do not conform to this expectation. Environmental variables pertaining to cold weather (Ice storm, hail, and cold wave) frequently have high correlations, or are in the top 10 of correlation coefficients. Lightning and strong wind variables are the next most prolific.
 
-##### Colorado:
+
+As seen in previous analyses, many correlations have a p-value equal to or very close to zero.
+
+
+### Colorado:
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(colorado_corr$Sig==TRUE), "\n")
@@ -164,7 +170,7 @@ kable(colorado_corr)
 ```
 $\\$
 
-##### Wyoming:
+### Wyoming:
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(wyoming_corr$Sig==TRUE), "\n")
@@ -175,7 +181,10 @@ kable(wyoming_corr)
 ```
 $\\$
 
-##### Utah:
+### Utah:
+
+
+Correlations with type II assisted living facilities have the highest coefficients, followed by nursing care. Further research is required to ascertain the reason why facilities mainly designated for the 65+ population have such high correlation with environmental factors. Data for Utah also yields the largest correlation coefficients of all six states, with Wyoming as the runner-up.
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(utah_corr$Sig==TRUE), "\n")
@@ -186,7 +195,10 @@ kable(utah_corr)
 ```
 $\\$
 
-##### South Dakota:
+### South Dakota:
+
+
+The top 4 highest correlation coefficients come from Riverine Flooding.
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(southDakota_corr$Sig==TRUE), "\n")
@@ -197,7 +209,10 @@ kable(southDakota_corr)
 ```
 $\\$
 
-##### North Dakota:
+### North Dakota:
+
+
+North Dakota has fairly medium-strength correlations at best, which follow the trend mentioned above.
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(northDakota_corr$Sig==TRUE), "\n")
@@ -209,6 +224,10 @@ kable(northDakota_corr)
 $\\$
 
 ##### Montana:
+
+
+Montana also has medium-strength correlations at best, but the highest coefficients come from rural clinics. This might be due to 47.1 percent of Montana's population living in rural places. However, South Dakota has a slightly higher percentage of rural residents but has weaker correlations with rural clinics.
+
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(montana_corr$Sig==TRUE), "\n")
