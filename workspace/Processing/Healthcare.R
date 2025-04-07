@@ -149,26 +149,16 @@ stateFacilityCorrelations <- function() {
 }
 
 
-# Total H2-A workers per county & health conditions reported:
-# co_health$total_workers_h2a[is.na(co_health$total_workers_h2a)] <- 0
-# df <- co_health |> select(state, county, short_question_text, total_workers_h2a)
-#
-# # Pivot the data
-# pivoted_df <- df %>%
-#   group_by(county) %>%
-#   pivot_wider(names_from = short_question_text, values_from = total_workers_h2a, values_fn = sum)
-#
-# # View the resulting data frame
-# pivoted_df |> left_join(h2a_population |> filter(state == "Colorado"), by = "county") |> select(-state.y) |> view()
-
-
 
 weather_facility_load <- function() {
   # Load and process disaster data
-  disaster <- read_csv("~/internship/workspace/Written Datasets/Disaster_clean.csv")
+  disaster <- read_csv("~/internship/workspace/Written Datasets/Disaster_cut_clean.csv")
   disaster <- disaster |> select(-grep("coastal|Tsunami|hurricane|volcanic", colnames(disaster), ignore.case = TRUE))
   disaster[is.na(disaster)] <- 0
   colnames(disaster) <- gsub(" ", "", colnames(disaster))
+
+  disaster <- disaster |>
+    select(1:7, grep("Riverine|Tornado|Landslide|Lightning|WinterWeather|Hail|IceStorm|StrongWind|HeatWave|Drought|ColdWave|Avalanche", colnames(disaster), ignore.case = T))
 
   assign("disaster", disaster, envir = globalenv())
 
@@ -308,18 +298,25 @@ cat("Number of Correlations Not Statistically Signifcant: ", nrow(colorado_corr)
 
 
 data_for_feature_selection <- function(predictor) {
-  colorado_cut <- colorado_full[,1:which(names(colorado_full) == predictor)]
-  montana_cut <- montana_full[,1:which(names(montana_full) == predictor)]
-  utah_cut <- utah_full[,1:which(names(utah_full) == predictor)]
-  utah_cut <- utah_cut |> dplyr::select(1:89, predictor)
-  wyoming_cut <- wyoming_full[,1:which(names(wyoming_full) == predictor)]
-  wyoming_cut <- wyoming_cut |> dplyr::select(1:89, predictor)
-  northDakota_cut <- northDakota_full[,1:which(names(northDakota_full) == predictor)]
-  northDakota_cut <- northDakota_cut |> select(1:89, predictor)
-  southDakota_cut <- southDakota_full[,1:which(names(southDakota_full) == predictor)]
-  southDakota_cut <- southDakota_cut |> dplyr::select(1:89, predictor)
+  colorado_cut <- colorado_full[, 1:which(names(colorado_full) == "WinterWeatherHazardTypeRiskIndexScore")]
+  colorado_cut <- colorado_cut |> dplyr::select(1:which(names(colorado_cut) == "WinterWeatherHazardTypeRiskIndexScore"), predictor)
+
+  montana_cut <- montana_full[, 1:which(names(montana_full) == "WinterWeatherHazardTypeRiskIndexScore")]
+  montana_cut <- montana_cut |> dplyr::select(1:which(names(montana_cut) == "WinterWeatherHazardTypeRiskIndexScore"), predictor)
+
+  utah_cut <- utah_full[, 1:which(names(utah_full) == "WinterWeatherHazardTypeRiskIndexScore")]
+  utah_cut <- utah_cut |> dplyr::select(1:which(names(utah_cut) == "WinterWeatherHazardTypeRiskIndexScore"), predictor)
+
+  wyoming_cut <- wyoming_full[, 1:which(names(wyoming_full) == "WinterWeatherHazardTypeRiskIndexScore")]
+  wyoming_cut <- wyoming_cut |> dplyr::select(1:which(names(wyoming_cut) == "WinterWeatherHazardTypeRiskIndexScore"), predictor)
+
+  northDakota_cut <- northDakota_full[, 1:which(names(northDakota_full) == "WinterWeatherHazardTypeRiskIndexScore")]
+  northDakota_cut <- northDakota_cut |> dplyr::select(1:which(names(northDakota_cut) == "WinterWeatherHazardTypeRiskIndexScore"), predictor)
+
+  southDakota_cut <- southDakota_full[, 1:which(names(southDakota_full) == "WinterWeatherHazardTypeRiskIndexScore")]
+  southDakota_cut <- southDakota_cut |> dplyr::select(1:which(names(southDakota_cut) == "WinterWeatherHazardTypeRiskIndexScore"), predictor)
 
   feature_selection_data <- rbind(colorado_cut, montana_cut, utah_cut, wyoming_cut, northDakota_cut, southDakota_cut)
   assign("feature_selection_data", feature_selection_data, envir = .GlobalEnv)
 }
-data_for_feature_selection("Hospitals")
+#data_for_feature_selection("Hospitals")
