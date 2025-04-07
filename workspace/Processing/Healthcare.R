@@ -6,7 +6,7 @@ library(ggcorrplot)
 
 state_facility_load <- function() {
   # health risks
-  health <- read_csv("~/internship/workspace/PLACES__Local_Data_for_Better_Health__County_Data_2024_release_20250306.csv")
+  health <- read_csv("~/internship/workspace/HICAHS_STATES_PLACES_Local_Data_Health_County_Data_2024.csv")
   colnames(health) <- tolower(names(health))
 
   states <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
