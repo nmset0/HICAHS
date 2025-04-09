@@ -302,7 +302,6 @@ Before making the per capita adjustment, Montana had medium-strength correlation
 Lightning and migrant health centers correlated the most.
 
 
-
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(montana_corr$Sig==TRUE), "\n")
 cat("Percentage:", round(sum(montana_corr$Sig==TRUE)/nrow(montana_corr),4)*100, "%\n")
