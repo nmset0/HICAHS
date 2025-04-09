@@ -8,7 +8,7 @@ output:
   pdf_document: default
 ---
 ```{r setup, include = F}
-# rm(list = ls())
+rm(list = ls())
 library(knitr)
 library(formatR)
 library(tidyverse)
@@ -52,7 +52,7 @@ result <- mhc_count |>
   group_by(state) |> 
   summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
 
-result <- rbind(result, c("South Dakota", 0))
+result <- rbind(result, c("South Dakota", 0), c("Wyoming", 0))
 
 ggplot(data = result, aes(x = state, y = as.numeric(total), fill = state)) + 
   geom_bar(stat = "identity", color = "black", width = 0.5) + 
@@ -60,7 +60,7 @@ ggplot(data = result, aes(x = state, y = as.numeric(total), fill = state)) +
   scale_y_continuous(breaks = seq(from = 0, to = 45, by = 2)) + 
   theme_minimal() + 
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
-  
+
 
 ```
 ```{r, include = FALSE, message = FALSE}
@@ -112,7 +112,7 @@ Each state has different sets of health facility data, where some states have mo
 For each of these correlation coefficients, it could be reasoned that the H-2A population is correlated with higher state/county population, which may also be correlated with an increased number of healthcare facilities, making state or local population a confounder. Further analysis is necessary.
 
 
-The two negative correlations that are significant, while in the minority, are not surprising. Rural Health Clinics and Community Clinics are expected to be correlated with the lower populations in rural regions, while hospitals, as an example, are expected to be positively correlated with population. This makes the lower correlations between worker density and hospitals a subject for further discussion. 
+The three negative correlations that are significant, while in the minority, are not surprising. Rural Health Clinics and Community Clinics are expected to be correlated with the lower populations in rural regions, while hospitals, as an example, are expected to be positively correlated with population. This makes the lower correlations between worker density and hospitals a subject for further discussion. 
 $\\$
 
 
@@ -132,10 +132,67 @@ kable(h2aPopulationCorrelations, longtable = TRUE, align =c("l", "l", "l", "c", 
 
 ### Correlations Between Environmental Factors and Healthcare Facilities.
 
+
+The following correlations have been adjusted to a per capita context.
+
+
 ```{r}
 weather_facility_load()
-create_response_predictors()
 
+
+responders <- c("Hospitals",
+                "CommunityClinics",
+                "FreeStandingEmergencyDepartments",
+                "RehabilitationHospitals",
+                "RuralClinics",
+                "RuralHealthClinics",
+                "CriticalAccessHospitals",
+                "Mammography",
+                "HomeHealthAgency",
+                "AssistedLivingFacilityTypeI",
+                "AssistedLivingFacilityTypeII",
+                "EndStageRenalDiseaseFacility",
+                "BirthingCenter",
+                "AbortionClinic",
+                "NursingCareFacility",
+                "SmallHealthCareFacility",
+                "SmallHealthCareFacilityTypeN",
+                "PersonalCareAgency"
+)
+
+datasets <- list(
+  colorado_full = colorado_full,
+  wyoming_full = wyoming_full,
+  montana_full = montana_full,
+  southDakota_full = southDakota_full,
+  northDakota_full = northDakota_full,
+  utah_full = utah_full
+)
+
+for (variable in responders) {
+  for (dataset_name in names(datasets)) {
+    dataset <- datasets[[dataset_name]]
+
+    if (variable %in% colnames(dataset)) {
+      dataset[[paste(variable, "PerCapita")]] <- dataset[[variable]] / dataset$`Population2020`
+      dataset[[variable]] <- NULL
+    }
+
+    datasets[[dataset_name]] <- dataset
+  }
+}
+
+colorado_full <- datasets$colorado_full
+wyoming_full <- datasets$wyoming_full
+montana_full <- datasets$montana_full
+southDakota_full <- datasets$southDakota_full
+northDakota_full <- datasets$northDakota_full
+utah_full <- datasets$utah_full
+
+rm(datasets)
+rm(dataset)
+
+create_response_predictors()
 
 colorado_corr <- healthFacility_envir_correlations(colorado_full, response, predictors) |> na.omit()
 utah_corr <- healthFacility_envir_correlations(utah_full, response, predictors) |> na.omit()
@@ -150,6 +207,12 @@ rownames(montana_corr) <- rownames(utah_corr) <- rownames(wyoming_corr) <- rowna
 $\\$
 
 
+Most correlations are not currently statistically significant-- Colorado has the highest proportion of significance of all six states. 
+
+
+I believe the decision to build healthcare facilities is not based around frequency of natural disasters or negative weather. For example, in Colorado Springs (El Paso county), a new UCHealth facility and a new hospital have recently been built in a heavily populated area. Winter weather frequently occurs in Colorado in general, which would explain any substantial correlations between those types of variables and healthcare facilities. 
+
+
 Natural disasters that had zero events have been excluded. These variables are those pertaining to wildfires, earthquakes, coastal flooding, tsunamis, volcanic activity, and hurricanes. All of these variables have been left empty by FEMA. While I do not agree with removing wildfires, it is unwise to perform correlation between a natural disaster and a response variable if, according to the data, the natural disaster in question never occurred during the time period the data pertains to. Predictor variables not specifically pertaining to natural disasters have also been excluded, as they are not variables in question.
 
 
@@ -159,24 +222,31 @@ Correlation between hospitals yield the highest coefficients. Utah and Montana a
 As seen in previous analyses, many correlations have a p-value equal to or very close to zero.
 
 
+One explanation for negative correlations would be that the given healthcare facilities are not in proximity of the natural disasters. More events of the natural disaster happen far away from the health facilities. 
+
+
 ### Colorado:
+
+
+In 2023, Colorado saw the highest number of tornadoes reported per year and reported on a single day. 
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(colorado_corr$Sig==TRUE), "\n")
 cat("Percentage:", round(sum(colorado_corr$Sig==TRUE)/nrow(colorado_corr),4)*100, "%\n")
 cat("Number of Correlations Not Statistically Signifcant:",  sum(colorado_corr$Sig==FALSE), "\n")
-cat("Percentage:", round(sum(colorado_corr$Sig==FALSE)/nrow(colorado_corr),4)*100, "%")
+cat("Percentage:", round(sum(colorado_corr$Sig==FALSE)/nrow(colorado_corr),4)*100, "%\n")
 kable(colorado_corr)
 ```
 $\\$
 
 ### Wyoming:
 
+
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(wyoming_corr$Sig==TRUE), "\n")
 cat("Percentage:", round(sum(wyoming_corr$Sig==TRUE)/nrow(wyoming_corr),4)*100, "%\n")
 cat("Number of Correlations Not Statistically Signifcant:",  sum(wyoming_corr$Sig==FALSE), "\n")
-cat("Percentage:", round(sum(wyoming_corr$Sig==FALSE)/nrow(wyoming_corr),4)*100, "%")
+cat("Percentage:", round(sum(wyoming_corr$Sig==FALSE)/nrow(wyoming_corr),4)*100, "%\n")
 kable(wyoming_corr)
 ```
 $\\$
@@ -190,7 +260,7 @@ Correlations with type II assisted living facilities have the highest coefficien
 cat("Number of Correlations Statistically Signifcant:", sum(utah_corr$Sig==TRUE), "\n")
 cat("Percentage:", round(sum(utah_corr$Sig==TRUE)/nrow(utah_corr),4)*100, "%\n")
 cat("Number of Correlations Not Statistically Signifcant:",  sum(utah_corr$Sig==FALSE), "\n")
-cat("Percentage:", round(sum(utah_corr$Sig==FALSE)/nrow(utah_corr),4)*100, "%")
+cat("Percentage:", round(sum(utah_corr$Sig==FALSE)/nrow(utah_corr),4)*100, "%\n")
 kable(utah_corr)
 ```
 $\\$
@@ -198,13 +268,13 @@ $\\$
 ### South Dakota:
 
 
-The top 4 highest correlation coefficients come from Riverine Flooding.
+The top 4 highest correlation coefficients come from Riverine Flooding. The highest correlations suggest medium-strength correlations at best.
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(southDakota_corr$Sig==TRUE), "\n")
 cat("Percentage:", round(sum(southDakota_corr$Sig==TRUE)/nrow(southDakota_corr),4)*100, "%\n")
 cat("Number of Correlations Not Statistically Signifcant:",  sum(southDakota_corr$Sig==FALSE), "\n")
-cat("Percentage:", round(sum(southDakota_corr$Sig==FALSE)/nrow(southDakota_corr),4)*100, "%")
+cat("Percentage:", round(sum(southDakota_corr$Sig==FALSE)/nrow(southDakota_corr),4)*100, "%\n")
 kable(southDakota_corr)
 ```
 $\\$
@@ -212,13 +282,13 @@ $\\$
 ### North Dakota:
 
 
-North Dakota has fairly medium-strength correlations at best, which follow the trend mentioned above.
+North Dakota has weak correlations. Nearly all correlations found are not statistically significant.
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(northDakota_corr$Sig==TRUE), "\n")
 cat("Percentage:", round(sum(northDakota_corr$Sig==TRUE)/nrow(northDakota_corr),4)*100, "%\n")
 cat("Number of Correlations Not Statistically Signifcant:",  sum(northDakota_corr$Sig==FALSE), "\n")
-cat("Percentage:", round(sum(northDakota_corr$Sig==FALSE)/nrow(northDakota_corr),4)*100, "%")
+cat("Percentage:", round(sum(northDakota_corr$Sig==FALSE)/nrow(northDakota_corr),4)*100, "%\n")
 kable(northDakota_corr)
 ```
 $\\$
@@ -226,13 +296,17 @@ $\\$
 ##### Montana:
 
 
-Montana also has medium-strength correlations at best, but the highest coefficients come from rural clinics. This might be due to 47.1 percent of Montana's population living in rural places. However, South Dakota has a slightly higher percentage of rural residents but has weaker correlations with rural clinics.
+Before making the per capita adjustment, Montana had medium-strength correlations at best, but the highest coefficients come from rural clinics. This might be due to 47.1 percent of Montana's population living in rural places. However, South Dakota has a slightly higher percentage of rural residents but has weaker correlations with rural clinics. Only a small number of correlations are statistically significant.
+
+
+Lightning and migrant health centers correlated the most.
+
 
 
 ```{r}
 cat("Number of Correlations Statistically Signifcant:", sum(montana_corr$Sig==TRUE), "\n")
 cat("Percentage:", round(sum(montana_corr$Sig==TRUE)/nrow(montana_corr),4)*100, "%\n")
 cat("Number of Correlations Not Statistically Signifcant:",  sum(montana_corr$Sig==FALSE), "\n")
-cat("Percentage:", round(sum(montana_corr$Sig==FALSE)/nrow(montana_corr),4)*100, "%")
+cat("Percentage:", round(sum(montana_corr$Sig==FALSE)/nrow(montana_corr),4)*100, "%\n")
 kable(montana_corr)
 ```

@@ -45,7 +45,6 @@ Colorado,Summit,2
 Colorado,Washington,11
 Colorado,Weld,288
 Colorado,Yuma,68
-Colorado,#N/A,30
 Montana,Beaverhead,185
 Montana,Big Horn,49
 Montana,Blaine,61
@@ -100,7 +99,6 @@ Montana,Valley,54
 Montana,Wheatland,12
 Montana,Wibaux,13
 Montana,Yellowstone,69
-Montana,#N/A,22
 North Dakota,Adams,31
 North Dakota,Barnes,41
 North Dakota,Benson,48
@@ -158,7 +156,6 @@ North Dakota,Ward,178
 North Dakota,Wells,113
 North Dakota,Wilkin,3
 North Dakota,Williams,110
-North Dakota,#N/A,69
 South Dakota,Aurora,15
 South Dakota,Beadle,80
 South Dakota,Bennett,7
@@ -217,7 +214,6 @@ South Dakota,Union,10
 South Dakota,Walworth,14
 South Dakota,Yankton,16
 South Dakota,Ziebach,7
-South Dakota,#N/A,5
 Utah,Beaver,5
 Utah,Box Elder,116
 Utah,Cache,24
@@ -242,7 +238,6 @@ Utah,Wasatch,17
 Utah,Washington,6
 Utah,Wayne,14
 Utah,Weber,133
-Utah,#N/A,61
 Wyoming,Albany,1
 Wyoming,Big Horn,56
 Wyoming,Campbell,8
@@ -267,4 +262,3 @@ Wyoming,Teton,5
 Wyoming,Uinta,46
 Wyoming,Washakie,13
 Wyoming,Weston,2
-Wyoming,#N/A,12

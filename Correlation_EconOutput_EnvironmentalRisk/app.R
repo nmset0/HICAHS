@@ -80,7 +80,7 @@ server <- function(input, output, session) {
   )
 
   # Load the preprocessed data
-  output_environmentalRisk <- readRDS("output_EnvironmentalRisk.rds")
+  output_environmentalRisk <- readRDS("~/internship/Correlation_EconOutput_EnvironmentalRisk/output_EnvironmentalRisk.rds")
 
   # Define environmental risk variables
   environmental_risk_vars <- list(

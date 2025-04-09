@@ -166,8 +166,10 @@ weather_facility_load <- function() {
   data_frames <- list(colorado, montana, north_dakota, south_dakota, utah, wyoming)
   full_data_list <- list()
 
+
+
   # Process data for each state
-  for (i in seq_along(states)) {
+  for (i in seq_along(data_frames)) {
     state_disaster <- subset(disaster, state == states[i])
     full_data <- left_join(state_disaster, data_frames[[i]], by = 'county') |>
       select(-state.y) |>
@@ -219,26 +221,28 @@ weather_facility_load <- function() {
 
 
 
+
+
 create_response_predictors <- function() {
   # data_frames2 <- list(colorado_full, montana_full, northDakota_full, southDakota_full, utah_full, wyoming_full)
-  response_variables <- c("Hospitals",
-                          "CommunityClinics",
-                          "FreeStandingEmergencyDepartments",
-                          "RehabilitationHospitals",
-                          "RuralClinics",
-                          "RuralHealthClinics",
-                          "CriticalAccessHospitals",
-                          "Mammography",
-                          "HomeHealthAgency",
-                          "AssistedLivingFacilityTypeI",
-                          "AssistedLivingFacilityTypeII",
-                          "EndStageRenalDiseaseFacility",
-                          "BirthingCenter",
-                          "AbortionClinic",
-                          "NursingCareFacility",
-                          "SmallHealthCareFacility",
-                          "SmallHealthCareFacilityTypeN",
-                          "PersonalCareAgency",
+  response_variables <- c("Hospitals PerCapita",
+                          "CommunityClinics PerCapita",
+                          "FreeStandingEmergencyDepartments PerCapita",
+                          "RehabilitationHospitals PerCapita",
+                          "RuralClinics PerCapita",
+                          "RuralHealthClinics PerCapita",
+                          "CriticalAccessHospitals PerCapita",
+                          "Mammography PerCapita",
+                          "HomeHealthAgency PerCapita",
+                          "AssistedLivingFacilityTypeI PerCapita",
+                          "AssistedLivingFacilityTypeII PerCapita",
+                          "EndStageRenalDiseaseFacility PerCapita",
+                          "BirthingCenter PerCapita",
+                          "AbortionClinic PerCapita",
+                          "NursingCareFacility PerCapita",
+                          "SmallHealthCareFacility PerCapita",
+                          "SmallHealthCareFacilityTypeN PerCapita",
+                          "PersonalCareAgency PerCapita",
                           "MigrantHealthCenters")
 
   predictor_variables <- setdiff(colnames(colorado_full), response_variables)[-c(1:5)]
