@@ -30,10 +30,14 @@ SDH <- read_excel("workspace/Health Facility Data/SouthDakotaHealth24_xlsx.xlsx"
 NDH <- read_excel("workspace/Health Facility Data/NorthDakotaHealth24_xlsx.xlsx", sheet = 1)
 UTH <- read_excel("workspace/Health Facility Data/UtahHealth24_xlsx.xlsx", sheet = 2)
 MTH <- read_excel("workspace/Health Facility Data/MontanaHealth24_xlsx.xlsx", sheet = 1)
+
+response <- character()
+predictor <- character()
 #--------------------------------------------------------------------------------------------------------------------------#
 # Cleaning:
 ENV$county[ENV$county == "lamoure"] <- "la moure"
 ENV <- ENV |> select(-matches("coastal|hurricane|tsunami|volcanic", ignore.case = TRUE))
+AGO[] <- lapply(AGO, function(col) gsub(",", "", col))
 
 WYH$county <- gsub(" County", "", WYH$county)
 MTH$county <- str_to_title(MTH$county)
@@ -133,15 +137,16 @@ BURN_CORR <- data.frame(Variable = character(),
                         Correlation = numeric(),
                         PValue = numeric() )
 
-for (col in colnames(BURN)) {
-  test <- cor.test(BURN$H2A_workers, BURN[[col]], method = "spearman", use = "complete.obs", exact = F)
-  BURN_CORR <- rbind(BURN_CORR, data.frame(Variable = col,
+for (predictor in colnames(BURN)) {
+  test <- cor.test(BURN$H2A_workers, BURN[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+  BURN_CORR <- rbind(BURN_CORR, data.frame(Variable = predictor,
                                            Correlation = round(test$estimate, 3),
                                            PValue = round(test$p.value,3 )))
 }
 
 BURN_CORR <- BURN_CORR |> arrange(desc(Correlation))
 BURN_CORR$Significance <- ifelse(BURN_CORR$PValue <= 0.05, TRUE, FALSE)
+BURN_CORR <- BURN_CORR[-1,]
 rownames(BURN_CORR) <- NULL
 kable(BURN_CORR, caption = "Correlation Between H-2A Population and Fire/Heat Environmental Risk")
 
@@ -151,12 +156,12 @@ PMAT <- cor_pmat(COR_MTX)
 ggcorrplot(
   COR_MTX,
   p.mat = PMAT,
-  method = "circle",
+  method = "square",
   type = "lower",
   outline.color = "black",
   sig.level = 0.05,
   insig = "blank",
-  lab = FALSE,
+  lab = T,
   lab_size = 1.7,
   legend.title = "Correlation"
 ) +
@@ -174,7 +179,7 @@ MHC_CORR <- data.frame(Variable = character(),
                        Correlation = numeric(),
                        PValue = numeric() )
 
-test <- cor.test(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method = "spearman", use = "complete.obs", exact = F)
+test <- cor.test(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
 MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
                                        Correlation = round(test$estimate, 3),
                                        PValue = round(test$p.value, 3 )))
@@ -209,8 +214,8 @@ FIRE_CORR <- data.frame(Response = character(),
 
 for (response in colnames(FIRE_HC)) {
   for( predictor in colnames(FIRE_PRED)) {
-    FIRE_test <- cor.test(FIRE_HC[[response]], FIRE_PRED[[predictor]], method = "spearman", use = "complete.obs", exact = F)
-    FIRE_CORR <- rbind(FIRE_CORR, data.frame(Response = response, Predictor = predictor, Correlation = round(FIRE_test$estimate, 3), PValue = round(FIRE_test$p.value, 3) ))
+    FIRE_test <- cor.test(FIRE_HC[[response]], FIRE_PRED[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+    FIRE_CORR <- rbind(FIRE_CORR, data.frame(Response = response, Predictor = predictor, Correlation = round(FIRE_test$estimate, 3), PValue = round(FIRE_test$p.value, 3)))
   }
 }
 
@@ -220,4 +225,51 @@ rownames(FIRE_CORR) <- NULL
 kable(FIRE_CORR, caption = "Correlation between healthcare facilities and Fire/Heat Environmental Risk")
 #--------------------------------------------------------------------------------------------------------------------------#
 # 4) Correlation between farm sales & Wildfire/Drought/HeatWave Exposure
+
+BLAZE_PRED <- JOIN_CUT |> select(matches("drought|wildfire|heat|heatwave"))
+BLAZE_AGO <- JOIN_CUT |> select(intersect(colnames(AGO), colnames(JOIN_CUT))) |> select(-state, -county)
+BLAZE_AGO[] <- lapply(BLAZE_AGO, as.numeric)
+BLAZE_AGO[is.na(BLAZE_AGO)] <- 0
+BLAZE <- cbind(BLAZE_PRED, BLAZE_AGO)
+
+response <- character()
+predictor <- character()
+
+BLAZE_CORR <- data.frame(Predictor = character(),
+                        Response = character(),
+                        Correlation = numeric(),
+                        PValue = numeric())
+
+for (response in colnames(BLAZE_AGO)) {
+  for (predictor in colnames(BLAZE_PRED)) {
+      BLAZE_test <- cor.test(BLAZE_AGO[[response]], BLAZE_PRED[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+      BLAZE_CORR <- rbind(BLAZE_CORR, data.frame(Predictor = predictor, Response = response, Correlation = round(BLAZE_test$estimate, 3), PValue = round(BLAZE_test$p.value, 3)))
+  }
+}
+
+BLAZE_CORR <- BLAZE_CORR |> arrange(desc(Correlation))
+BLAZE_CORR$Significance <- ifelse(BLAZE_CORR$PValue <= 0.05, TRUE, FALSE)
+rownames(BLAZE_CORR) <- NULL
+kable(BLAZE_CORR, caption = "Correlation between Farm output and Wildfire/Drought/HeatWave Exposure")
+
+# Corrplot
+COR_MTX <- round(cor(BLAZE, method = "spearman", use = "complete.obs"), 2)
+PMAT <- cor_pmat(COR_MTX)
+ggcorrplot(
+  COR_MTX,
+  p.mat = PMAT,
+  method = "square",
+  type = "lower",
+  outline.color = "black",
+  sig.level = 0.05,
+  insig = "blank",
+  lab = T,
+  lab_size = 1.7,
+  legend.title = "Correlation"
+) +
+  theme(
+    axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
+    axis.text.y = element_text(size = 6.5)
+  )
+#--------------------------------------------------------------------------------------------------------------------------#
 
