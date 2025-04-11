@@ -43,6 +43,8 @@ ag_output_wide <- ag_output_wide |>
     add_row(county = "san juan", state = "colorado", .before = 57) |>
       slice(c(1:20, 22, 21, 23:n())) |>
         slice(c(1:33, 35, 34, 36:n()))
+
+write_csv(ag_output_wide, file = "~/internship/workspace/Written Datasets/ag_output_clean.csv")
 #-----------------------------Natural Disaster Data--------------------------------------#
 # colnames to lower case
 disaster <- as.data.frame(lapply(disaster, function(x) {

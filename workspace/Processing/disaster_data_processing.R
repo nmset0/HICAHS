@@ -64,7 +64,7 @@ disaster_5 <- disaster_raw |>
 disaster_5 <- disaster_5[, colSums(disaster_5 != 0) > 0]
 
 disaster_6 <- disaster_2 |>
-  select(names(disaster_2)[2:8], matches("Hail|Lightning|Tornado|Heat|Cold|WinterWeather|Drought|Ice|Landslide|Riverine|StrongWind|Avalanche", ignore.case = TRUE))
+  select(names(disaster_2)[2:8], matches("Wildfire|Hail|Lightning|Tornado|Heat|Cold|WinterWeather|Drought|Ice|Landslide|Riverine|StrongWind|Avalanche", ignore.case = TRUE))
 
 
 write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")

@@ -43,9 +43,9 @@ breaks <- c(0, 47, 102, 160, 219, 244, 269) # Indices
   labels <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
     h2a_by_county_new$state <- cut(seq_len(nrow(h2a_by_county_new)), breaks = breaks, labels = labels, right = TRUE)
 
-h2a_by_county_new <- h2a_by_county_new |> filter(row_number() <= n()-1)
+h2a_by_county_new <- h2a_by_county_new[-1,]
 
-# write_csv(h2a_by_county_new, file = "~/internship/workspace/h2a_by_county_new.csv")
+# write_csv(h2a_by_county_new, file = "~/internship/workspace/Written Datasets/h2a_by_county_new.csv")
 #______________________________________________________________________________________________________________________#
 # Heat data
 CountyMaxTemp_JUL23 <- as.data.frame(read_csv("HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv"))
@@ -73,7 +73,7 @@ MaxTemp_H2AWorkers <- MaxTemp_H2AWorkers |> rename(county = name) |>
   rename(max_temp = value) |>
   rename(anomaly = `anomaly (1901-2000 base period)`)
 
-# write_csv(MaxTemp_H2AWorkers, file = "Risk_H2AWorkers.csv")
+# write_csv(MaxTemp_H2AWorkers, file = "~/internship/workspace/Written Datasets/Risk_H2AWorkers.csv")
 
 ggplot(data = MaxTemp_H2AWorkers, aes(x = max_temp, y = total_workers_h2a)) +
   geom_point(aes(color = state)) +
