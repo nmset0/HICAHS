@@ -232,6 +232,22 @@ BLAZE_AGO[] <- lapply(BLAZE_AGO, as.numeric)
 BLAZE_AGO[is.na(BLAZE_AGO)] <- 0
 BLAZE <- cbind(BLAZE_PRED, BLAZE_AGO)
 
+colnames(BLAZE) <- gsub("_", " ", colnames(BLAZE))
+colnames(BLAZE) <- gsub("\\b([a-z])", "\\U\\1", colnames(BLAZE), perl = TRUE)
+colnames(BLAZE) <- gsub(" ", "", colnames(BLAZE))
+colnames(BLAZE) <- gsub("\\$", "Dollars", colnames(BLAZE))
+
+colnames(BLAZE_AGO) <- gsub("_", " ", colnames(BLAZE_AGO))
+colnames(BLAZE_AGO) <- gsub("\\b([a-z])", "\\U\\1", colnames(BLAZE_AGO), perl = TRUE)
+colnames(BLAZE_AGO) <- gsub(" ", "", colnames(BLAZE_AGO))
+colnames(BLAZE_AGO) <- gsub("\\$", "Dollars", colnames(BLAZE_AGO))
+
+colnames(BLAZE_PRED) <- gsub("_", " ", colnames(BLAZE_PRED))
+colnames(BLAZE_PRED) <- gsub("\\b([a-z])", "\\U\\1", colnames(BLAZE_PRED), perl = TRUE)
+colnames(BLAZE_PRED) <- gsub(" ", "", colnames(BLAZE_PRED))
+colnames(BLAZE_PRED) <- gsub("\\$", "Dollars", colnames(BLAZE_PRED))
+
+
 response <- character()
 predictor <- character()
 
@@ -242,7 +258,7 @@ BLAZE_CORR <- data.frame(Predictor = character(),
 
 for (response in colnames(BLAZE_AGO)) {
   for (predictor in colnames(BLAZE_PRED)) {
-      BLAZE_test <- cor.test(BLAZE_AGO[[response]], BLAZE_PRED[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+      BLAZE_test <- cor.test(BLAZE[[response]], BLAZE[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
       BLAZE_CORR <- rbind(BLAZE_CORR, data.frame(Predictor = predictor, Response = response, Correlation = round(BLAZE_test$estimate, 3), PValue = round(BLAZE_test$p.value, 3)))
   }
 }
@@ -264,7 +280,7 @@ ggcorrplot(
   sig.level = 0.05,
   insig = "blank",
   lab = T,
-  lab_size = 1.7,
+  lab_size = 1.34,
   legend.title = "Correlation"
 ) +
   theme(
