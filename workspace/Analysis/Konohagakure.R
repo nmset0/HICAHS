@@ -1,0 +1,223 @@
+# Main Goals:
+# 1) Correlation between H-2A population & Wildfire/Drought/HeatWave Exposure, Jul/Aug Max Temp
+# 2) Correlation between H-2A population & migrant healthcare centers
+# 3) Correlation between healthcare facilities, migrant healthcare centers & Wildfire/Drought/HeatWave Exposure
+# 4) Correlation between farm sales & Wildfire/Drought/HeatWave Exposure
+#--------------------------------------------------------------------------------------------------------------------------#
+# Packages:
+library(tidyverse)
+library(readxl)
+library(ggcorrplot)
+library(leaflet)
+library(leaflet.extras)
+library(magrittr)
+library(sf)
+library(knitr)
+#--------------------------------------------------------------------------------------------------------------------------#
+# Data:
+H2A <- read_csv("workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
+MHC <- read_csv("workspace/migrant_health_centers_ncfh.csv") # Migrant health centers
+ENV <- read_csv("workspace/Written Datasets/disaster_cut_clean.csv") # Natural disaster and weather risk
+AGO <- read_csv("workspace/Written Datasets/ag_output_clean.csv") # Agricultural output
+JUL23 <- read_csv("HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv") # Maximum temperature data for July 2023
+AUG23 <- read_csv("HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_AUG23.csv") # Maximum temperature data for August 2023
+
+# Healthcare facilities in each state
+# (Cannot bind due to differing number of columns)
+COH <- read_excel("workspace/Health Facility Data/ColoradoHealth24_xlsx.xlsx", sheet = 2)
+WYH <- read_excel("workspace/Health Facility Data/WyomingHealth24_xlsx.xlsx", sheet = 2)
+SDH <- read_excel("workspace/Health Facility Data/SouthDakotaHealth24_xlsx.xlsx", sheet = 2)
+NDH <- read_excel("workspace/Health Facility Data/NorthDakotaHealth24_xlsx.xlsx", sheet = 1)
+UTH <- read_excel("workspace/Health Facility Data/UtahHealth24_xlsx.xlsx", sheet = 2)
+MTH <- read_excel("workspace/Health Facility Data/MontanaHealth24_xlsx.xlsx", sheet = 1)
+#--------------------------------------------------------------------------------------------------------------------------#
+# Cleaning:
+ENV$county[ENV$county == "lamoure"] <- "la moure"
+ENV <- ENV |> select(-matches("coastal|hurricane|tsunami|volcanic", ignore.case = TRUE))
+
+WYH$county <- gsub(" County", "", WYH$county)
+MTH$county <- str_to_title(MTH$county)
+
+COH$state <- str_to_title(COH$state)
+WYH$state <- str_to_title(WYH$state)
+SDH$state <- str_to_title(SDH$state)
+NDH$state <- str_to_title(NDH$state)
+UTH$state <- str_to_title(UTH$state)
+MTH$state <- str_to_title(MTH$state)
+
+JUL23$Name <- gsub(" County", "", JUL23$Name)
+AUG23$Name <- gsub(" County", "", AUG23$Name)
+
+JUL23 <- JUL23 |> rename(Jul2023_MaxTemp = Value)
+AUG23 <- AUG23 |> rename(Aug2023_MaxTemp = Value)
+
+JUL23 <- JUL23 |> mutate(year = 2023, month = "July", .before = Name)
+AUG23 <- AUG23 |> mutate(year = 2023, month = "August", .before = Name)
+
+JUL23 <- JUL23 |> rename(county = Name) |> rename(state = State) |> rename(`July1901-2000Mean` = `1901-2000 Mean`)
+AUG23 <- AUG23 |> rename(county = Name) |> rename(state = State) |> rename(`Aug1901-2000Mean` = `1901-2000 Mean`)
+
+# Column uniformity
+H2A$county <- str_to_title(H2A$county)
+MHC$county <- str_to_title(MHC$county)
+ENV$county <- str_to_title(ENV$county)
+AGO$county <- str_to_title(AGO$county)
+
+H2A$state <- str_to_title(H2A$state)
+MHC$state <- str_to_title(MHC$state)
+ENV$state <- str_to_title(ENV$state)
+AGO$state <- str_to_title(AGO$state)
+AUG23$state <- str_to_title(AUG23$state)
+JUL23$state <- str_to_title(JUL23$state)
+
+# Sum number of migrant health facilities per county
+MHC_sum <- MHC |>
+  group_by(state, county) |>
+  summarise(MigrantHealthCenters = n(), .groups = "drop")
+#--------------------------------------------------------------------------------------------------------------------------#
+# Binding all data together into one data set to work with:
+JOIN <- left_join(ENV, H2A, by = c("state", "county")) # Join H-2A worker totals and natural disaster data sets
+JOIN <- left_join(JOIN, AGO, by = c("state", "county")) # Join agricultural output data set
+JOIN <- left_join(JOIN, MHC_sum, by = c("state", "county")) # Join migrant health center counts
+JOIN <- JOIN |>
+  left_join(COH, by = c("state", "county")) |>
+  left_join(WYH, by = c("state", "county")) |>
+  left_join(SDH, by = c("state", "county")) |>
+  left_join(NDH, by = c("state", "county")) |>
+  left_join(UTH, by = c("state", "county")) |>
+  left_join(MTH, by = c("state", "county"))
+
+JOIN <- JOIN |> mutate(MigrantHealthCenters = ifelse(is.na(MigrantHealthCenters), 0, MigrantHealthCenters))
+JOIN <- JOIN |> select(-grep("abbrev", colnames(JOIN), ignore.case = T))
+
+JOIN <- JOIN |> mutate(Hospitals = coalesce(Hospitals.x, Hospitals.y, Hospitals.x.x, Hospitals.y.y, Hospitals.x.x.x, Hospitals.y.y.y))
+JOIN <- JOIN |> select(-Hospitals.x, -Hospitals.y, -Hospitals.x.x, -Hospitals.y.y, -Hospitals.x.x.x, -Hospitals.y.y.y)
+
+JOIN <- JOIN |> mutate(`Rural_Health_Clinics` = coalesce(Rural_Health_Clinics.x, Rural_Health_Clinics.y))
+JOIN <- JOIN |> select(-Rural_Health_Clinics.x, -Rural_Health_Clinics.y)
+#--------------------------------------------------------------------------------------------------------------------------#
+# Subsetting
+JOIN_CUT <- JOIN |>
+  select(
+    "state",
+    "county",
+    "Population2020",
+    "BuildingValue",
+    "AgricultureValue",
+    "Areasqmi",
+    "H2A_workers",
+    grep(
+      "income|sales|farm_sales|income_net_|commodity_totals|crop_totals_sales|drought|wildfire|heat|heatwave",
+      colnames(JOIN),
+      ignore.case = TRUE
+    ),
+    349:length(JOIN)
+  )
+
+# Very simplified subset of risk variables
+JOIN_CUT <- JOIN_CUT |> select(-grep("Expected|wheat|cattle|hogs|chickens|receipts|historic|index", colnames(JOIN_CUT), ignore.case = T))
+# Filling NAs
+JOIN_CUT[sapply(JOIN_CUT, is.numeric)] <- lapply(JOIN_CUT[sapply(JOIN_CUT, is.numeric)], function(x) ifelse(is.na(x), 0, x))
+# Deleting empty columns
+JOIN_CUT <- JOIN_CUT[, colSums(!is.na(JOIN_CUT)) > 0]
+
+JOIN_CUT <- JOIN_CUT |> left_join(JUL23 |>
+                                    select(state, county, Jul2023_MaxTemp, `July1901-2000Mean`), by = c("state", "county")) |>
+  left_join(AUG23 |>
+              select(state, county, Aug2023_MaxTemp, `Aug1901-2000Mean`), by = c("state", "county"))
+#--------------------------------------------------------------------------------------------------------------------------#
+# 1) Correlation between H-2A population & Wildfire/Drought/HeatWave Exposure, Jul/Aug Max Temp & 99-year Mean Temp
+
+BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))
+BURN_CORR <- data.frame(Variable = character(),
+                        Correlation = numeric(),
+                        PValue = numeric() )
+
+for (col in colnames(BURN)) {
+  test <- cor.test(BURN$H2A_workers, BURN[[col]], method = "spearman", use = "complete.obs", exact = F)
+  BURN_CORR <- rbind(BURN_CORR, data.frame(Variable = col,
+                                           Correlation = round(test$estimate, 3),
+                                           PValue = round(test$p.value,3 )))
+}
+
+BURN_CORR <- BURN_CORR |> arrange(desc(Correlation))
+BURN_CORR$Significance <- ifelse(BURN_CORR$PValue <= 0.05, TRUE, FALSE)
+rownames(BURN_CORR) <- NULL
+kable(BURN_CORR, caption = "Correlation Between H-2A Population and Fire/Heat Environmental Risk")
+
+# Corrplot
+COR_MTX <- round(cor(BURN, method = "spearman", use = "complete.obs"), 2)
+PMAT <- cor_pmat(COR_MTX)
+ggcorrplot(
+  COR_MTX,
+  p.mat = PMAT,
+  method = "circle",
+  type = "lower",
+  outline.color = "black",
+  sig.level = 0.05,
+  insig = "blank",
+  lab = FALSE,
+  lab_size = 1.7,
+  legend.title = "Correlation"
+) +
+  theme(
+    axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
+    axis.text.y = element_text(size = 6.5)
+  )
+#--------------------------------------------------------------------------------------------------------------------------#
+# 2) Correlation between H-2A population & migrant healthcare centers
+
+H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
+H2AMHC$MigrantHealthCenters[is.na(H2AMHC$MigrantHealthCenters)] <- 0
+
+MHC_CORR <- data.frame(Variable = character(),
+                       Correlation = numeric(),
+                       PValue = numeric() )
+
+test <- cor.test(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method = "spearman", use = "complete.obs", exact = F)
+MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
+                                       Correlation = round(test$estimate, 3),
+                                       PValue = round(test$p.value, 3 )))
+
+MHC_CORR$Significance <- ifelse(MHC_CORR$PValue <= 0.05, TRUE, FALSE)
+rownames(MHC_CORR) <- NULL
+kable(MHC_CORR, caption = "Correlation between H-2A Population and Migrant Health Centers")
+# Low Correlation: Gap in healthcare for migrant workers (statistically significant)
+#--------------------------------------------------------------------------------------------------------------------------#
+# 3) Correlation between healthcare facilities per capita, migrant healthcare centers (not adjusted) & Wildfire/Drought/Heat Wave Exposure
+
+FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
+colnames(FIRE) <- gsub(" ", "", colnames(FIRE))
+
+FIRE_HC <- FIRE |> select(1:20)
+FIRE_HC <- cbind(FIRE_HC, Population2020 = JOIN$Population2020)
+FIRE_HC <- FIRE_HC |>
+  mutate(across(
+    .cols = -c(MigrantHealthCenters, Population2020),
+    .fns = ~ .x / Population2020
+  ))
+colnames(FIRE_HC)[!colnames(FIRE_HC) %in% c("MigrantHealthWorkers", "Population2020")] <-
+  paste0(colnames(FIRE_HC)[!colnames(FIRE_HC) %in% c("MigrantHealthWorkers", "Population2020")], "PerCapita")
+FIRE_HC <- FIRE_HC |> select(-Population2020)
+
+FIRE_PRED <- FIRE |> select(21:length(FIRE))
+
+FIRE_CORR <- data.frame(Response = character(),
+                        Predictor = character(),
+                        Correlation = numeric(),
+                        PValue = numeric() )
+
+for (response in colnames(FIRE_HC)) {
+  for( predictor in colnames(FIRE_PRED)) {
+    FIRE_test <- cor.test(FIRE_HC[[response]], FIRE_PRED[[predictor]], method = "spearman", use = "complete.obs", exact = F)
+    FIRE_CORR <- rbind(FIRE_CORR, data.frame(Response = response, Predictor = predictor, Correlation = round(FIRE_test$estimate, 3), PValue = round(FIRE_test$p.value, 3) ))
+  }
+}
+
+FIRE_CORR <- FIRE_CORR |> arrange(desc(Correlation))
+FIRE_CORR$Significance <- ifelse(FIRE_CORR$PValue <= 0.05, TRUE, FALSE)
+rownames(FIRE_CORR) <- NULL
+kable(FIRE_CORR, caption = "Correlation between healthcare facilities and Fire/Heat Environmental Risk")
+#--------------------------------------------------------------------------------------------------------------------------#
+# 4) Correlation between farm sales & Wildfire/Drought/HeatWave Exposure
+
