@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r setup, include = FALSE}
+```{r setup, include = FALSE, message=FALSE,warning=FALSE}
 library(tidyverse)
 library(readxl)
 library(ggcorrplot)
@@ -18,7 +18,7 @@ library(knitr)
 opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 ```
 
-```{r data}
+```{r data, message=FALSE, warning=FALSE}
 # Data:
 H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
 MHC <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv") # Migrant health centers
@@ -35,6 +35,9 @@ SDH <- read_excel("~/internship/workspace/Health Facility Data/SouthDakotaHealth
 NDH <- read_excel("~/internship/workspace/Health Facility Data/NorthDakotaHealth24_xlsx.xlsx", sheet = 1)
 UTH <- read_excel("~/internship/workspace/Health Facility Data/UtahHealth24_xlsx.xlsx", sheet = 2)
 MTH <- read_excel("~/internship/workspace/Health Facility Data/MontanaHealth24_xlsx.xlsx", sheet = 1)
+
+# Shape file for mapping
+HICAHS_SHP <- invisible(st_read("~/internship/workspace/tl_2024_us_state/tl_2024_us_state.shp"))
 
 response <- character()
 predictor <- character()
@@ -80,6 +83,9 @@ ENV$state <- str_to_title(ENV$state)
 AGO$state <- str_to_title(AGO$state)
 AUG23$state <- str_to_title(AUG23$state)
 JUL23$state <- str_to_title(JUL23$state)
+
+# Adding latitude and longitude for mapping
+MHC <- MHC |> separate(geolocation, into = c("latitude", "longitude"), sep = ",", convert = TRUE)
 
 # Sum number of migrant health facilities per county
 MHC_sum <- MHC |>
@@ -134,14 +140,80 @@ JOIN_CUT[sapply(JOIN_CUT, is.numeric)] <- lapply(JOIN_CUT[sapply(JOIN_CUT, is.nu
 # Deleting empty columns
 JOIN_CUT <- JOIN_CUT[, colSums(!is.na(JOIN_CUT)) > 0]
 
-JOIN_CUT <- JOIN_CUT |> left_join(JUL23 |>
-                                    select(state, county, Jul2023_MaxTemp, `July1901-2000Mean`), by = c("state", "county")) |>
-  left_join(AUG23 |>
-              select(state, county, Aug2023_MaxTemp, `Aug1901-2000Mean`), by = c("state", "county"))
+JOIN_CUT <- JOIN_CUT |> 
+  left_join(JUL23 |> select(state, county, Jul2023_MaxTemp, `July1901-2000Mean`), by = c("state", "county")) |> 
+  left_join(AUG23 |> select(state, county, Aug2023_MaxTemp, `Aug1901-2000Mean`), by = c("state", "county"))
 ```
 
 
-## Correlation between H-2A population & Wildfire/Drought/HeatWave Exposure, Jul/Aug Max Temp & 99-year Mean Temp
+## Exploration
+
+
+```{r}
+GGDAT <- MHC_sum |> 
+  group_by(state) |> 
+  summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
+
+GGDAT <- rbind(GGDAT, c("South Dakota", 0), c("Wyoming", 0))
+
+ggplot(data = GGDAT, aes(x = state, y = as.numeric(total))) + 
+  geom_bar(stat = "identity", color = "black", fill = "forestgreen", width = .75) + 
+  labs(x = "State", y = "Migrant Health Centers", title = "Migrant Health Centers Per State (NCFH 2023)") + 
+  scale_y_continuous(breaks = seq(from = 0, to = 40, by = 2)) + 
+  theme_minimal() + 
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+```
+
+
+```{r}
+
+selected_states <- HICAHS_SHP[HICAHS_SHP$NAME %in% c("Wyoming", "Colorado", "Montana", "Utah", "North Dakota", "South Dakota"), ]
+map <- leaflet(MHC) |> 
+  addTiles() |> 
+  setView(lng = -104.001838, lat = 42.073804, zoom = 5.45) |> 
+  addProviderTiles(providers$Esri.WorldTopoMap) |> 
+  addCircleMarkers(lng = ~longitude, lat = ~latitude,
+                   fill = TRUE, 
+                   fillColor = "blue", 
+                   fillOpacity = 1,
+                   stroke = TRUE, 
+                   color = "blue", 
+                   radius = 3.5) |> 
+  addPolygons(data = selected_states,
+              fill = FALSE,
+              color = "black",
+              weight = 0.5,
+              opacity = 1)
+
+map
+```
+
+
+## Correlation between H-2A population and migrant healthcare centers
+
+
+```{r}
+H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
+H2AMHC$MigrantHealthCenters[is.na(H2AMHC$MigrantHealthCenters)] <- 0
+
+MHC_CORR <- data.frame(Variable = character(),
+                       Correlation = numeric(),
+                       PValue = numeric() )
+
+test <- cor.test(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
+                                       Correlation = round(test$estimate, 3),
+                                       PValue = round(test$p.value, 3 )))
+
+MHC_CORR$Significance <- ifelse(MHC_CORR$PValue <= 0.05, TRUE, FALSE)
+rownames(MHC_CORR) <- NULL
+kable(MHC_CORR, caption = "Correlation between H-2A Population and Migrant Health Centers")
+# Low Correlation: Gap in healthcare for migrant workers (statistically significant)
+```
+
+
+## Correlation between H-2A population and wildfire, drought, and heat wave exposure, and temperature
+
 
 ```{r}
 BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))
@@ -184,29 +256,8 @@ ggcorrplot(
 ```
 
 
-## Correlation between H-2A population & migrant healthcare centers
+## Correlation between healthcare facilities per capita, migrant healthcare centers (not adjusted) and wildfire, drought, and heat wave exposure
 
-```{r}
-H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
-H2AMHC$MigrantHealthCenters[is.na(H2AMHC$MigrantHealthCenters)] <- 0
-
-MHC_CORR <- data.frame(Variable = character(),
-                       Correlation = numeric(),
-                       PValue = numeric() )
-
-test <- cor.test(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
-MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
-                                       Correlation = round(test$estimate, 3),
-                                       PValue = round(test$p.value, 3 )))
-
-MHC_CORR$Significance <- ifelse(MHC_CORR$PValue <= 0.05, TRUE, FALSE)
-rownames(MHC_CORR) <- NULL
-kable(MHC_CORR, caption = "Correlation between H-2A Population and Migrant Health Centers")
-# Low Correlation: Gap in healthcare for migrant workers (statistically significant)
-```
-
-
-## Correlation between healthcare facilities per capita, migrant healthcare centers (not adjusted) & Wildfire/Drought/Heat Wave Exposure
 
 ```{r}
 FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
@@ -245,7 +296,8 @@ kable(FIRE_CORR, caption = "Correlation between healthcare facilities and Fire/H
 
 
 
-## Correlation between farm sales & Wildfire/Drought/HeatWave Exposure
+## Correlation between farm output and wildfire, drought, and heat wave exposure
+
 
 ```{r, fig.width = 8, fig.height = 10}
 BLAZE_PRED <- JOIN_CUT |> select(matches("drought|wildfire|heat|heatwave"))
@@ -274,14 +326,14 @@ response <- character()
 predictor <- character()
 
 BLAZE_CORR <- data.frame(Predictor = character(),
-                        Response = character(),
-                        Correlation = numeric(),
-                        PValue = numeric())
+                         Response = character(),
+                         Correlation = numeric(),
+                         PValue = numeric())
 
 for (response in colnames(BLAZE_AGO)) {
   for (predictor in colnames(BLAZE_PRED)) {
-      BLAZE_test <- cor.test(BLAZE[[response]], BLAZE[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
-      BLAZE_CORR <- rbind(BLAZE_CORR, data.frame(Predictor = predictor, Response = response, Correlation = round(BLAZE_test$estimate, 3), PValue = round(BLAZE_test$p.value, 3)))
+    BLAZE_test <- cor.test(BLAZE[[response]], BLAZE[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+    BLAZE_CORR <- rbind(BLAZE_CORR, data.frame(Predictor = predictor, Response = response, Correlation = round(BLAZE_test$estimate, 3), PValue = round(BLAZE_test$p.value, 3)))
   }
 }
 
@@ -311,9 +363,39 @@ ggcorrplot(
   )
 ```
 
+### Data Sources
+
+
+1) H-2A Workers: [U.S. Department of Labor](https://www.uscis.gov/tools/reports-and-studies/h-2a-employer-data-hub)
+
+2) Health Facilities: 
+
+i) [Wyoming Department of Health](https://health.wyo.gov/aging/hls/healthcare-facility-directory/)
+
+ii) [Utah Geospatial Resource Center](https://gis.utah.gov/data/health/health-care-facilities/)
+
+iii) [South Dakota Department of Health](https://www.sdhls.org/verify/)
+
+iv) [North Dakota Health and Human Services](https://www.hhs.nd.gov/)
+
+v) [Montana Department of Health and Human Services](https://www.dphhs.mt.gov/qad/Licensure/)
+
+vi) [Montana Primary Care Association](https://www.mtpca.org/wp-content/uploads/CHC_locations_MT_2022.pdf)
+
+vii) [Colorado Department of Public Health and Environment](https://cdphe.colorado.gov/health-facilities/find-and-compare-facilities)
+
+3) Migrant Health Centers: [National Center for Farmworker Health, Inc. (2023)](https://www.ncfh.org/migrant-health-centers.html)
+
+4) Agricultural Census: [U.S. Department of Agriculture (2007-2023)](https://www.nass.usda.gov/Quick_Stats/CDQT/chapter/2/table/42/state/CO/year/2017/)
+
+5) Maximum Temperature by County: [National Oceanic and Atmospheric Association (NOAA), 2023](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/5/tmax/202208/1/value)
+
+6) [National Risk Index](https://hicahs-centroid-collaboration-csurams.hub.arcgis.com/apps/1ff51926aada4a85a74ee89ba1a2539b/explore):  Federal Emergency Management Agency (ArcGIS Living Atlas)
 
 
 ### Appendix: 
+
+
 ```{r appendix, echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(readxl)
@@ -434,12 +516,30 @@ JOIN_CUT[sapply(JOIN_CUT, is.numeric)] <- lapply(JOIN_CUT[sapply(JOIN_CUT, is.nu
 # Deleting empty columns
 JOIN_CUT <- JOIN_CUT[, colSums(!is.na(JOIN_CUT)) > 0]
 
-JOIN_CUT <- JOIN_CUT |> left_join(JUL23 |>
-                                    select(state, county, Jul2023_MaxTemp, `July1901-2000Mean`), by = c("state", "county")) |>
-  left_join(AUG23 |>
-              select(state, county, Aug2023_MaxTemp, `Aug1901-2000Mean`), by = c("state", "county"))
+JOIN_CUT <- JOIN_CUT |> 
+  left_join(JUL23 |> select(state, county, Jul2023_MaxTemp, `July1901-2000Mean`), by = c("state", "county")) |> 
+  left_join(AUG23 |> select(state, county, Aug2023_MaxTemp, `Aug1901-2000Mean`), by = c("state", "county"))
 #---------------------------------------------------------------------------------------------------------------#
-# 1) Correlation between H-2A population & Wildfire/Drought/HeatWave Exposure, Jul/Aug Max Temp & 99-year Mean Temp
+# Correlation between H-2A population & migrant healthcare centers
+
+H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
+H2AMHC$MigrantHealthCenters[is.na(H2AMHC$MigrantHealthCenters)] <- 0
+
+MHC_CORR <- data.frame(Variable = character(),
+                       Correlation = numeric(),
+                       PValue = numeric() )
+
+test <- cor.test(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
+                                       Correlation = round(test$estimate, 3),
+                                       PValue = round(test$p.value, 3 )))
+
+MHC_CORR$Significance <- ifelse(MHC_CORR$PValue <= 0.05, TRUE, FALSE)
+rownames(MHC_CORR) <- NULL
+kable(MHC_CORR, caption = "Correlation between H-2A Population and Migrant Health Centers")
+# Low Correlation: Gap in healthcare for migrant workers (statistically significant)
+#---------------------------------------------------------------------------------------------------------------#
+# Correlation between H-2A population & Wildfire/Drought/HeatWave Exposure, Jul/Aug Max Temp & 99-year Mean Temp
 
 BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))
 BURN_CORR <- data.frame(Variable = character(),
@@ -478,27 +578,9 @@ ggcorrplot(
     axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 6.5)
   )
+
 #---------------------------------------------------------------------------------------------------------------#
-# 2) Correlation between H-2A population & migrant healthcare centers
-
-H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
-H2AMHC$MigrantHealthCenters[is.na(H2AMHC$MigrantHealthCenters)] <- 0
-
-MHC_CORR <- data.frame(Variable = character(),
-                       Correlation = numeric(),
-                       PValue = numeric() )
-
-test <- cor.test(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
-MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
-                                       Correlation = round(test$estimate, 3),
-                                       PValue = round(test$p.value, 3 )))
-
-MHC_CORR$Significance <- ifelse(MHC_CORR$PValue <= 0.05, TRUE, FALSE)
-rownames(MHC_CORR) <- NULL
-kable(MHC_CORR, caption = "Correlation between H-2A Population and Migrant Health Centers")
-# Low Correlation: Gap in healthcare for migrant workers (statistically significant)
-#---------------------------------------------------------------------------------------------------------------#
-# 3) Correlation between healthcare facilities per capita, migrant healthcare centers (not adjusted) & Wildfire/Drought/Heat Wave Exposure
+# Correlation between healthcare facilities per capita, migrant healthcare centers (not adjusted) & Wildfire/Drought/Heat Wave Exposure
 
 FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
 colnames(FIRE) <- gsub(" ", "", colnames(FIRE))
@@ -510,8 +592,10 @@ FIRE_HC <- FIRE_HC |>
     .cols = -c(MigrantHealthCenters, Population2020),
     .fns = ~ .x / Population2020
   ))
+
 colnames(FIRE_HC)[!colnames(FIRE_HC) %in% c("MigrantHealthWorkers", "Population2020")] <-
   paste0(colnames(FIRE_HC)[!colnames(FIRE_HC) %in% c("MigrantHealthWorkers", "Population2020")], "PerCapita")
+
 FIRE_HC <- FIRE_HC |> select(-Population2020)
 
 FIRE_PRED <- FIRE |> select(21:length(FIRE))
@@ -533,7 +617,7 @@ FIRE_CORR$Significance <- ifelse(FIRE_CORR$PValue <= 0.05, TRUE, FALSE)
 rownames(FIRE_CORR) <- NULL
 kable(FIRE_CORR, caption = "Correlation between healthcare facilities and Fire/Heat Environmental Risk")
 #---------------------------------------------------------------------------------------------------------------#
-# 4) Correlation between farm sales & Wildfire/Drought/HeatWave Exposure
+# Correlation between farm sales & Wildfire/Drought/HeatWave Exposure
 
 BLAZE_PRED <- JOIN_CUT |> select(matches("drought|wildfire|heat|heatwave"))
 BLAZE_AGO <- JOIN_CUT |> select(intersect(colnames(AGO), colnames(JOIN_CUT))) |> select(-state, -county)
@@ -546,19 +630,18 @@ colnames(BLAZE) <- gsub("\\b([a-z])", "\\U\\1", colnames(BLAZE), perl = TRUE)
 colnames(BLAZE) <- gsub(" ", "", colnames(BLAZE))
 colnames(BLAZE) <- gsub("\\$", "Dollars", colnames(BLAZE))
 
-
 response <- character()
 predictor <- character()
 
 BLAZE_CORR <- data.frame(Predictor = character(),
-                        Response = character(),
-                        Correlation = numeric(),
-                        PValue = numeric())
+                         Response = character(),
+                         Correlation = numeric(),
+                         PValue = numeric())
 
 for (response in colnames(BLAZE_AGO)) {
   for (predictor in colnames(BLAZE_PRED)) {
-      BLAZE_test <- cor.test(BLAZE_AGO[[response]], BLAZE_PRED[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
-      BLAZE_CORR <- rbind(BLAZE_CORR, data.frame(Predictor = predictor, Response = response, Correlation = round(BLAZE_test$estimate, 3), PValue = round(BLAZE_test$p.value, 3)))
+    BLAZE_test <- cor.test(BLAZE_AGO[[response]], BLAZE_PRED[[predictor]], method = "spearman", use = "complete.obs", exact = F, conf.level = 0.95)
+    BLAZE_CORR <- rbind(BLAZE_CORR, data.frame(Predictor = predictor, Response = response, Correlation = round(BLAZE_test$estimate, 3), PValue = round(BLAZE_test$p.value, 3)))
   }
 }
 
