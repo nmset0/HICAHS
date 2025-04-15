@@ -7,6 +7,7 @@ library(magrittr)
 library(sf)
 library(knitr)
 
+opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 
 # Data:
 H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
@@ -31,7 +32,6 @@ COUNTY_SHP <- invisible(st_read("~/internship/workspace/tl_2024_us_county/tl_202
 
 response <- character()
 predictor <- character()
-
 
 ENV$county[ENV$county == "lamoure"] <- "la moure"
 ENV <- ENV |> select(-matches("coastal|hurricane|tsunami|volcanic", ignore.case = TRUE))
@@ -80,6 +80,7 @@ MHC_sum <- MHC |>
   group_by(state, county) |>
   summarise(MigrantHealthCenters = n(), .groups = "drop")
 
+
 # Binding all data together into one data set to work with:
 JOIN <- left_join(ENV, H2A, by = c("state", "county")) # Join H-2A worker totals and natural disaster data sets
 JOIN <- left_join(JOIN, AGO, by = c("state", "county")) # Join agricultural output data set
@@ -105,9 +106,7 @@ JOIN <- JOIN |> mutate(`CriticalAccessHospitals` = coalesce(`Critical Access Hos
 JOIN <- JOIN |> select(-`Critical Access Hospitals`, -Critical_Access_Hospitals)
 
 JOIN$county[JOIN$county == "lamoure"] <- "la moure"
-
-
-
+#---------------------------------------------------------------------------------------------------------------#
 JOIN_CUT <- JOIN |>
   select(
     "state",
@@ -141,28 +140,45 @@ JOIN_CUT <- JOIN_CUT |>
 JOIN_CUT <- JOIN_CUT |> arrange(state, county)
 
 
-
-## Exploration
-
-GGDAT <- MHC_sum |>
+GGDAT1 <- MHC_sum |>
   group_by(state) |>
   summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
 
-GGDAT <- rbind(GGDAT, c("South Dakota", 0), c("Wyoming", 0))
+GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
 
-ggplot(data = GGDAT, aes(x = state, y = as.numeric(total))) +
-  geom_bar(stat = "identity", color = "black", fill = "forestgreen", width = .75) +
-  labs(x = "State", y = "Migrant Health Centers", title = "Migrant Health Centers Per State (NCFH 2023)") +
+GGPLOT1 <- ggplot(data = GGDAT1, aes(x = state, y = as.numeric(total))) +
+  geom_bar(stat = "identity", color = "black", fill = "darkgreen", width = .75) +
+  labs(x = "State", y = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") +
   scale_y_continuous(breaks = seq(from = 0, to = 40, by = 2)) +
   theme_minimal() +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
+GGDAT2 <- H2A |>
+  group_by(state) |>
+  summarise(total = sum(H2A_workers, na.rm = TRUE))
+
+GGDAT1$total <- as.numeric(GGDAT1$total)
+GGDAT2$total <- as.numeric(GGDAT2$total)
+
+GGDAT1$state <- as.factor(GGDAT1$state)
+GGDAT2$state <- as.factor(GGDAT2$state)
+
+GGPLOT2 <- ggplot(data = GGDAT2, aes(x = state, y = as.numeric(total))) +
+  geom_bar(stat = "identity", color = "black", fill = "skyblue", width = .75) +
+  labs(x = "State", y = "Worker Count", title = "Figure 1: H-2A Workers") +
+  scale_y_continuous(breaks = seq(from = 0, to = max(GGDAT2$total), by = 500)) +
+  theme_minimal() +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+
+GGPLOT2
+GGPLOT1
 
 
 
-# Leaflet map
 selected_states <- HICAHS_SHP[HICAHS_SHP$NAME %in% c("Wyoming", "Colorado", "Montana", "Utah", "North Dakota", "South Dakota"), ]
 selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, NAME)
+
+
 
 JOIN_CUT_CLEAN <- JOIN_CUT |> filter(county != "Lamoure")
 JOIN_CUT_sf <- st_as_sf(JOIN_CUT_CLEAN, coords = c("JOIN_CUT$longitude", "JOIN_CUT$latitude"), crs = 4326)
@@ -192,13 +208,9 @@ map <- leaflet(MHC) |>
                    radius = 2) |>
   addLegend(pal = color_palette, values = JOIN_CUT_sf$H2A_workers, title = "H-2A Worker Population", position = "bottomright")
 
-
-
 map
 
 
-
-## Correlation between H-2A population and migrant healthcare centers
 
 H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
 H2AMHC$MigrantHealthCenters[is.na(H2AMHC$MigrantHealthCenters)] <- 0
@@ -214,13 +226,9 @@ MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
 
 MHC_CORR$Significance <- ifelse(MHC_CORR$PValue <= 0.05, TRUE, FALSE)
 rownames(MHC_CORR) <- NULL
-kable(MHC_CORR, caption = "Correlation between H-2A Population and Migrant Health Centers")
-# Low Correlation: Gap in healthcare for migrant workers (statistically significant)
+kable(MHC_CORR, caption = "Table 1: Correlation between H-2A Population and Migrant Health Centers")
 
 
-
-
-## Correlation between H-2A population and wildfire, drought, and heat wave exposure, and temperature
 
 BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))
 BURN_CORR <- data.frame(Variable = character(),
@@ -238,7 +246,7 @@ BURN_CORR <- BURN_CORR |> arrange(desc(Correlation))
 BURN_CORR$Significance <- ifelse(BURN_CORR$PValue <= 0.05, TRUE, FALSE)
 BURN_CORR <- BURN_CORR[-1,]
 rownames(BURN_CORR) <- NULL
-kable(BURN_CORR, caption = "Correlation Between H-2A Population and Fire/Heat Environmental Risk")
+kable(BURN_CORR, caption = "Table 2: Correlation Between H-2A Population and Fire/Heat Environmental Risk")
 
 # Corrplot
 COR_MTX <- round(cor(BURN, method = "spearman", use = "complete.obs"), 2)
@@ -259,12 +267,9 @@ ggcorrplot(
     axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 6.5)
   ) +
-  labs(title = "Correlation Between H-2A Population & Environmental Risk")
+  labs(title = "Figure 4: Correlation Between H-2A Population & Environmental Risk")
 
 
-
-
-## Correlation between healthcare facilities per capita, migrant healthcare centers (not adjusted) and wildfire, drought, and heat wave exposure
 
 FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
 colnames(FIRE) <- gsub(" ", "", colnames(FIRE))
@@ -303,13 +308,9 @@ FIRE_CORR <- FIRE_CORR |> arrange(desc(Correlation))
 FIRE_CORR$Significance <- ifelse(FIRE_CORR$PValue <= 0.05, TRUE, FALSE)
 rownames(FIRE_CORR) <- NULL
 
-kable(FIRE_CORR, caption = "Correlation between healthcare facilities and Fire/Heat Environmental Risk")
+kable(FIRE_CORR, caption = "Table 3: Correlation between healthcare facilities and Fire/Heat Environmental Risk")
 
 
-
-
-
-## Correlation between farm output and wildfire, drought, and heat wave exposure
 
 BLAZE_PRED <- JOIN_CUT |> select(matches("drought|wildfire|heat|heatwave"))
 BLAZE_AGO <- JOIN_CUT |> select(intersect(colnames(AGO), colnames(JOIN_CUT))) |> select(-state, -county)
@@ -352,7 +353,8 @@ for (response in colnames(BLAZE_AGO)) {
 BLAZE_CORR <- BLAZE_CORR |> arrange(desc(Correlation))
 BLAZE_CORR$Significance <- ifelse(BLAZE_CORR$PValue <= 0.05, TRUE, FALSE)
 rownames(BLAZE_CORR) <- NULL
-kable(BLAZE_CORR, caption = "Correlation between Farm output and Wildfire/Drought/HeatWave Exposure")
+BLAZE <- BLAZE |> select(-JOINCUTDollarsLatitude, -JOINCUTDollarsLongitude)
+kable(BLAZE_CORR, caption = "Table 4: Correlation between Farm output and Wildfire/Drought/HeatWave Exposure")
 
 # Corrplot
 COR_MTX <- round(cor(BLAZE, method = "spearman", use = "complete.obs"), 2)
@@ -373,4 +375,4 @@ ggcorrplot(
     axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 6.5)
   ) +
-  labs(title = "Correlation between Farm Output & Environmental Risk")
+  labs(title = "Figure 5: Correlation between Farm Output & Environmental Risk")
