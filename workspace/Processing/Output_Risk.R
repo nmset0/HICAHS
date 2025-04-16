@@ -44,7 +44,7 @@ ag_output_wide <- ag_output_wide |>
       slice(c(1:20, 22, 21, 23:n())) |>
         slice(c(1:33, 35, 34, 36:n()))
 
-write_csv(ag_output_wide, file = "~/internship/workspace/Written Datasets/ag_output_clean.csv")
+#write_csv(ag_output_wide, file = "~/internship/workspace/Written Datasets/ag_output_clean.csv")
 #-----------------------------Natural Disaster Data--------------------------------------#
 # colnames to lower case
 disaster <- as.data.frame(lapply(disaster, function(x) {
@@ -71,9 +71,6 @@ shared_cols <- intersect(names(disaster), names(ag_output_wide))
   ag_output_unique <- ag_output_wide |> select(-all_of(shared_cols))
     output_risk_combined <- cbind(disaster, ag_output_unique)
 
-view(ag_output_wide)
-view(disaster)
-view(output_risk_combined)
 
 
 # write_csv(output_risk_combined, file = "~/internship/workspace/output_risk_combined.csv")
