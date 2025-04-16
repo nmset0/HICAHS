@@ -14,6 +14,7 @@ library(leaflet.extras)
 library(magrittr)
 library(sf)
 library(knitr)
+library(patchwork)
 
 opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 ```
@@ -153,35 +154,45 @@ JOIN_CUT <- JOIN_CUT |>
 JOIN_CUT <- JOIN_CUT |> arrange(state, county)
 ```
 
+## Introduction
 
-The goal of this project is to evaluate the correlation between aspects of migrant agricultural worker population and environmental risk within the states of interest to the High Plains Intermountain Center for Agricultural Health and Safety [(HICAHS)](https://vetmedbiosci.colostate.edu/hicahs/). HICAHS is involved with Colorado, Wyoming, Utah, Montana, North Dakota, and South Dakota.
+The purpose of this project is to evaluate the correlation between aspects of migrant agricultural worker population and environmental risk within the states of interest to the High Plains Intermountain Center for Agricultural Health and Safety [(HICAHS)](https://vetmedbiosci.colostate.edu/hicahs/). HICAHS is involved with Colorado, Wyoming, Utah, Montana, North Dakota, and South Dakota.
 
+The Federal Emergency Management Agency (FEMA) defines exposure to some natural disaster as "...the representative value of buildings (in dollars), population (in both people and population equivalence dollars), or agriculture (in dollars) potentially exposed to a natural hazard occurrence." In other words, locations with higher building value, agricultural value, and/or population density would have higher exposure values associated with them. For more information, visit [FEMA's website](https://hazards.fema.gov/nri/exposure).
 
-The main goals are as follows: 1) investigate the relationship between health risk concentrations and healthcare market supply, particularly the supply of migrant health centers, 2) investigate the relationship between health risk factors and worker densities in the HICAHS area,  3) investigate the relationship between health risk concentrations and economic output of agriculture.
+The H-2A visa allows agricultural firms, in lieu of a labor shortage, to bring in and employ foreign workers on a temporary or seasonal basis. For more information, visit the [United States Department of Labor](https://www.dol.gov/agencies/eta/foreign-labor/programs/h-2a#:~:text=There%20are%20not%20sufficient%0able%2C%20willing%2C%20and%20qualified%20United%20States,employment%20to%20eligible%20U.S.%20workers.).
 
+A migrant health center (MHC) is a specialized healthcare facility that provides services to migrant agricultural workers and their families. MHCs were established in 1962 after President John F. Kennedy signed the [Migrant Health Act](https://www.ncfh.org/uploads/3/8/6/8/38685499/migrant_health_history_and_legislation_final.pdf), initializing the Migrant Health Center program. MHCs receive funding under the Public Health Service Act.
 
-The Federal Emergency Management Agency (FEMA) defines exposure to some natural disaster as "...the representative value of buildings (in dollars), population (in both people and population equivalence dollars), or agriculture (in dollars) potentially exposed to a natural hazard occurrence." In other words, locations with higher building value, agricultural value, and/or population density would have higher exposure values associated with them. 
+Statistical significance is the probability that a test's null hypothesis to be true. The p-value signifies the probability of finding test results as, or more, extreme than observed data, assuming the null hypothesis is true. The p-value must be equal to or below a certain threshold (Usually five percent, or p $\le$ 0.05) of uncertainty for the results to be statistically significant. If the p-value is greater than the confidence level, the results are considered not statistically significant.
 
+## Research Goals
 
-A migrant health center is a specialized healthcare facility that provides services to migrant agricultural workers and their families. 
-
+|        1) Investigate the relationship between health risk concentrations and healthcare market supply,
+|        particularly the supply of migrant health centers
+| 
+|        2) Investigate the relationship between health risk factors and worker densities in the HICAHS area
+| 
+|        3) Investigate the relationship between health risk concentrations and economic output of agriculture.
 
 ## Exploration
 
-
-The figures below show the distribution of migrant health centers and H-2A population density in the HICAHS area In total. There are 56 health centers between all six states, with Colorado having the most, and South Dakota and Wyoming having none, and 12,893 H-2A agricultural workers.
+The figures below show the distribution of MHCs and H-2A population density in the HICAHS area In total. There are 56 health centers between all six states, with Colorado having the most. South Dakota and Wyoming have none at all. In total, 12,893 H-2A agricultural workers reside within the HICAHS area.
 
 ```{r}
 GGDAT1 <- MHC_sum |> 
   group_by(state) |> 
   summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
 
-GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
+# GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
 
-GGPLOT1 <- ggplot(data = GGDAT1, aes(x = state, y = as.numeric(total))) + 
+GGDAT1$state <- factor(GGDAT1$state, levels = c("Colorado", "Montana", "Utah", "North Dakota"))
+
+GGPLOT1 <- ggplot(data = GGDAT1, aes(y = state, x = as.numeric(total))) + 
   geom_bar(stat = "identity", color = "black", fill = "darkgreen", width = .75) + 
-  labs(x = "State", y = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") + 
-  scale_y_continuous(breaks = seq(from = 0, to = 40, by = 2)) + 
+  labs(y = "State", x = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") + 
+  scale_x_continuous(breaks = seq(from = 0, to = 40, by = 10)) + 
+  geom_text(aes(label = total), hjust = 1.15, color = "white") + 
   theme_minimal() + 
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
@@ -189,16 +200,13 @@ GGDAT2 <- H2A |>
   group_by(state) |> 
   summarise(total = sum(H2A_workers, na.rm = TRUE))
 
-GGDAT1$total <- as.numeric(GGDAT1$total)
-GGDAT2$total <- as.numeric(GGDAT2$total)
+GGDAT2$state <- factor(GGDAT2$state, levels = c("Colorado", "North Dakota", "South Dakota", "Montana", "Utah", "Wyoming"))
 
-GGDAT1$state <- as.factor(GGDAT1$state)
-GGDAT2$state <- as.factor(GGDAT2$state)
-
-GGPLOT2 <- ggplot(data = GGDAT2, aes(x = state, y = as.numeric(total))) + 
+GGPLOT2 <- ggplot(data = GGDAT2, aes(y = state, x = as.numeric(total))) + 
   geom_bar(stat = "identity", color = "black", fill = "skyblue", width = .75) + 
-  labs(x = "State", y = "Worker Count", title = "Figure 1: H-2A Workers") + 
-  scale_y_continuous(breaks = seq(from = 0, to = max(GGDAT2$total), by = 500)) + 
+  labs(y = "State", x = "Worker Count", title = "Figure 1: H-2A Workers") + 
+  scale_x_continuous(breaks = seq(from = 0, to = 4000, by = 1000)) + 
+  geom_text(aes(label = total), hjust = 1.1, color = "white") +
   theme_minimal() + 
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
@@ -206,7 +214,6 @@ GGPLOT2
 GGPLOT1
 
 ```
-
 
 #### Figure 3: Geographic Distribution of H-2A worker population and migrant healthcare centers
 
@@ -249,11 +256,9 @@ map <- leaflet(MHC) |>
 map
 ```
 
-
 ## Correlation between H-2A population and migrant healthcare centers
 
-
-The correlation between the population of workers and migrant health centers is dangerously low (and statistically significant), signaling a vastly outclassed healthcare supply for migrant workers and their families.
+The correlation between the population of workers and MHCs is dangerously low (and statistically significant), signaling a vastly outclassed healthcare supply for migrant workers and their families.
 
 ```{r}
 H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
@@ -274,11 +279,9 @@ kable(MHC_CORR, caption = "Table 1: Correlation between H-2A Population and Migr
 # Low Correlation: Gap in healthcare for migrant workers (statistically significant)
 ```
 
-
 ## Correlation between H-2A population and wildfire, drought, and heat wave exposure, and temperature
 
-
-The correlation coefficients found between H-2A worker density and exposure risk is not surprising. 
+Most of the correlation coefficients found between H-2A worker density and exposure risk is not surprising. There are some that are surprisingly weak, but these are also not statistically signifcant.
 
 ```{r, fig.width = 8, fig.height = 10}
 BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))
@@ -321,11 +324,9 @@ ggcorrplot(
   labs(title = "Figure 4: Correlation Between H-2A Population & Environmental Risk")
 ```
 
-
 ## Correlation between healthcare facilities per capita, migrant healthcare centers (not adjusted) and wildfire, drought, and heat wave exposure
 
-These correlations are not very strong. Many of these correlations are due to the specific labeling of the healthcare centers, and because of this, there are less quantities of each type recorded. The figures below contain the correlation coefficients between healthcare and exposure.
-
+These correlations are not very strong. Healthcare companies take environmental exposure risk into account less so than factors such as population density. The figures below contain the correlation coefficients between healthcare and exposure. Note that 47.9 percent of these coefficients are not statistically significant.
 
 ```{r}
 FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
@@ -368,14 +369,13 @@ rownames(FIRE_CORR) <- NULL
 kable(FIRE_CORR, caption = "Table 3: Correlation between healthcare facilities and Fire/Heat Environmental Risk")
 ```
 
-
-
 ## Correlation between farm output and wildfire, drought, and heat wave exposure
 
+These correlations are also unsurprising for the most part. A firm's value is expected to be associated with their income/number of sales, so any location with high value will also have a high exposure score. The figures below contain the correlation coefficients between output and exposure.
 
-These correlations are also unsurprising. A firm's value is expected to be associated with their income/number of sales, so any location with high value will also have a high exposure score. The figures below contain the correlation coefficients between output and exposure.
+It would be expected variables pertaining to high-value transactions be more correlated with exposure-- especially agricultural exposure-- however, some of the transaction variables have very little correlation, with some of the environmental risks. For example, the dollar value of agriculture exposed to heat waves and farm sales between \$10000 and \$24999 have a correlation coefficient of 0.70. These variables in particular would be expected to have a strong positive correlation. That being said, the correlation coefficient was not statistically significant.
 
-```{r, fig.width = 8, fig.height = 10}
+```{r, fig.width = 10, fig.height = 8}
 BLAZE_PRED <- JOIN_CUT |> select(matches("drought|wildfire|heat|heatwave"))
 BLAZE_AGO <- JOIN_CUT |> select(intersect(colnames(AGO), colnames(JOIN_CUT))) |> select(-state, -county)
 BLAZE_AGO[] <- lapply(BLAZE_AGO, as.numeric)
@@ -444,36 +444,34 @@ ggcorrplot(
 
 ### Data Sources
 
+1)  H-2A Workers: [U.S. Department of Labor](https://www.uscis.gov/tools/reports-and-studies/h-2a-employer-data-hub)
 
-1) H-2A Workers: [U.S. Department of Labor](https://www.uscis.gov/tools/reports-and-studies/h-2a-employer-data-hub)
+2)  [Wyoming Department of Health](https://health.wyo.gov/aging/hls/healthcare-facility-directory/)
 
-2) Health Facilities: 
+3)  [Utah Geospatial Resource Center](https://gis.utah.gov/data/health/health-care-facilities/)
 
-i) [Wyoming Department of Health](https://health.wyo.gov/aging/hls/healthcare-facility-directory/)
+4)  [South Dakota Department of Health](https://www.sdhls.org/verify/)
 
-ii) [Utah Geospatial Resource Center](https://gis.utah.gov/data/health/health-care-facilities/)
+5)  [North Dakota Health and Human Services](https://www.hhs.nd.gov/)
 
-iii) [South Dakota Department of Health](https://www.sdhls.org/verify/)
+6)  [Montana Department of Health and Human Services](https://www.dphhs.mt.gov/qad/Licensure/)
 
-iv) [North Dakota Health and Human Services](https://www.hhs.nd.gov/)
+7)  [Montana Primary Care Association](https://www.mtpca.org/wp-content/uploads/CHC_locations_MT_2022.pdf)
 
-v) [Montana Department of Health and Human Services](https://www.dphhs.mt.gov/qad/Licensure/)
+8)  [Colorado Department of Public Health and Environment](https://cdphe.colorado.gov/health-facilities/find-and-compare-facilities)
 
-vi) [Montana Primary Care Association](https://www.mtpca.org/wp-content/uploads/CHC_locations_MT_2022.pdf)
+9)  Migrant Health Centers: [National Center for Farmworker Health, Inc. (2023)](https://www.ncfh.org/migrant-health-centers.html)
 
-vii) [Colorado Department of Public Health and Environment](https://cdphe.colorado.gov/health-facilities/find-and-compare-facilities)
+10)  Agricultural Census: [U.S. Department of Agriculture (2007-2023)](https://www.nass.usda.gov/Quick_Stats/CDQT/chapter/2/table/42/state/CO/year/2017/)
 
-3) Migrant Health Centers: [National Center for Farmworker Health, Inc. (2023)](https://www.ncfh.org/migrant-health-centers.html)
+11)  Maximum Temperature by County: [National Oceanic and Atmospheric Association (NOAA), 2023](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/5/tmax/202208/1/value)
 
-4) Agricultural Census: [U.S. Department of Agriculture (2007-2023)](https://www.nass.usda.gov/Quick_Stats/CDQT/chapter/2/table/42/state/CO/year/2017/)
-
-5) Maximum Temperature by County: [National Oceanic and Atmospheric Association (NOAA), 2023](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/county/mapping/5/tmax/202208/1/value)
-
-6) [National Risk Index](https://hicahs-centroid-collaboration-csurams.hub.arcgis.com/apps/1ff51926aada4a85a74ee89ba1a2539b/explore):  Federal Emergency Management Agency (ArcGIS Living Atlas)
+12)  [National Risk Index](https://hicahs-centroid-collaboration-csurams.hub.arcgis.com/apps/1ff51926aada4a85a74ee89ba1a2539b/explore): Federal Emergency Management Agency (ArcGIS Living Atlas)
 
 
-### Appendix: 
 
+
+### Appendix:
 
 ```{r appendix, echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE}
 library(tidyverse)
@@ -618,16 +616,20 @@ JOIN_CUT <- JOIN_CUT |>
 JOIN_CUT <- JOIN_CUT |> arrange(state, county)
 
 
+
 GGDAT1 <- MHC_sum |> 
   group_by(state) |> 
   summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
 
-GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
+# GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
 
-GGPLOT1 <- ggplot(data = GGDAT1, aes(x = state, y = as.numeric(total))) + 
+GGDAT1$state <- factor(GGDAT1$state, levels = c("Colorado", "Montana", "Utah", "North Dakota"))
+
+GGPLOT1 <- ggplot(data = GGDAT1, aes(y = state, x = as.numeric(total))) + 
   geom_bar(stat = "identity", color = "black", fill = "darkgreen", width = .75) + 
-  labs(x = "State", y = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") + 
-  scale_y_continuous(breaks = seq(from = 0, to = 40, by = 2)) + 
+  labs(y = "State", x = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") + 
+  scale_x_continuous(breaks = seq(from = 0, to = 40, by = 2)) + 
+  geom_text(aes(label = total), hjust = 1.15, color = "white") + 
   theme_minimal() + 
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
@@ -635,16 +637,13 @@ GGDAT2 <- H2A |>
   group_by(state) |> 
   summarise(total = sum(H2A_workers, na.rm = TRUE))
 
-GGDAT1$total <- as.numeric(GGDAT1$total)
-GGDAT2$total <- as.numeric(GGDAT2$total)
+GGDAT2$state <- factor(GGDAT2$state, levels = c("Colorado", "North Dakota", "South Dakota", "Montana", "Utah", "Wyoming"))
 
-GGDAT1$state <- as.factor(GGDAT1$state)
-GGDAT2$state <- as.factor(GGDAT2$state)
-
-GGPLOT2 <- ggplot(data = GGDAT2, aes(x = state, y = as.numeric(total))) + 
+GGPLOT2 <- ggplot(data = GGDAT2, aes(y = state, x = as.numeric(total))) + 
   geom_bar(stat = "identity", color = "black", fill = "skyblue", width = .75) + 
-  labs(x = "State", y = "Worker Count", title = "Figure 1: H-2A Workers") + 
-  scale_y_continuous(breaks = seq(from = 0, to = max(GGDAT2$total), by = 500)) + 
+  labs(y = "State", x = "Worker Count", title = "Figure 1: H-2A Workers") + 
+  scale_x_continuous(breaks = seq(from = 0, to = 5000, by = 500)) + 
+  geom_text(aes(label = total), hjust = 1.1, color = "white") +
   theme_minimal() + 
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
@@ -855,4 +854,3 @@ ggcorrplot(
   ) + 
   labs(title = "Figure 5: Correlation between Farm Output & Environmental Risk")
 ```
-

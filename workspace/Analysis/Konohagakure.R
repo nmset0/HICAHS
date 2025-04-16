@@ -140,16 +140,20 @@ JOIN_CUT <- JOIN_CUT |>
 JOIN_CUT <- JOIN_CUT |> arrange(state, county)
 
 
+
 GGDAT1 <- MHC_sum |>
   group_by(state) |>
   summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
 
-GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
+# GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
 
-GGPLOT1 <- ggplot(data = GGDAT1, aes(x = state, y = as.numeric(total))) +
+GGDAT1$state <- factor(GGDAT1$state, levels = c("Colorado", "Montana", "Utah", "North Dakota"))
+
+GGPLOT1 <- ggplot(data = GGDAT1, aes(y = state, x = as.numeric(total))) +
   geom_bar(stat = "identity", color = "black", fill = "darkgreen", width = .75) +
-  labs(x = "State", y = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") +
-  scale_y_continuous(breaks = seq(from = 0, to = 40, by = 2)) +
+  labs(y = "State", x = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") +
+  scale_x_continuous(breaks = seq(from = 0, to = 40, by = 2)) +
+  geom_text(aes(label = total), hjust = 1.15, color = "white") +
   theme_minimal() +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
@@ -157,21 +161,19 @@ GGDAT2 <- H2A |>
   group_by(state) |>
   summarise(total = sum(H2A_workers, na.rm = TRUE))
 
-GGDAT1$total <- as.numeric(GGDAT1$total)
-GGDAT2$total <- as.numeric(GGDAT2$total)
+GGDAT2$state <- factor(GGDAT2$state, levels = c("Colorado", "North Dakota", "South Dakota", "Montana", "Utah", "Wyoming"))
 
-GGDAT1$state <- as.factor(GGDAT1$state)
-GGDAT2$state <- as.factor(GGDAT2$state)
-
-GGPLOT2 <- ggplot(data = GGDAT2, aes(x = state, y = as.numeric(total))) +
+GGPLOT2 <- ggplot(data = GGDAT2, aes(y = state, x = as.numeric(total))) +
   geom_bar(stat = "identity", color = "black", fill = "skyblue", width = .75) +
-  labs(x = "State", y = "Worker Count", title = "Figure 1: H-2A Workers") +
-  scale_y_continuous(breaks = seq(from = 0, to = max(GGDAT2$total), by = 500)) +
+  labs(y = "State", x = "Worker Count", title = "Figure 1: H-2A Workers") +
+  scale_x_continuous(breaks = seq(from = 0, to = 5000, by = 500)) +
+  geom_text(aes(label = total), hjust = 1.1, color = "white") +
   theme_minimal() +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
 GGPLOT2
 GGPLOT1
+
 
 
 
