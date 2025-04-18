@@ -108,6 +108,11 @@ JOIN <- JOIN |> select(-`Critical Access Hospitals`, -Critical_Access_Hospitals)
 JOIN$county[JOIN$county == "lamoure"] <- "la moure"
 
 JOIN$H2A_workers[is.na(JOIN$H2A_workers)] <- 0
+
+
+JOIN <- JOIN |>
+  group_by(state) |>
+  mutate(H2AStateTotal = sum(H2A_workers, na.rm = TRUE))
 #---------------------------------------------------------------------------------------------------------------#
 JOIN_CUT <- JOIN |>
   select(
