@@ -227,7 +227,7 @@ JOIN_CUT_CLEAN <- JOIN_CUT |> filter(county != "Lamoure")
 JOIN_CUT_sf <- st_as_sf(JOIN_CUT_CLEAN, coords = c("JOIN_CUT$longitude", "JOIN_CUT$latitude"), crs = 4326)
 
 
-color_palette <- colorNumeric(palette = c("lightblue", "violet", "red"), domain = JOIN_CUT_sf$H2A_workers)
+color_palette <- colorNumeric(palette = c("yellow", "orange1", "red"), domain = JOIN_CUT_sf$H2A_workers)
 map <- leaflet(MHC) |>
   addTiles() |>
   setView(lng = -104.993498, lat = 42.468594, zoom = 5.45) |>
@@ -237,20 +237,19 @@ map <- leaflet(MHC) |>
               color = "black",
               weight = 0.5,
               opacity = 1) |>
-  # addPolygons(data = selected_counties,
-  #             fillColor = ~color_palette(JOIN_CUT_sf$H2A_workers),
-  #             fillOpacity = 0.7,
-  #             color = "darkgrey",
-  #             weight = 0.5,
-  #             opacity = 1) |>
+  addPolygons(data = selected_counties,
+              fillColor = ~color_palette(JOIN_CUT_sf$H2A_workers),
+              fillOpacity = 0.7,
+              color = "darkgrey",
+              weight = 0.5,
+              opacity = 1) |>
   addCircleMarkers(lng = ~longitude, lat = ~latitude,
                    fill = TRUE,
                    fillColor = "blue",
                    fillOpacity = 1,
                    stroke = T,
-                   radius = 2) 
-# |>
-#   addLegend(pal = color_palette, values = JOIN_CUT_sf$H2A_workers, title = "H-2A Worker Population", position = "bottomright")
+                   radius = 2) |>
+  addLegend(pal = color_palette, values = JOIN_CUT_sf$H2A_workers, title = "H-2A Worker Population", position = "bottomright")
 
 
 

@@ -106,6 +106,8 @@ JOIN <- JOIN |> mutate(`CriticalAccessHospitals` = coalesce(`Critical Access Hos
 JOIN <- JOIN |> select(-`Critical Access Hospitals`, -Critical_Access_Hospitals)
 
 JOIN$county[JOIN$county == "lamoure"] <- "la moure"
+
+JOIN$H2A_workers[is.na(JOIN$H2A_workers)] <- 0
 #---------------------------------------------------------------------------------------------------------------#
 JOIN_CUT <- JOIN |>
   select(
@@ -186,7 +188,7 @@ JOIN_CUT_CLEAN <- JOIN_CUT |> filter(county != "Lamoure")
 JOIN_CUT_sf <- st_as_sf(JOIN_CUT_CLEAN, coords = c("JOIN_CUT$longitude", "JOIN_CUT$latitude"), crs = 4326)
 
 
-color_palette <- colorNumeric(palette = c("lightblue", "violet", "red"), domain = JOIN_CUT_sf$H2A_workers)
+color_palette <- colorNumeric(palette = c("yellow", "orange", "red"), domain = JOIN_CUT_sf$H2A_workers)
 map <- leaflet(MHC) |>
   addTiles() |>
   setView(lng = -104.993498, lat = 42.468594, zoom = 5.45) |>
