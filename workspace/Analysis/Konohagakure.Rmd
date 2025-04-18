@@ -184,9 +184,9 @@ GGDAT1 <- MHC_sum |>
   group_by(state) |> 
   summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
 
-# GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
+GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
 
-GGDAT1$state <- factor(GGDAT1$state, levels = c("Colorado", "Montana", "Utah", "North Dakota"))
+GGDAT1$state <- factor(GGDAT1$state, levels = c("Colorado", "Montana", "Utah", "North Dakota", "South Dakota", "Wyoming"))
 
 GGPLOT1 <- ggplot(data = GGDAT1, aes(y = state, x = as.numeric(total))) + 
   geom_bar(stat = "identity", color = "black", fill = "darkgreen", width = .75) + 
