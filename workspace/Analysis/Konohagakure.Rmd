@@ -237,19 +237,20 @@ map <- leaflet(MHC) |>
               color = "black",
               weight = 0.5,
               opacity = 1) |>
-  addPolygons(data = selected_counties,
-              fillColor = ~color_palette(JOIN_CUT_sf$H2A_workers),
-              fillOpacity = 0.7,
-              color = "darkgrey",
-              weight = 0.5,
-              opacity = 1) |>
+  # addPolygons(data = selected_counties,
+  #             fillColor = ~color_palette(JOIN_CUT_sf$H2A_workers),
+  #             fillOpacity = 0.7,
+  #             color = "darkgrey",
+  #             weight = 0.5,
+  #             opacity = 1) |>
   addCircleMarkers(lng = ~longitude, lat = ~latitude,
                    fill = TRUE,
                    fillColor = "blue",
                    fillOpacity = 1,
                    stroke = T,
-                   radius = 2) |>
-  addLegend(pal = color_palette, values = JOIN_CUT_sf$H2A_workers, title = "H-2A Worker Population", position = "bottomright")
+                   radius = 2) 
+# |>
+#   addLegend(pal = color_palette, values = JOIN_CUT_sf$H2A_workers, title = "H-2A Worker Population", position = "bottomright")
 
 
 
@@ -281,7 +282,7 @@ kable(MHC_CORR, caption = "Table 1: Correlation between H-2A Population and Migr
 
 ## Correlation between H-2A population and wildfire, drought, and heat wave exposure, and temperature
 
-Most of the correlation coefficients found between H-2A worker density and exposure risk is not surprising. There are some that are surprisingly weak, but these are also not statistically signifcant.
+Most of the correlation coefficients found between H-2A worker density and exposure risk is not surprising. There are some that are surprisingly weak, but these are also not statistically significant.
 
 ```{r, fig.width = 8, fig.height = 10}
 BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))

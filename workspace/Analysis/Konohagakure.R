@@ -378,3 +378,67 @@ ggcorrplot(
     axis.text.y = element_text(size = 6.5)
   ) +
   labs(title = "Figure 5: Correlation between Farm Output & Environmental Risk")
+#===============================================================================================#
+
+COLORADO_MHC <- JOIN_CUT |> filter(state=="Colorado") |> arrange(desc(H2A_workers))
+cx <- cor.test(COLORADO_MHC$H2A_workers, COLORADO_MHC$MigrantHealthCenters)
+
+UTAH_MHC <- JOIN_CUT |> filter(state=="Utah") |> arrange(desc(H2A_workers))
+ux <- cor.test(UTAH_MHC$H2A_workers, UTAH_MHC$MigrantHealthCenters)
+
+NORTHDAKOTA_MHC <- JOIN_CUT |> filter(state == "North Dakota") |> arrange(desc(H2A_workers))
+nx <- cor.test(NORTHDAKOTA_MHC$H2A_workers, NORTHDAKOTA_MHC$MigrantHealthCenters)
+
+MONTANA_MHC <- JOIN_CUT |> filter(state=="Montana") |> arrange(desc(H2A_workers))
+mx <- cor.test(MONTANA_MHC$H2A_workers, MONTANA_MHC$MigrantHealthCenters)
+
+STATE_MHC_CORR <- data.frame(State = character(),
+                             Correlation = numeric(),
+                             P.Value = numeric(),
+                             Significant = logical())
+
+STATE_MHC_CORR <- rbind(STATE_MHC_CORR,
+                        data.frame(State = "Colorado", Correlation = cx$estimate,
+                                   P.Value = cx$p.value, Significant = NA) )
+
+STATE_MHC_CORR <- rbind(STATE_MHC_CORR,
+                        data.frame(State = "Utah", Correlation = ux$estimate,
+                                   P.Value = ux$p.value, Significant = NA) )
+
+STATE_MHC_CORR <- rbind(STATE_MHC_CORR,
+                        data.frame(State = "North Dakota", Correlation = nx$estimate,
+                                   P.Value = nx$p.value, Significant = NA) )
+
+STATE_MHC_CORR <- rbind(STATE_MHC_CORR,
+                        data.frame(State = "Montana", Correlation = mx$estimate,
+                                   P.Value = mx$p.value, Significant = NA) )
+
+STATE_MHC_CORR <- rbind(STATE_MHC_CORR, data.frame(State = "South Dakota", Correlation = NA, P.Value = NA, Significant = NA))
+STATE_MHC_CORR <- rbind(STATE_MHC_CORR, data.frame(State = "Wyoming", Correlation = NA, P.Value = NA, Significant = NA))
+
+STATE_MHC_CORR$Significant <- STATE_MHC_CORR$P.Value <= 0.05
+
+STATE_MHC_CORR$Correlation <- round(STATE_MHC_CORR$Correlation, 3)
+STATE_MHC_CORR$P.Value <- round(STATE_MHC_CORR$P.Value, 3)
+
+rownames(STATE_MHC_CORR) <- NULL
+
+STATE_MHC_CORR <- STATE_MHC_CORR |> arrange(desc(Correlation))
+STATE_MHC_CORR
+
+
+
+
+cor.test(COLORADO_MHC$H2A_workers, COLORADO_MHC$AgricultureValue)
+
+cor.test(UTAH_MHC$H2A_workers, UTAH_MHC$AgricultureValue)
+
+WYOMING_MHC <- JOIN_CUT |> filter(state=="Wyoming") |> arrange(desc(H2A_workers))
+cor.test(WYOMING_MHC$H2A_workers, WYOMING_MHC$AgricultureValue)
+
+cor.test(NORTHDAKOTA_MHC$H2A_workers, NORTHDAKOTA_MHC$AgricultureValue)
+
+cor.test(MONTANA_MHC$H2A_workers, MONTANA_MHC$AgricultureValue)
+
+SOUTHDAKOTA_MHC <- JOIN_CUT |> filter(state=="South Dakota") |> arrange(desc(H2A_workers))
+cor.test(SOUTHDAKOTA_MHC$H2A_workers, SOUTHDAKOTA_MHC$AgricultureValue)
