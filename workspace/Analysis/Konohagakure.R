@@ -280,6 +280,28 @@ ggcorrplot(
   labs(title = "Figure 4: Correlation Between H-2A Population & Environmental Risk")
 
 
+TEMP <- as.data.frame(COR_MTX)
+COR_MTX2 <- as.matrix(TEMP[,1])
+rownames(COR_MTX2) <- rownames(COR_MTX)
+ggcorrplot(
+  COR_MTX2,
+  method = "square",
+  type = "lower",
+  outline.color = "lightgrey",
+  sig.level = 0.05,
+  insig = "blank",
+  lab = T,
+  lab_size = 2,
+  legend.title = "Correlation"
+) +
+  theme(
+    axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
+    axis.text.y = element_text(size = 6.5)
+  ) +
+  labs(title = "Figure 4.2: Correlation Between H-2A Population & Environmental Risk")
+
+
+
 
 FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
 colnames(FIRE) <- gsub(" ", "", colnames(FIRE))
