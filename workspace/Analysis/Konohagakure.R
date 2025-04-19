@@ -283,6 +283,7 @@ ggcorrplot(
 TEMP <- as.data.frame(COR_MTX)
 COR_MTX2 <- as.matrix(TEMP[,1])
 rownames(COR_MTX2) <- rownames(COR_MTX)
+colnames(COR_MTX2) <- "H2A Population"
 ggcorrplot(
   COR_MTX2,
   method = "square",
@@ -299,6 +300,14 @@ ggcorrplot(
     axis.text.y = element_text(size = 6.5)
   ) +
   labs(title = "Figure 4.2: Correlation Between H-2A Population & Environmental Risk")
+
+COR_MTX2 <- as.data.frame(COR_MTX2)
+rowrow <- as.data.frame(rownames(COR_MTX2))
+COR_MTX2 <- COR_MTX2 |> mutate(rowrow, .before = `H2A Population`)
+COR_MTX2 <- COR_MTX2 |> rename(Variable = `rownames(COR_MTX2)`)
+COR_MTX2 <- COR_MTX2[-c(20:23),]
+rownames(COR_MTX2) <- NULL
+#write.xlsx(COR_MTX2, file = "~/internship/workspace/Written Datasets/COR_MTX2.xlsx")
 
 
 
