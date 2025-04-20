@@ -282,8 +282,30 @@ ggcorrplot(
 
 TEMP <- as.data.frame(COR_MTX)
 COR_MTX2 <- as.matrix(TEMP[,1])
-rownames(COR_MTX2) <- rownames(COR_MTX)
+rownames(COR_MTX2) <- c(
+  "H-2A Workers",
+  "Drought: Number of Events",
+  "Drought: Annualized Frequency",
+  "Drought Exposure: Impacted Area (sq mi)",
+  "Drought Exposure: Agriculture Value",
+  "Drought Exposure: Total",
+  "Heat Wave: Number of Events",
+  "Heat Wave: Annualized Frequency",
+  "Heat Wave Exposure: Impacted Area (sq mi)",
+  "Heat Wave Exposure: Building Value",
+  "Heat Wave Exposure: Population",
+  "Heat Wave Exposure: Agriculture Value",
+  "Heat Wave Exposure: Total",
+  "Wildfire: Annualized Frequency",
+  "Wildfire Exposure: Impacted Area (sq mi)",
+  "Wildfire Exposure: Building Value",
+  "Wildfire Exposure: Population",
+  "Wildfire Exposure: Agriculture Value",
+  "Wildfire Exposure: Total"
+)
+
 colnames(COR_MTX2) <- "H2A Population"
+
 ggcorrplot(
   COR_MTX2,
   method = "square",
@@ -292,14 +314,14 @@ ggcorrplot(
   sig.level = 0.05,
   insig = "blank",
   lab = T,
-  lab_size = 2,
-  legend.title = "Correlation"
+  lab_size = 5
 ) +
   theme(
-    axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
-    axis.text.y = element_text(size = 6.5)
+    axis.text.x = element_text(size = 11, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 11)
   ) +
-  labs(title = "Correlation Between H-2A Population & Environmental Risk")
+  labs(title = "Correlation Between H-2A Population & Environmental Risk") +
+  theme(legend.position = "none")
 
 COR_MTX2 <- as.data.frame(COR_MTX2)
 rowrow <- as.data.frame(rownames(COR_MTX2))
