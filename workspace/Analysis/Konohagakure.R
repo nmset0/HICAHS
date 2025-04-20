@@ -239,7 +239,7 @@ kable(MHC_CORR, caption = "Table 1: Correlation between H-2A Population and Migr
 
 
 
-BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))
+BURN <- JOIN_CUT |> select("H2A_workers", grep("drought|wildfire|heat|heatwave", colnames(JOIN_CUT), ignore.case = T))
 #BURN$state <- NULL
 BURN_CORR <- data.frame(Variable = character(),
                         Correlation = numeric(),
@@ -299,7 +299,7 @@ ggcorrplot(
     axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 6.5)
   ) +
-  labs(title = "Figure 4.2: Correlation Between H-2A Population & Environmental Risk")
+  labs(title = "Correlation Between H-2A Population & Environmental Risk")
 
 COR_MTX2 <- as.data.frame(COR_MTX2)
 rowrow <- as.data.frame(rownames(COR_MTX2))
