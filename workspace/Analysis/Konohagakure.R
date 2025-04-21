@@ -6,6 +6,7 @@ library(leaflet.extras)
 library(magrittr)
 library(sf)
 library(knitr)
+library(openxlsx)
 
 opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 
@@ -503,3 +504,37 @@ cor.test(MONTANA_MHC$H2A_workers, MONTANA_MHC$AgricultureValue)
 
 SOUTHDAKOTA_MHC <- JOIN_CUT |> filter(state=="South Dakota") |> arrange(desc(H2A_workers))
 cor.test(SOUTHDAKOTA_MHC$H2A_workers, SOUTHDAKOTA_MHC$AgricultureValue)
+
+
+
+
+
+
+Z <- FIRE_CORR |> filter(Response == "MigrantHealthCentersPerCapita")
+Z <- Z |> arrange(desc(Correlation))
+Z$Response[1:21] <- "Migrant Health Centers"
+
+Z$Predictor <- gsub("(?<=[a-z])([A-Z])", " \\1", Z$Predictor, perl = TRUE)
+Z <- Z |> filter(!grepl("July|Aug", Predictor))
+Z$Predictor <- gsub("Numberof", "Number of", Z$Predictor, ignore.case = FALSE)
+
+
+Z <- as.matrix(Z[-1,])
+ggcorrplot(
+  Z,
+  method = "square",
+  type = "lower",
+  outline.color = "lightgrey",
+  sig.level = 0.05,
+  insig = "blank",
+  lab = T,
+  lab_size = 5
+) +
+  theme(
+    axis.text.x = element_text(size = 11, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 11)
+  ) +
+  labs(title = "Correlation Between MHCs & Environmental Risk") +
+  theme(legend.position = "none")
+
+
