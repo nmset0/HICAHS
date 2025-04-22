@@ -29,7 +29,7 @@ MTH <- read_excel("~/internship/workspace/Health Facility Data/MontanaHealth24_x
 
 # Shape file for mapping
 HICAHS_SHP <- invisible(st_read("~/internship/workspace/tl_2024_us_state/tl_2024_us_state.shp", quiet = TRUE))
-COUNTY_SHP <- invisible(st_read("~/internship/workspace/tl_2024_us_county/tl_2024_us_county.shp", quiet = TRUE))
+COUNTY_SHP <- invisible(st_read("~/internship/workspace/tl_2023_us_county/tl_2023_us_county.shp", quiet = TRUE))
 
 response <- character()
 predictor <- character()
@@ -187,14 +187,33 @@ GGPLOT1
 
 selected_states <- HICAHS_SHP[HICAHS_SHP$NAME %in% c("Wyoming", "Colorado", "Montana", "Utah", "North Dakota", "South Dakota"), ]
 selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, NAME)
+selected_counties <- selected_counties |> rename(county = NAME)
+countyfps <- selected_counties |> select(STATEFP, COUNTYFP, county, INTPTLAT, INTPTLON)
+
+JOIN_CUT <- JOIN_CUT |>
+  mutate(STATEFP = case_when(
+    state == "Colorado" ~ "08",
+    state == "Utah" ~ "49",
+    state == "Wyoming" ~ "56",
+    state == "North Dakota" ~ "38",
+    state == "Montana" ~ "30",
+    state == "South Dakota" ~ "46",
+    TRUE ~ NA
+  ))
+
+
+JOIN_CUT <- JOIN_CUT %>%
+  left_join(countyfps, by = c("STATEFP", "county"))
 
 
 
 JOIN_CUT_CLEAN <- JOIN_CUT |> filter(county != "Lamoure")
-JOIN_CUT_sf <- st_as_sf(JOIN_CUT_CLEAN, coords = c("JOIN_CUT$longitude", "JOIN_CUT$latitude"), crs = 4326)
 
 
-color_palette <- colorNumeric(palette = c("yellow", "orange", "red"), domain = JOIN_CUT_sf$H2A_workers)
+JOIN_CUT_sf <- st_as_sf(na.exclude(JOIN_CUT_CLEAN), coords = c("INTPTLAT", "INTPTLON"), crs = 4326)
+
+
+color_palette <- colorNumeric(palette = c("white", "yellow", "orange2", "red"), domain = JOIN_CUT_sf$H2A_workers)
 map <- leaflet(MHC) |>
   addTiles() |>
   setView(lng = -104.993498, lat = 42.468594, zoom = 5.45) |>
@@ -510,31 +529,20 @@ cor.test(SOUTHDAKOTA_MHC$H2A_workers, SOUTHDAKOTA_MHC$AgricultureValue)
 
 
 
-Z <- FIRE_CORR |> filter(Response == "MigrantHealthCentersPerCapita")
-Z <- Z |> arrange(desc(Correlation))
-Z$Response[1:21] <- "Migrant Health Centers"
-
-Z$Predictor <- gsub("(?<=[a-z])([A-Z])", " \\1", Z$Predictor, perl = TRUE)
-Z <- Z |> filter(!grepl("July|Aug", Predictor))
-Z$Predictor <- gsub("Numberof", "Number of", Z$Predictor, ignore.case = FALSE)
 
 
-Z <- as.matrix(Z[-1,])
-ggcorrplot(
-  Z,
-  method = "square",
-  type = "lower",
-  outline.color = "lightgrey",
-  sig.level = 0.05,
-  insig = "blank",
-  lab = T,
-  lab_size = 5
-) +
-  theme(
-    axis.text.x = element_text(size = 11, angle = 45, hjust = 1),
-    axis.text.y = element_text(size = 11)
-  ) +
-  labs(title = "Correlation Between MHCs & Environmental Risk") +
+
+
+ggplot(data = JOIN, aes(y = H2A_workers, x = log(WildfireExposureTotal))) +
+  geom_point(aes(color = county)) +
+  geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.75) +
+  facet_wrap(.~state, scales = "free") +
   theme(legend.position = "none")
 
+
+ggplot(data = JOIN, aes(y = H2A_workers, x = log(DroughtExposureTotal))) +
+  geom_point(aes(color = county)) +
+  geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.75) +
+  facet_wrap(.~state, scales = "free") +
+  theme(legend.position = "none")
 
