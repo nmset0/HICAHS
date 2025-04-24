@@ -1,14 +1,7 @@
-# Reduce redundancy
-# Remove variables with little meaning or effect
-# Clean data structure
+# File for cleaning environmental risk data
 
-
-# Packages
 library(readr)
 library(dplyr)
-
-# Clean .GlobalEnv
-# rm(list = ls())
 
 # Read data
 disaster_raw <- read_csv("~/internship/workspace/Data/HICAHS_States_National_Risk_Index_Counties.csv")
@@ -16,7 +9,7 @@ disaster_raw <- read_csv("~/internship/workspace/Data/HICAHS_States_National_Ris
 # Create list of states
 state_names <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
 
-# Fill NAs
+# Replace NAs
 disaster_raw[is.na(disaster_raw)] <- 0
 
 # Clean column names
@@ -59,16 +52,18 @@ disaster_3 <- disaster_3 |> rename(AreaSqMi = Areasqmi)
 disaster_4 <- disaster_2 |>
   select(names(disaster_2)[2:4], matches("Total", ignore.case = TRUE))
 
+# Data set where Number of Events > 0
 disaster_5 <- disaster_raw |>
   select(names(disaster_raw)[2:4], matches("NumberofEvents|numberofevents|events|numberof", ignore.case = TRUE))
 disaster_5 <- disaster_5[, colSums(disaster_5 != 0) > 0]
 
+# Data set of relevant envir factors
 disaster_6 <- disaster_2 |>
   select(names(disaster_2)[2:8], matches("Wildfire|Hail|Lightning|Tornado|Heat|Cold|WinterWeather|Drought|Ice|Landslide|Riverine|StrongWind|Avalanche", ignore.case = TRUE))
 
-
-write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")
-write_csv(disaster_6, file = "~/internship/workspace/Written Datasets/disaster_cut_clean.csv")
+# Saving data
+# write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")
+# write_csv(disaster_6, file = "~/internship/workspace/Written Datasets/disaster_cut_clean.csv")
 
 
 
