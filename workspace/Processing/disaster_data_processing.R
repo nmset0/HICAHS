@@ -11,7 +11,7 @@ library(dplyr)
 # rm(list = ls())
 
 # Read data
-disaster_raw <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
+disaster_raw <- read_csv("~/internship/workspace/Data/HICAHS_States_National_Risk_Index_Counties.csv")
 
 # Create list of states
 state_names <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")

@@ -22,7 +22,7 @@ opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 ```{r data, message=FALSE, warning=FALSE}
 # Data:
 H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
-MHC <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv") # Migrant health centers
+MHC <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv") # Migrant health centers
 ENV <- read_csv("~/internship/workspace/Written Datasets/disaster_cut_clean.csv") # Natural disaster and weather risk
 AGO <- read_csv("~/internship/workspace/Written Datasets/ag_output_clean.csv") # Agricultural output
 JUL23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv") # Maximum temperature data for July 2023
@@ -219,8 +219,8 @@ GGPLOT1
 
 ```{r}
 selected_states <- HICAHS_SHP[HICAHS_SHP$NAME %in% c("Wyoming", "Colorado", "Montana", "Utah", "North Dakota", "South Dakota"), ]
-selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, NAME)
-selected_counties <- selected_counties |> rename(county = NAME)
+selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, county)
+#selected_counties <- selected_counties |> rename(county = NAME)
 countyfps <- selected_counties |> select(STATEFP, COUNTYFP, county, INTPTLAT, INTPTLON)
 
 JOIN_CUT <- JOIN_CUT |>
@@ -532,12 +532,12 @@ ggcorrplot(
 
 12)  [National Risk Index](https://hicahs-centroid-collaboration-csurams.hub.arcgis.com/apps/1ff51926aada4a85a74ee89ba1a2539b/explore): Federal Emergency Management Agency (ArcGIS Living Atlas)
 
-
+$\\$
 
 
 ### Appendix:
 
-```{r appendix, echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE}
+```{r}
 library(tidyverse)
 library(readxl)
 library(ggcorrplot)
@@ -546,12 +546,13 @@ library(leaflet.extras)
 library(magrittr)
 library(sf)
 library(knitr)
+library(openxlsx)
 
 opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 
 # Data:
 H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
-MHC <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv") # Migrant health centers
+MHC <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv") # Migrant health centers
 ENV <- read_csv("~/internship/workspace/Written Datasets/disaster_cut_clean.csv") # Natural disaster and weather risk
 AGO <- read_csv("~/internship/workspace/Written Datasets/ag_output_clean.csv") # Agricultural output
 JUL23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv") # Maximum temperature data for July 2023
@@ -568,7 +569,7 @@ MTH <- read_excel("~/internship/workspace/Health Facility Data/MontanaHealth24_x
 
 # Shape file for mapping
 HICAHS_SHP <- invisible(st_read("~/internship/workspace/tl_2024_us_state/tl_2024_us_state.shp", quiet = TRUE))
-COUNTY_SHP <- invisible(st_read("~/internship/workspace/tl_2024_us_county/tl_2024_us_county.shp", quiet = TRUE))
+COUNTY_SHP <- invisible(st_read("~/internship/workspace/tl_2023_us_county/tl_2023_us_county.shp", quiet = TRUE))
 
 response <- character()
 predictor <- character()
@@ -646,6 +647,13 @@ JOIN <- JOIN |> mutate(`CriticalAccessHospitals` = coalesce(`Critical Access Hos
 JOIN <- JOIN |> select(-`Critical Access Hospitals`, -Critical_Access_Hospitals)
 
 JOIN$county[JOIN$county == "lamoure"] <- "la moure"
+
+JOIN$H2A_workers[is.na(JOIN$H2A_workers)] <- 0
+
+
+# JOIN <- JOIN |>
+#   group_by(state) |>
+#   mutate(H2AStateTotal = sum(H2A_workers, na.rm = TRUE))
 #---------------------------------------------------------------------------------------------------------------#
 JOIN_CUT <- JOIN |>
   select(
@@ -681,34 +689,34 @@ JOIN_CUT <- JOIN_CUT |> arrange(state, county)
 
 
 
-GGDAT1 <- MHC_sum |> 
-  group_by(state) |> 
+GGDAT1 <- MHC_sum |>
+  group_by(state) |>
   summarise(total = sum(MigrantHealthCenters, na.rm = TRUE))
 
 # GGDAT1 <- rbind(GGDAT1, c("South Dakota", 0), c("Wyoming", 0))
 
 GGDAT1$state <- factor(GGDAT1$state, levels = c("Colorado", "Montana", "Utah", "North Dakota"))
 
-GGPLOT1 <- ggplot(data = GGDAT1, aes(y = state, x = as.numeric(total))) + 
-  geom_bar(stat = "identity", color = "black", fill = "darkgreen", width = .75) + 
-  labs(y = "State", x = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") + 
-  scale_x_continuous(breaks = seq(from = 0, to = 40, by = 2)) + 
-  geom_text(aes(label = total), hjust = 1.15, color = "white") + 
-  theme_minimal() + 
+GGPLOT1 <- ggplot(data = GGDAT1, aes(y = state, x = as.numeric(total))) +
+  geom_bar(stat = "identity", color = "black", fill = "darkgreen", width = .75) +
+  labs(y = "State", x = "Migrant Health Centers", title = "Figure 2: Migrant Health Centers Per State (NCFH 2023)") +
+  scale_x_continuous(breaks = seq(from = 0, to = 40, by = 2)) +
+  geom_text(aes(label = total), hjust = 1.15, color = "white") +
+  theme_minimal() +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
-GGDAT2 <- H2A |> 
-  group_by(state) |> 
+GGDAT2 <- H2A |>
+  group_by(state) |>
   summarise(total = sum(H2A_workers, na.rm = TRUE))
 
 GGDAT2$state <- factor(GGDAT2$state, levels = c("Colorado", "North Dakota", "South Dakota", "Montana", "Utah", "Wyoming"))
 
-GGPLOT2 <- ggplot(data = GGDAT2, aes(y = state, x = as.numeric(total))) + 
-  geom_bar(stat = "identity", color = "black", fill = "skyblue", width = .75) + 
-  labs(y = "State", x = "Worker Count", title = "Figure 1: H-2A Workers") + 
-  scale_x_continuous(breaks = seq(from = 0, to = 5000, by = 500)) + 
+GGPLOT2 <- ggplot(data = GGDAT2, aes(y = state, x = as.numeric(total))) +
+  geom_bar(stat = "identity", color = "black", fill = "skyblue", width = .75) +
+  labs(y = "State", x = "Worker Count", title = "Figure 1: H-2A Workers") +
+  scale_x_continuous(breaks = seq(from = 0, to = 5000, by = 500)) +
   geom_text(aes(label = total), hjust = 1.1, color = "white") +
-  theme_minimal() + 
+  theme_minimal() +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 
 GGPLOT2
@@ -716,16 +724,36 @@ GGPLOT1
 
 
 
+
 selected_states <- HICAHS_SHP[HICAHS_SHP$NAME %in% c("Wyoming", "Colorado", "Montana", "Utah", "North Dakota", "South Dakota"), ]
-selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, NAME)
+selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, county)
+#selected_counties <- selected_counties |> rename(county = NAME)
+countyfps <- selected_counties |> select(STATEFP, COUNTYFP, county, INTPTLAT, INTPTLON)
+
+JOIN_CUT <- JOIN_CUT |>
+  mutate(STATEFP = case_when(
+    state == "Colorado" ~ "08",
+    state == "Utah" ~ "49",
+    state == "Wyoming" ~ "56",
+    state == "North Dakota" ~ "38",
+    state == "Montana" ~ "30",
+    state == "South Dakota" ~ "46",
+    TRUE ~ NA
+  ))
+
+
+JOIN_CUT <- JOIN_CUT %>%
+  left_join(countyfps, by = c("STATEFP", "county"))
 
 
 
 JOIN_CUT_CLEAN <- JOIN_CUT |> filter(county != "Lamoure")
-JOIN_CUT_sf <- st_as_sf(JOIN_CUT_CLEAN, coords = c("JOIN_CUT$longitude", "JOIN_CUT$latitude"), crs = 4326)
 
 
-color_palette <- colorNumeric(palette = c("lightblue", "violet", "red"), domain = JOIN_CUT_sf$H2A_workers)
+JOIN_CUT_sf <- st_as_sf(na.exclude(JOIN_CUT_CLEAN), coords = c("INTPTLAT", "INTPTLON"), crs = 4326)
+
+
+color_palette <- colorNumeric(palette = c("white", "yellow", "orange2", "red"), domain = JOIN_CUT_sf$H2A_workers)
 map <- leaflet(MHC) |>
   addTiles() |>
   setView(lng = -104.993498, lat = 42.468594, zoom = 5.45) |>
@@ -771,7 +799,8 @@ kable(MHC_CORR, caption = "Table 1: Correlation between H-2A Population and Migr
 
 
 
-BURN <- JOIN_CUT |> select("H2A_workers", matches("drought|wildfire|heat|heatwave|Aug|Jul|July"))
+BURN <- JOIN_CUT |> select("H2A_workers", grep("drought|wildfire|heat|heatwave", colnames(JOIN_CUT), ignore.case = T))
+#BURN$state <- NULL
 BURN_CORR <- data.frame(Variable = character(),
                         Correlation = numeric(),
                         PValue = numeric() )
@@ -807,12 +836,66 @@ ggcorrplot(
   theme(
     axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 6.5)
-  ) + 
+  ) +
   labs(title = "Figure 4: Correlation Between H-2A Population & Environmental Risk")
+
+
+TEMP <- as.data.frame(COR_MTX)
+COR_MTX2 <- as.matrix(TEMP[,1])
+rownames(COR_MTX2) <- c(
+  "H-2A Workers",
+  "Drought: Number of Events",
+  "Drought: Annualized Frequency",
+  "Drought Exposure: Impacted Area (sq mi)",
+  "Drought Exposure: Agriculture Value",
+  "Drought Exposure: Total",
+  "Heat Wave: Number of Events",
+  "Heat Wave: Annualized Frequency",
+  "Heat Wave Exposure: Impacted Area (sq mi)",
+  "Heat Wave Exposure: Building Value",
+  "Heat Wave Exposure: Population",
+  "Heat Wave Exposure: Agriculture Value",
+  "Heat Wave Exposure: Total",
+  "Wildfire: Annualized Frequency",
+  "Wildfire Exposure: Impacted Area (sq mi)",
+  "Wildfire Exposure: Building Value",
+  "Wildfire Exposure: Population",
+  "Wildfire Exposure: Agriculture Value",
+  "Wildfire Exposure: Total"
+)
+
+colnames(COR_MTX2) <- "H2A Population"
+
+ggcorrplot(
+  COR_MTX2,
+  method = "square",
+  type = "lower",
+  outline.color = "lightgrey",
+  sig.level = 0.05,
+  insig = "blank",
+  lab = T,
+  lab_size = 5
+) +
+  theme(
+    axis.text.x = element_text(size = 11, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 11)
+  ) +
+  labs(title = "Correlation Between H-2A Population & Environmental Risk") +
+  theme(legend.position = "none")
+
+COR_MTX2 <- as.data.frame(COR_MTX2)
+rowrow <- as.data.frame(rownames(COR_MTX2))
+COR_MTX2 <- COR_MTX2 |> mutate(rowrow, .before = `H2A Population`)
+COR_MTX2 <- COR_MTX2 |> rename(Variable = `rownames(COR_MTX2)`)
+COR_MTX2 <- COR_MTX2[-c(20:23),]
+rownames(COR_MTX2) <- NULL
+#write.xlsx(COR_MTX2, file = "~/internship/workspace/Written Datasets/COR_MTX2.xlsx")
+
 
 
 
 FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
+FIRE <- FIRE |> select(-STATEFP, -COUNTYFP, -geometry, -INTPTLAT, -INTPTLON, -`income_net_cash_farm_of_operations_net_income_measured_in_$_operation`, -`income_net_cash_farm_of_operations_net_income_measured_in_$`)
 colnames(FIRE) <- gsub(" ", "", colnames(FIRE))
 colnames(FIRE) <- gsub("(^|_)([a-z])", "\\1\\U\\2", colnames(FIRE), perl = T)
 colnames(FIRE) <- gsub("\\$", "Dollars", colnames(FIRE))
@@ -820,7 +903,7 @@ colnames(FIRE) <- gsub("_", "", colnames(FIRE))
 
 
 FIRE[] <- lapply(FIRE, as.numeric)
-FIRE_HC <- FIRE |> select(3:20)
+FIRE_HC <- FIRE |> select(1:17)
 FIRE_HC <- cbind(FIRE_HC, Population2020 = JOIN$Population2020)
 FIRE_HC <- FIRE_HC |>
   mutate(across(
@@ -915,6 +998,7 @@ ggcorrplot(
   theme(
     axis.text.x = element_text(size = 6.5, angle = 90, hjust = 1),
     axis.text.y = element_text(size = 6.5)
-  ) + 
+  ) +
   labs(title = "Figure 5: Correlation between Farm Output & Environmental Risk")
 ```
+

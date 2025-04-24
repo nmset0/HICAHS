@@ -25,7 +25,7 @@ $\\$
 The values used as variables of economic output are listed below. The predictor variables are all the variables in each data set that are not in the following list of variables. Variables ending in "\$_operation" denote "dollars per operation".
 $\\$
 ```{r}
-output_risk_combined <- read_csv("~/internship/workspace/output_risk_combined.csv")
+output_risk_combined <- read_csv("~/internship/workspace/Data/output_risk_combined.csv")
 
 output_risk_combined <- output_risk_combined |> mutate(across(everything(), ~ gsub(",", "", .)))
 
@@ -104,7 +104,7 @@ for (i in names(risk_dfs)) {
   assign(i, risk_dfs[[i]])
 }
 
-source("C:/Users/natha/OneDrive/Documents/internship/workspace/Analysis/create_correlogram_function.R")
+source("C:/Users/NSETO/Documents/internship/workspace/Analysis/create_correlogram_function.R")
 
 N <- c("drought", "wildfire", "ColdWave", "tornado", "icestorm", "winterweather", "strongwind", "hail", "heatwave", "avalanche", "Landslide", "lightning", "Riverine")
 generate_corr_plot(N)

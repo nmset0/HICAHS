@@ -82,7 +82,7 @@ ggplot(data = MaxTemp_H2AWorkers, aes(x = max_temp, y = total_workers_h2a)) +
   labs(title = "Maximum Temperature and Worker Density", x = "Maximum Temperature (F)", y = "Total H2A Certified Workers")
 #______________________________________________________________________________________________________________________#
 
-disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
+disaster <- read_csv("~/internship/workspace/Data/HICAHS_States_National_Risk_Index_Counties.csv")
 
 state_names <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
 disaster <- filter(disaster, state %in% state_names)
