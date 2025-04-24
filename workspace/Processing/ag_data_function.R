@@ -1,10 +1,12 @@
+# Function to read in 289 data sets
+
 library(data.table)
 
 load_ag_output_data <- function(base_path, states) {
   state_outputs <- list()
 
   for (state in states) {
-    state_path <- file.path(base_path, state)
+    state_path <- file.path(base_path, state) # Path to files
 
     if (dir.exists(state_path)) {
       setwd(state_path)  # Change working directory
@@ -17,11 +19,14 @@ load_ag_output_data <- function(base_path, states) {
       }
     }
   }
-
+  # binding all data
   ag_output <- do.call(rbind, state_outputs)
 
-  # Reset working directory (Optional)
+  # Return to original working directory
   setwd(dirname(base_path))
 
   return(ag_output)
 }
+
+# base_path = working directory
+# states = CO, WY, UT, MT, ND, SD
