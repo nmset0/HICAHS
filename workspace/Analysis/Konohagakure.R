@@ -12,7 +12,7 @@ opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 
 # Data:
 H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
-MHC <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv") # Migrant health centers
+MHC <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv") # Migrant health centers
 ENV <- read_csv("~/internship/workspace/Written Datasets/disaster_cut_clean.csv") # Natural disaster and weather risk
 AGO <- read_csv("~/internship/workspace/Written Datasets/ag_output_clean.csv") # Agricultural output
 JUL23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv") # Maximum temperature data for July 2023
@@ -186,8 +186,8 @@ GGPLOT1
 
 
 selected_states <- HICAHS_SHP[HICAHS_SHP$NAME %in% c("Wyoming", "Colorado", "Montana", "Utah", "North Dakota", "South Dakota"), ]
-selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, NAME)
-selected_counties <- selected_counties |> rename(county = NAME)
+selected_counties <- COUNTY_SHP[COUNTY_SHP$STATEFP %in% selected_states$STATEFP, ] |> arrange(STATEFP, county)
+#selected_counties <- selected_counties |> rename(county = NAME)
 countyfps <- selected_counties |> select(STATEFP, COUNTYFP, county, INTPTLAT, INTPTLON)
 
 JOIN_CUT <- JOIN_CUT |>
@@ -355,6 +355,7 @@ rownames(COR_MTX2) <- NULL
 
 
 FIRE <- JOIN_CUT |> select(40:length(JOIN_CUT), matches("drought|wildfire|heat|heatwave"))
+FIRE <- FIRE |> select(-STATEFP, -COUNTYFP, -geometry, -INTPTLAT, -INTPTLON, -`income_net_cash_farm_of_operations_net_income_measured_in_$_operation`, -`income_net_cash_farm_of_operations_net_income_measured_in_$`)
 colnames(FIRE) <- gsub(" ", "", colnames(FIRE))
 colnames(FIRE) <- gsub("(^|_)([a-z])", "\\1\\U\\2", colnames(FIRE), perl = T)
 colnames(FIRE) <- gsub("\\$", "Dollars", colnames(FIRE))
@@ -362,7 +363,7 @@ colnames(FIRE) <- gsub("_", "", colnames(FIRE))
 
 
 FIRE[] <- lapply(FIRE, as.numeric)
-FIRE_HC <- FIRE |> select(3:20)
+FIRE_HC <- FIRE |> select(1:17)
 FIRE_HC <- cbind(FIRE_HC, Population2020 = JOIN$Population2020)
 FIRE_HC <- FIRE_HC |>
   mutate(across(
