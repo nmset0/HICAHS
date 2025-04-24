@@ -6,7 +6,7 @@ rm(list=ls())
 # Importing data (290 datasets)
 disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
 
-base_path <- "C:/Users/natha/OneDrive/Documents/internship/workspace/Ag Output Data"
+base_path <- "~/internship/workspace/Ag Output Data"
 states <- c("Colorado", "Wyoming", "North_Dakota", "South_Dakota", "Utah", "Montana")
 
 source("~/internship/workspace/Processing/ag_data_function.R")
