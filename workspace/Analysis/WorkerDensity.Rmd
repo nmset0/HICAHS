@@ -13,7 +13,7 @@ library(tidyverse)
 library(stargazer)
 library(ggcorrplot)
 opts_chunk$set(echo = FALSE, eval = TRUE, tidy = TRUE, warning = FALSE, message = FALSE)
-Risk_H2AWorkers <- read_csv("~/internship/workspace/wildfire_disaster.csv")
+Risk_H2AWorkers <- read_csv("~/internship/workspace/Data//wildfire_disaster.csv")
 ```
 
 ### (1) What is the relationship between health risk factors and worker densities in the HICAHS area?
