@@ -10,5 +10,5 @@ service area. Economic valuations associated with the extent of agricultural act
 be visualized spatially through this Hub as can densities of healthcare services and infrastructures among
 other indicators.
 
-Read the full description [here](https://github.com/nmset0/HICAHS/blob/main/HICAHS_intern_project.pdf).
+Read the full description [here](https://github.com/nmset0/HICAHS/blob/main/HICAHS_InternshipProject.pdf).
 
