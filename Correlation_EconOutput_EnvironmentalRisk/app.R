@@ -1,6 +1,7 @@
 library(shiny)
 library(dplyr)
 library(DT)
+
 # Define UI
 ui <- fluidPage(
   titlePanel("Environmental Risk Correlation Analysis"),
