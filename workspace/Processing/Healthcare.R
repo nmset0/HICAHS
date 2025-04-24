@@ -6,7 +6,7 @@ library(ggcorrplot)
 
 state_facility_load <- function() {
   # health risks
-  health <- read_csv("~/internship/workspace/HICAHS_STATES_PLACES_Local_Data_Health_County_Data_2024.csv")
+  health <- read_csv("~/internship/workspace/Data/HICAHS_STATES_PLACES_Local_Data_Health_County_Data_2024.csv")
   colnames(health) <- tolower(names(health))
 
   states <- c("Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming")
@@ -52,7 +52,7 @@ state_facility_load <- function() {
 
 migrant_health_centers <- function() {
   # migrant health centers specifically
-  ncfh <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv")
+  ncfh <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv")
   ncfh$county <- str_to_title(ncfh$county)
   ncfh$state <- str_to_title(ncfh$state)
   assign("ncfh", ncfh, envir = .GlobalEnv)
@@ -118,10 +118,10 @@ stateFacilityCorrelations <- function() {
 
   # Helper function to calculate correlations
   calculate_correlations <- function(health_data, state_name) {
-    predictors <- names(health_data[, (which(names(health_data) == "geolocation") + 1):(which(names(health_data) == "total_workers_h2a") - 1)])
+    predictors <- names(health_data[, (which(names(health_data) == "geolocation") + 1):(which(names(health_data) == "H2A_workers") - 1)])
     corr_df <- init_corr_df()
     for (predictor in predictors) {
-      cor_test <- cor.test(health_data[[predictor]], health_data$total_workers_h2a, method = "spearman", exact = FALSE, use = "pairwise.complete.obs")
+      cor_test <- cor.test(health_data[[predictor]], health_data$H2A_workers, method = "spearman", exact = FALSE, use = "pairwise.complete.obs")
       corr_df <- rbind(corr_df, data.frame(
         Predictor = predictor,
         Correlation = round(cor_test$estimate, 3),
@@ -129,7 +129,7 @@ stateFacilityCorrelations <- function() {
       ))
     }
     corr_df <- corr_df |>
-      mutate(Variable = "total_workers_h2a", .before = Predictor) |>
+      mutate(Variable = "H2A_workers", .before = Predictor) |>
       mutate(State = state_name, .before = Variable)
     corr_df$Significance <- ifelse(corr_df$PValue <= 0.05, TRUE, FALSE)
     corr_df

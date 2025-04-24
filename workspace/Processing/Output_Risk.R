@@ -4,13 +4,12 @@ library(readr)
 rm(list=ls())
 
 # Importing data (290 datasets)
-disaster <- read_csv("~/internship/workspace/HICAHS_States_National_Risk_Index_Counties.csv")
+disaster <- read_csv("~/internship/workspace/Data/HICAHS_States_National_Risk_Index_Counties.csv")
 
-base_path <- "~/internship/workspace/Ag Output Data"
 states <- c("Colorado", "Wyoming", "North_Dakota", "South_Dakota", "Utah", "Montana")
 
-source("~/internship/workspace/Processing/ag_data_function.R")
-ag_output <- load_ag_output_data(base_path, states)
+ag_output <- read_csv("~/internship/workspace/Data/ag_output.csv")
+
 
 # Begin Cleaning
 #-----------------------------Agricultural Output Data----------------------------------#
