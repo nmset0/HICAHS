@@ -65,7 +65,7 @@ hicahs_States <- invisible(st_read("~/internship/workspace/tl_2024_us_state/tl_2
 
 ```{r, echo = FALSE, eval = TRUE}
 
-migrantHealthCenter <- read_csv("~/internship/workspace/migrant_health_centers_ncfh.csv")
+migrantHealthCenter <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv")
 
 migrantHealthCenter <- migrantHealthCenter |> 
   separate(geolocation, into = c("latitude", "longitude"), sep = ",", convert = TRUE)
