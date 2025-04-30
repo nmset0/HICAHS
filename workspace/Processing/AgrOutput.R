@@ -1,12 +1,10 @@
 # Agricultural Output and Environmental Risk
 
 library(tidyverse)
-library(readr)
-
 
 # Importing data (290 datasets)
 disaster <- read_csv("~/internship/workspace/Data/HICAHS_States_National_Risk_Index_Counties.csv") # Env risk data
-ag_output <- read_csv("~/internship/workspace/Data/ag_output.csv") # Agricultural output data
+ag_output <- read_csv("~/internship/workspace/Data/AgrCensus_Output_raw.csv") # Agricultural output data
 
 states <- c("Colorado", "Wyoming", "North_Dakota", "South_Dakota", "Utah", "Montana")
 
