@@ -20,8 +20,10 @@ colnames(disaster_raw) <- gsub("[()]", "", colnames(disaster_raw))
         colnames(disaster_raw) <- gsub("__", "", colnames(disaster_raw))
 
 # Sort numeric and categorical variables to use later
-numeric_cols <- disaster_raw |> select(where(is.numeric))
-categoricl_cols <- disaster_raw |> select(setdiff(names(disaster_raw), names(numeric_cols)))
+numeric_cols <- disaster_raw |>
+  select(where(is.numeric))
+categoricl_cols <- disaster_raw |>
+  select(setdiff(names(disaster_raw), names(numeric_cols)))
 
 # Mass row and column removal
 disaster_2 <- filter(disaster_raw, state %in% state_names) # Retrieve HICAHS states
@@ -35,35 +37,48 @@ disaster_2 <- filter(disaster_raw, state %in% state_names) # Retrieve HICAHS sta
         }
       }
     }
-    disaster_2 <- disaster_2 |> select(-grep("Percentile", colnames(disaster_2), ignore.case = T))
+    disaster_2 <- disaster_2 |>
+      select(-grep("Percentile", colnames(disaster_2), ignore.case = T))
           # VST defined by FEMA: might be unnecessary. Variables are also substantially larger than the rest of the data.
-          disaster_2 <- disaster_2 |> select(-grep("PopulationEquivalence", colnames(disaster_2), ignore.case = T))
+          disaster_2 <- disaster_2 |>
+            select(-grep("PopulationEquivalence", colnames(disaster_2), ignore.case = T))
             # Remove irrelevant natural disasters
-            disaster_2 <- disaster_2 |> select(-grep("earthquake|coastal|Tsunami|hurricane|volcanic|CoastalFlooding", colnames(disaster_2), ignore.case = T))
+            disaster_2 <- disaster_2 |>
+              select(-grep("earthquake|coastal|Tsunami|hurricane|volcanic|CoastalFlooding", colnames(disaster_2), ignore.case = T))
               # Remove columns where sd(column) = 0
               disaster_2 <- disaster_2[, !apply(disaster_2, 2, function(col) length(unique(col)) == 1)]
 
-# Specific variable removal                                                 GIS?
-disaster_3 <- disaster_2 |> select(-GlobalID, -NationalRiskIndexID, -ShapeArea, -ShapeLength, -CommunityRiskFactorValue)
-disaster_3 <- disaster_3 |> mutate(id = 1:nrow(disaster_3), .before = state)
-disaster_3 <- disaster_3 |> rename(AreaSqMi = Areasqmi)
+# Specific variable removal and manipulaton
+disaster_3 <- disaster_2 |>
+  select(-GlobalID,
+         -NationalRiskIndexID,
+         -ShapeArea,
+         -ShapeLength,
+         -CommunityRiskFactorValue)
 
-# Df of "Totals" columns
+disaster_3 <- disaster_3 |>
+  mutate(id = 1:nrow(disaster_3), .before = state) |>
+  rename(AreaSqMi = Areasqmi)
+
+# Df of only "Totals" columns
 disaster_4 <- disaster_2 |>
   select(names(disaster_2)[2:4], matches("Total", ignore.case = TRUE))
 
 # Data set where Number of Events > 0
 disaster_5 <- disaster_raw |>
-  select(names(disaster_raw)[2:4], matches("NumberofEvents|numberofevents|events|numberof", ignore.case = TRUE))
+  select(names(disaster_raw)[2:4],
+         matches("NumberofEvents|numberofevents|events|numberof", ignore.case = TRUE))
+
 disaster_5 <- disaster_5[, colSums(disaster_5 != 0) > 0]
 
 # Data set of relevant envir factors
 disaster_6 <- disaster_2 |>
-  select(names(disaster_2)[2:8], matches("Wildfire|Hail|Lightning|Tornado|Heat|Cold|WinterWeather|Drought|Ice|Landslide|Riverine|StrongWind|Avalanche", ignore.case = TRUE))
+  select(names(disaster_2)[2:8],
+         matches("Wildfire|Hail|Lightning|Tornado|Heat|Cold|WinterWeather|Drought|Ice|Landslide|Riverine|StrongWind|Avalanche", ignore.case = TRUE))
 
 # Saving data
-# write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/disaster_clean.csv")
-# write_csv(disaster_6, file = "~/internship/workspace/Written Datasets/disaster_cut_clean.csv")
+# write_csv(disaster_3, file= "~/internship/workspace/Written Datasets/FEMA_Disasters_Clean.csv")
+# write_csv(disaster_6, file = "~/internship/workspace/Written Datasets/FEMA_Disasters_NumEventsGreaterThanZero.csv")
 
 
 
