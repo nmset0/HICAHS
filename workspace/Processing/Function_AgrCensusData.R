@@ -9,7 +9,7 @@ load_ag_output_data <- function(base_path, states) {
     state_path <- file.path(base_path, state) # Path to files
 
     if (dir.exists(state_path)) {
-      setwd(state_path)  # Change working directory
+      setwd(state_path)  # Change working directory to that of the files
 
       files <- list.files(pattern = "*.csv")
 
