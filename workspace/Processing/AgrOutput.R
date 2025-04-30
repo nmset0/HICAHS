@@ -11,7 +11,7 @@ ag_output <- read_csv("~/internship/workspace/Data/ag_output.csv") # Agricultura
 states <- c("Colorado", "Wyoming", "North_Dakota", "South_Dakota", "Utah", "Montana")
 
 
-# Begin Cleaning
+# Cleaning
 #-----------------------------Agricultural Output Data----------------------------------#
 for (i in 1:nrow(ag_output)) {
   if (!is.na(ag_output$domain.category[i]) && ag_output$domain.category[i] != "") {
@@ -43,8 +43,7 @@ ag_output_wide <- ag_output_wide |>
   slice(c(1:20, 22, 21, 23:n())) |>
   slice(c(1:33, 35, 34, 36:n()))
 
-# write_csv(ag_output_wide, file = "~/internship/workspace/Written Datasets/ag_output_clean.csv")
-#-----------------------------Natural Disaster Data--------------------------------------#
+#==================================Natural Disaster Data===============================================#
 # colnames to lower case
 disaster <- as.data.frame(lapply(disaster, function(x) {
   if (is.character(x)) tolower(x) else x
@@ -55,21 +54,23 @@ disaster <- disaster |> select(-National.Risk.Index.ID, -GlobalID, -National.Ris
 # (otherwise whole row will become NA when matching order (below))
 disaster$county[disaster$county == "lamoure"] <- "la moure"
 
-disaster <- disaster |> select(-matches("hurricane|tsunami|volcanic|coastal", ignore.case = TRUE)) # not relevant to states
-#----------------------------------------Merge Data---------------------------------------#
-# preparing to merge: matching order of datasets based on `county`
+disaster <- disaster |> select(-matches("hurricane|tsunami|volcanic|coastal", ignore.case = TRUE))
+# not relevant to HICAHS states
+
+#==================================Merge Data===============================================#
+# preparing to merge: matching order of data sets based on `county`
 disaster <- disaster[match(paste(ag_output_wide$state, ag_output_wide$county), paste(disaster$state, disaster$county)), ]
 
-# Verify:
-# sum((disaster$county == ag_output_wide$county) == FALSE)
 
-# Dataset merge:
+# Data set merging:
 shared_cols <- intersect(names(disaster), names(ag_output_wide))
 ag_output_unique <- ag_output_wide |> select(-all_of(shared_cols))
 output_risk_combined <- cbind(disaster, ag_output_unique)
 
 
-# Saving data
+# Saving data:
+# write_csv(ag_output_wide, file = "~/internship/workspace/Written Datasets/ag_output_clean.csv")
 # write_csv(output_risk_combined, file = "~/internship/workspace/output_risk_combined.csv")
+
 # saveRDS(output_risk_combined, file = "output_EnvironmentalRisk2.rds")
 

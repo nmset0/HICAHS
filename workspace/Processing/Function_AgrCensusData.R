@@ -1,4 +1,6 @@
 # Function to read in 289 data sets
+# !! Used to compile agricultural census data
+# No Longer Necessary
 
 library(data.table)
 
