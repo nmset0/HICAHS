@@ -1,7 +1,7 @@
 library(tidyverse)
 library(ggcorrplot)
 
-Risk_H2AWorkers <- read_csv("~/internship/workspace/Data/wildfire_disaster.csv")
+Risk_H2AWorkers <- read_csv("~/internship/workspace/Written Datasets/FEMA_wildfire.csv")
 
 # Correlation between heat and worker concentrations
 MaxTemp_WorkerTotal_lm <- lm(total_workers ~ maximum_temperature, data = Risk_H2AWorkers)
@@ -10,9 +10,6 @@ summary(MaxTemp_WorkerTotal_lm)$coefficients
 # Correlation between fire and worker concentrations
 FireHzrdIdxScore_WorkerTotal_lm <- lm(total_workers ~ `wildfire_hazard_type_risk_index_score`, data = Risk_H2AWorkers)
 FireExpTotal_WorkerTotal_lm <- lm(total_workers ~ `wildfire_exposure_total`, data = Risk_H2AWorkers)
-
-# summary(FireHzrdIdxScore_WorkerTotal_lm)$coefficients
-# summary(FireExpTotal_WorkerTotal_lm)$coefficients
 
 
 # Separating by state
@@ -32,11 +29,6 @@ north_dakota_lm <- lm(maximum_temperature ~ total_workers, data = north_dakota)
 south_dakota_lm <- lm(maximum_temperature ~ total_workers, data = south_dakota)
 utah_lm <- lm(maximum_temperature ~ total_workers, data = utah)
 
-# summary(colorado_lm)
-# summary(wyoming_lm)
-# summary(north_dakota_lm)
-# summary(south_dakota_lm)
-# summary(utah_lm)
 
 # Pearson Correlation Coefficient
 # complemented by lm() models
@@ -72,7 +64,7 @@ for (i in N) {
 }
 correlation_df <- data.frame(column = N, correlation = correlation_vector) |> arrange(desc(correlation))
 correlation_df <-  correlation_df[-1, ]
-knitr::kable(correlation_df)
+tibble(correlation_df)
 
 # Correlogram ggcorrplot()
 temp <- Risk_H2AWorkers[sapply(Risk_H2AWorkers, is.numeric)]
@@ -85,6 +77,6 @@ corrplot <- ggcorrplot(corr, p.mat = matrix, type = "full",
   )
 corrplot
 
-# write_csv(correlation_df, file = "Risk_Correlation_df.csv")
+# write_csv(correlation_df, file = "~/internship/workspace/Written Datasets/WorkerDensity_Wildfire_Correlations.csv")
 # ggsave(filename = "Risk_Corr_Plot.png", plot = corrplot)
 
