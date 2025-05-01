@@ -152,7 +152,7 @@ stateFacilityCorrelations <- function() {
 
 weather_facility_load <- function() {
   # Load and process disaster data
-  disaster <- read_csv("~/internship/workspace/Written Datasets/Disaster_cut_clean.csv")
+  disaster <- read_csv("~/internship/workspace/Written Datasets/FEMA_Disasters_NumEventsGreaterThanZero.csv")
   disaster <- disaster |> select(-grep("coastal|Tsunami|hurricane|volcanic", colnames(disaster), ignore.case = TRUE))
   disaster[is.na(disaster)] <- 0
   colnames(disaster) <- gsub(" ", "", colnames(disaster))

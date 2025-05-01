@@ -67,7 +67,7 @@ output_risk_combined <- cbind(disaster, ag_output_unique)
 
 
 # Saving data:
-# write_csv(ag_output_wide, file = "~/internship/workspace/Written Datasets/ag_output_clean.csv")
+# write_csv(ag_output_wide, file = "~/internship/workspace/Written Datasets/AgrCensus_Output_Clean.csv")
 # write_csv(output_risk_combined, file = "~/internship/workspace/output_risk_combined.csv")
 
 # saveRDS(output_risk_combined, file = "output_EnvironmentalRisk2.rds")
