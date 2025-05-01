@@ -1,4 +1,5 @@
-# For use in 'EconomicOutput_and_Risk.Rmd'
+# For use in 'EconomicOutput.Rmd'
+
 generate_corr_plot <- function(df_names) {
   for (df_name in df_names) {
 

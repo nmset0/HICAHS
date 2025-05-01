@@ -104,7 +104,7 @@ for (i in names(risk_dfs)) {
   assign(i, risk_dfs[[i]])
 }
 
-source("C:/Users/NSETO/Documents/internship/workspace/Analysis/create_correlogram_function.R")
+source("~/internship/workspace/Analysis/Function_CreateCorrelogram.R")
 
 N <- c("drought", "wildfire", "ColdWave", "tornado", "icestorm", "winterweather", "strongwind", "hail", "heatwave", "avalanche", "Landslide", "lightning", "Riverine")
 generate_corr_plot(N)

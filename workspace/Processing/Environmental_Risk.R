@@ -37,7 +37,7 @@ breaks <- c(0, 47, 102, 160, 219, 244, 269) # Indices
 
 h2a_by_county_new <- h2a_by_county_new |> filter(!grepl("Total", county))
 
-# write_csv(h2a_by_county_new, file = "~/internship/workspace/Written Datasets/h2a_by_county_new.csv")
+# write_csv(h2a_by_county_new, file = "~/internship/workspace/Written Datasets/H2AWorkers_County_Clean.csv")
 #______________________________________________________________________________________________________________________#
 # Heat data
 CountyMaxTemp_JUL23 <- as.data.frame(read_csv("HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv"))
@@ -109,7 +109,6 @@ for (i in 1:nrow(MaxTemp_H2AWorkers)) {
 disaster_fire <- filter(disaster_fire, !is.na(total_workers))
 colnames(disaster_fire) <- gsub("_-_", "_", colnames(disaster_fire))
 
-# write_csv(disaster_fire, file = "C:/Users/natha/OneDrive/Documents/internship/workspace/wildfire_disaster.csv")
 
 # plotting H-2A population against wildfire risk
 ggplot(data = disaster_fire, aes(y = total_workers, x = wildfire_hazard_type_risk_index_score)) +
