@@ -123,7 +123,7 @@ rownames(h2aPopulationCorrelations) <- NULL
 h2aPopulationCorrelations <- h2aPopulationCorrelations |> mutate(id = c(1:25), .before = State)
 kable(h2aPopulationCorrelations, longtable = TRUE, align =c("l", "l", "l", "c", "c", "c"))
 
-# write.csv(h2aPopulationCorrelations, file = "H2AWorkers_HealthcareAll_Correlations.csv")
+# write.csv(h2aPopulationCorrelations, file = "~/internship/workspace/Written Datasets/H2AWorkers_HealthcareAll_Correlations.csv")
 ```
 
 
