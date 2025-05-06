@@ -10,7 +10,7 @@ library(tidyverse)
 library(readxl)
 library(knitr)
 # Data:
-H2A <- read_csv("~/internship/workspace/Written Datasets/H2AWorkers_County_Clean.csv") # Worker density
+H2A <- read_csv("~/internship/workspace/Written Datasets/H2AWorkers_County_Clean_2.csv") # Worker density
 MHC <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv") # Migrant health centers
 ENV <- read_csv("~/internship/workspace/Written Datasets/FEMA_Disasters_NumEventsGreaterThanZero.csv") # Natural disaster and weather risk
 AGO <- read_csv("~/internship/workspace/Written Datasets/AgrCensus_Output_Clean.csv") # Agricultural output
@@ -59,7 +59,8 @@ JUL23 <- JUL23 |> rename(county = Name) |> rename(state = State) |> rename(`July
 AUG23 <- AUG23 |> rename(county = Name) |> rename(state = State) |> rename(`Aug1901-2000Mean` = `1901-2000 Mean`)
 
 # Column uniformity
-H2A$county <- str_to_title(H2A$county)
+H2A$County <- str_to_title(H2A$County)
+H2A <- H2A |> rename(county = County) |> rename(state = State)
 MHC$county <- str_to_title(MHC$county)
 ENV$county <- str_to_title(ENV$county)
 AGO$county <- str_to_title(AGO$county)
@@ -106,7 +107,7 @@ JOIN <- JOIN |> select(-`Critical Access Hospitals`, -Critical_Access_Hospitals)
 
 JOIN$county[JOIN$county == "lamoure"] <- "la moure"
 
-JOIN$H2A_workers[is.na(JOIN$H2A_workers)] <- 0
+#JOIN$H2A_workers[is.na(JOIN$H2A_workers)] <- 0
 
 
 # JOIN <- JOIN |>
