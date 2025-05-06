@@ -42,7 +42,7 @@ state_facility_load <- function() {
   })
 
   # H2-A population
-  h2a_population <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") |> arrange(state, county)
+  h2a_population <- read_csv("~/internship/workspace/Written Datasets/H2AWorkers_County_Clean.csv") |> arrange(state, county)
 
   assign("health", health, envir = .GlobalEnv)
   assign("h2a_population", h2a_population, envir = .GlobalEnv)

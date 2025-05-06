@@ -11,10 +11,10 @@ library(openxlsx)
 # I essentially rebuilt this script rather than pulling from other files
 
 # Data:
-H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
+H2A <- read_csv("~/internship/workspace/Written Datasets/H2AWorkers_County_Clean.csv") # Worker density
 MHC <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv") # Migrant health centers
-ENV <- read_csv("~/internship/workspace/Written Datasets/disaster_cut_clean.csv") # Natural disaster and weather risk
-AGO <- read_csv("~/internship/workspace/Written Datasets/ag_output_clean.csv") # Agricultural output
+ENV <- read_csv("~/internship/workspace/Written Datasets/FEMA_Disasters_NumEventsGreaterThanZero.csv") # Natural disaster and weather risk
+AGO <- read_csv("~/internship/workspace/Written Datasets/AgrCensus_Output_Clean.csv") # Agricultural output
 JUL23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv") # Maximum temperature data for July 2023
 AUG23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_AUG23.csv") # Maximum temperature data for August 2023
 
@@ -239,6 +239,8 @@ map <- leaflet(MHC) |>
 map
 
 
+
+
 # Combining H-2A population and migrant health center counts
 H2AMHC <- H2A |> left_join(MHC_sum, by = c("state", "county"))
 H2AMHC$MigrantHealthCenters[is.na(H2AMHC$MigrantHealthCenters)] <- 0 # replace NAs
@@ -257,6 +259,9 @@ MHC_CORR <- rbind(MHC_CORR, data.frame(Variable = "MigrantHealthCenters",
 MHC_CORR$Significance <- ifelse(MHC_CORR$PValue <= 0.05, TRUE, FALSE)
 rownames(MHC_CORR) <- NULL
 kable(MHC_CORR, caption = "Table 1: Correlation between H-2A Population and Migrant Health Centers")
+
+
+
 
 
 # Correlations between H-2A population and drought, wildfire, heat wave exposure
@@ -465,9 +470,15 @@ ggcorrplot(
 
 
 #===========================================Extra=================================================#
+cxFrame <- uxFrame <- nxFrame <- mxFrame <- data.frame(state = character(),
+                                   correlation = numeric(),
+                                   weightedCorrelation = numeric()
+                                   )
+
 # Separating by state
 COLORADO_MHC <- JOIN_CUT |> filter(state=="Colorado") |> arrange(desc(H2A_workers))
 cx <- cor.test(COLORADO_MHC$H2A_workers, COLORADO_MHC$MigrantHealthCenters)
+cxFrame <- rbind(cxFrame, data.frame(state = "Colorado", correlation = cx$estimate, weightedCorrelation = round(cor(COLORADO_MHC$H2A_workers, COLORADO_MHC$MigrantHealthCenters/COLORADO_MHC$Areasqmi, 3))))
 
 UTAH_MHC <- JOIN_CUT |> filter(state=="Utah") |> arrange(desc(H2A_workers))
 ux <- cor.test(UTAH_MHC$H2A_workers, UTAH_MHC$MigrantHealthCenters)
@@ -512,6 +523,11 @@ rownames(STATE_MHC_CORR) <- NULL
 STATE_MHC_CORR <- STATE_MHC_CORR |> arrange(desc(Correlation))
 STATE_MHC_CORR
 
+
+Areasqmi <- ENV |> select(state, county, Areasqmi)
+H2AMHC <- H2AMHC |> left_join(Areasqmi, by = c("state", "county"))
+
+STATE_MHC_CORR_FINAL <- MHC_CORR |> select(-P.Value, -Significance)
 
 
 

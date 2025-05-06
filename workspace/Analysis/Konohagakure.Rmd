@@ -21,10 +21,10 @@ opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 
 ```{r data, message=FALSE, warning=FALSE}
 # Data:
-H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
+H2A <- read_csv("~/internship/workspace/Written Datasets/H2AWorkers_County_Clean.csv") # Worker density
 MHC <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv") # Migrant health centers
-ENV <- read_csv("~/internship/workspace/Written Datasets/disaster_cut_clean.csv") # Natural disaster and weather risk
-AGO <- read_csv("~/internship/workspace/Written Datasets/ag_output_clean.csv") # Agricultural output
+ENV <- read_csv("~/internship/workspace/Written Datasets/FEMA_Disasters_NumEventsGreaterThanZero.csv") # Natural disaster and weather risk
+AGO <- read_csv("~/internship/workspace/Written Datasets/AgrCensus_Output_Clean.csv") # Agricultural output
 JUL23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv") # Maximum temperature data for July 2023
 AUG23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_AUG23.csv") # Maximum temperature data for August 2023
 
@@ -537,7 +537,7 @@ $\\$
 
 ### Appendix:
 
-```{r}
+```{r, echo = TRUE, eval = FALSE, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(readxl)
 library(ggcorrplot)
@@ -551,10 +551,10 @@ library(openxlsx)
 opts_chunk$set(echo = F, eval = T, warning = F, message = F)
 
 # Data:
-H2A <- read_csv("~/internship/workspace/Written Datasets/h2a_by_county_new.csv") # Worker density
+H2A <- read_csv("~/internship/workspace/Written Datasets/H2AWorkers_County_Clean.csv") # Worker density
 MHC <- read_csv("~/internship/workspace/Data/migrant_health_centers_ncfh.csv") # Migrant health centers
-ENV <- read_csv("~/internship/workspace/Written Datasets/disaster_cut_clean.csv") # Natural disaster and weather risk
-AGO <- read_csv("~/internship/workspace/Written Datasets/ag_output_clean.csv") # Agricultural output
+ENV <- read_csv("~/internship/workspace/Written Datasets/FEMA_Disasters_NumEventsGreaterThanZero.csv") # Natural disaster and weather risk
+AGO <- read_csv("~/internship/workspace/Written Datasets/AgrCensus_Output_Clean.csv") # Agricultural output
 JUL23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_JUL23.csv") # Maximum temperature data for July 2023
 AUG23 <- read_csv("~/internship/HICAHS/Data/Heat_Ag_HumanRisk/CountyMaxTemp_AUG23.csv") # Maximum temperature data for August 2023
 
