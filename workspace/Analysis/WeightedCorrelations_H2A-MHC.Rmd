@@ -179,7 +179,6 @@ state_corr_frame <- rbind(state_corr_frame, data.frame(state = "Wyoming", correl
 
 colnames(state_corr_frame) <- c("State", "Correlation", "Correlation-Weighted for Sq. Miles")
 state_corr_frame <- state_corr_frame |> arrange(desc(Correlation))
-kable(state_corr_frame)
 
 # write.csv(state_corr_frame, file = "~/internship/workspace/Written Datasets/H2AWorkers_MHC_WeightedCorrelations_State.csv")
 
@@ -207,7 +206,6 @@ state_corr_frame <- rbind(stx, state_corr_frame)
 
 
 colnames(state_corr_frame) <- c("State", "Correlation", "Correlation-Weighted for Sq. Miles")
-state_corr_frame <- state_corr_frame |> arrange(desc(Correlation))
 kable(state_corr_frame)
 ```
 
