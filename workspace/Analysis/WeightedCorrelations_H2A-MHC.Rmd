@@ -200,12 +200,12 @@ stx <- data.frame(State = character(),
 x <- round(cor(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters), 3)
 y <- round(cor(H2AMHC$H2A_workers/H2AMHC$Areasqmi, H2AMHC$MigrantHealthCenters/H2AMHC$Areasqmi), 3)
 
-stx <- rbind(stx, data.frame(state = "All States", correlation = x, weightedCorrelation = y))
+stx <- rbind(stx, data.frame(state = "ALL States", correlation = x, weightedCorrelation = y))
 colnames(stx) <- colnames(state_corr_frame)
 state_corr_frame <- rbind(stx, state_corr_frame)
 
 
 colnames(state_corr_frame) <- c("State", "Correlation", "Correlation-Weighted for Sq. Miles")
-kable(state_corr_frame)
+kable(state_corr_frame, align = c("r", "c", "c"))
 ```
 
