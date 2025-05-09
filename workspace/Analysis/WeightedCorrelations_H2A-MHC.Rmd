@@ -175,8 +175,8 @@ y <- round(cor(MONTANA_MHC$H2A_workers/MONTANA_MHC$Areasqmi, MONTANA_MHC$Migrant
 mx <- rbind(mx, data.frame(state = "Montana", correlation = x, weightedCorrelation = y))
 
 state_corr_frame <- rbind(cx, mx, nx, ux)
-state_corr_frame <- rbind(state_corr_frame, data.frame(state = "South Dakota", correlation = NA, weightedCorrelation = NA))
-state_corr_frame <- rbind(state_corr_frame, data.frame(state = "Wyoming", correlation = NA, weightedCorrelation = NA))
+# state_corr_frame <- rbind(state_corr_frame, data.frame(state = "South Dakota", correlation = NA, weightedCorrelation = NA))
+# state_corr_frame <- rbind(state_corr_frame, data.frame(state = "Wyoming", correlation = NA, weightedCorrelation = NA))
 
 colnames(state_corr_frame) <- c("State", "Correlation", "Correlation-Weighted for Sq. Miles")
 state_corr_frame <- state_corr_frame |> arrange(desc(Correlation))
@@ -198,15 +198,120 @@ stx <- data.frame(State = character(),
                        Correlation = numeric(),
                        weightedCorrelation = numeric() )
 
-x <- round(cor(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters), 3)
-y <- round(cor(H2AMHC$H2A_workers/H2AMHC$Areasqmi, H2AMHC$MigrantHealthCenters/H2AMHC$Areasqmi), 3)
+x <- round(cor(H2AMHC$H2A_workers, H2AMHC$MigrantHealthCenters, method= "kendall"), 3)
+y <- round(cor(H2AMHC$H2A_workers/H2AMHC$Areasqmi, H2AMHC$MigrantHealthCenters/H2AMHC$Areasqmi, method = "kendall"), 3)
 
-stx <- rbind(stx, data.frame(state = "ALL States", correlation = x, weightedCorrelation = y))
+stx <- rbind(stx, data.frame(state = "HICAHS Region", correlation = x, weightedCorrelation = y))
 colnames(stx) <- colnames(state_corr_frame)
 state_corr_frame <- rbind(stx, state_corr_frame)
 
 
-colnames(state_corr_frame) <- c("State", "Correlation", "Correlation-Weighted for Sq. Miles")
+colnames(state_corr_frame) <- c("State", "Tau", "Tau: Per Sq. Miles")
 kable(state_corr_frame, align = c("r", "c", "c"))
+
+write.xlsx(state_corr_frame, file = "~/internship/workspace/Written Datasets/rediTable1.xlsx")
+```
+
+
+```{r, warning = F, message = F}
+FinalData <- read_csv("~/internship/workspace/Written Datasets/CombinedData_H2AWorkers_FEMA_AgrOutput_Healthcare.csv")
+rediTable2 <- data.frame(matrix(ncol = 7, nrow = 3))
+colnames(rediTable2) <- c("Exposure", "Colorado", "Utah", "Montana", "North Dakota", "South Dakota", "Wyoming")
+
+rediTable3 <- data.frame(matrix(ncol = 7, nrow = 3))
+colnames(rediTable3) <- c("Exposure", "Colorado", "Utah", "Montana", "North Dakota", "South Dakota", "Wyoming")
+
+FinalData_1 <- FinalData |> 
+  select(state, county, 
+         H2A_workers, H2AStateTotal, 
+         MigrantHealthCenters, Population2020, Areasqmi, 
+         HeatWaveExposureTotal, HeatWaveExposurePopulation, 
+         DroughtExposureTotal, 
+         WildfireExposureTotal, WildfireExposurePopulation)
+
+FinalData_colorado <-  FinalData_1 |> filter(state == "Colorado" | state == "colorado")
+FinalData_wyoming <-  FinalData_1 |> filter(state == "Wyoming" | state == "wyoming")
+FinalData_utah <-  FinalData_1 |> filter(state == "Utah" | state == "utah")
+FinalData_montana <-  FinalData_1 |> filter(state == "Montana" | state == "montana")
+FinalData_northDakota <-  FinalData_1 |> filter(state == "North Dakota" | state == "north dakota")
+FinalData_southDakota <-  FinalData_1 |> filter(state == "South Dakota" | state == "south Dakota")
+```
+
+```{r}
+rediCorrFunct <- function(dataset, response, predictor) {
+  c <- round(cor(dataset[[response]], dataset[[predictor]], method = "kendall"), 3)
+  return(c)
+}
+```
+
+```{r}
+# corr w/ H-2A population
+rediTable2[1, 2] <- rediCorrFunct(FinalData_colorado, "H2A_workers", "WildfireExposureTotal")
+rediTable2[2, 2] <- rediCorrFunct(FinalData_colorado, "H2A_workers", "DroughtExposureTotal")
+rediTable2[3, 2] <- rediCorrFunct(FinalData_colorado, "H2A_workers", "HeatWaveExposureTotal")
+
+rediTable2[1, 3] <- rediCorrFunct(FinalData_utah, "H2A_workers", "WildfireExposureTotal")
+rediTable2[2, 3] <- rediCorrFunct(FinalData_utah, "H2A_workers", "DroughtExposureTotal")
+rediTable2[3, 3] <- rediCorrFunct(FinalData_utah, "H2A_workers", "HeatWaveExposureTotal")
+
+rediTable2[1, 4] <- rediCorrFunct(FinalData_montana, "H2A_workers", "WildfireExposureTotal")
+rediTable2[2, 4] <- rediCorrFunct(FinalData_montana, "H2A_workers", "DroughtExposureTotal")
+rediTable2[3, 4] <- rediCorrFunct(FinalData_montana, "H2A_workers", "HeatWaveExposureTotal")
+
+rediTable2[1, 5] <- rediCorrFunct(FinalData_northDakota, "H2A_workers", "WildfireExposureTotal")
+rediTable2[2, 5] <- rediCorrFunct(FinalData_northDakota, "H2A_workers", "DroughtExposureTotal")
+rediTable2[3, 5] <- rediCorrFunct(FinalData_northDakota, "H2A_workers", "HeatWaveExposureTotal")
+
+rediTable2[1, 6] <- rediCorrFunct(FinalData_southDakota, "H2A_workers", "WildfireExposureTotal")
+rediTable2[2, 6] <- rediCorrFunct(FinalData_southDakota, "H2A_workers", "DroughtExposureTotal")
+rediTable2[3, 6] <- rediCorrFunct(FinalData_southDakota, "H2A_workers", "HeatWaveExposureTotal")
+
+rediTable2[1, 7] <- rediCorrFunct(FinalData_wyoming, "H2A_workers", "WildfireExposureTotal")
+rediTable2[2, 7] <- rediCorrFunct(FinalData_wyoming, "H2A_workers", "DroughtExposureTotal")
+rediTable2[3, 7] <- rediCorrFunct(FinalData_wyoming, "H2A_workers", "HeatWaveExposureTotal")
+
+rediTable2[1, 1] <- "Total Wildfire"
+rediTable2[2, 1] <- "Total Drought"
+rediTable2[3, 1] <- "Total Heat Wave"
+
+
+kable(rediTable2, caption = "Correlation Between H-2A Worker Population and Wildfire/Drought/Heatwave")
+
+write.xlsx(rediTable2, file = "~/internship/workspace/Written Datasets/rediTable2.xlsx")
+```
+
+```{r}
+# correlation w/ MHCs
+rediTable3[1, 2] <- rediCorrFunct(FinalData_colorado, "MigrantHealthCenters", "WildfireExposureTotal")
+rediTable3[2, 2] <- rediCorrFunct(FinalData_colorado, "MigrantHealthCenters", "DroughtExposureTotal")
+rediTable3[3, 2] <- rediCorrFunct(FinalData_colorado, "MigrantHealthCenters", "HeatWaveExposureTotal")
+
+rediTable3[1, 3] <- rediCorrFunct(FinalData_utah, "MigrantHealthCenters", "WildfireExposureTotal")
+rediTable3[2, 3] <- rediCorrFunct(FinalData_utah, "MigrantHealthCenters", "DroughtExposureTotal")
+rediTable3[3, 3] <- rediCorrFunct(FinalData_utah, "MigrantHealthCenters", "HeatWaveExposureTotal")
+
+rediTable3[1, 4] <- rediCorrFunct(FinalData_montana, "MigrantHealthCenters", "WildfireExposureTotal")
+rediTable3[2, 4] <- rediCorrFunct(FinalData_montana, "MigrantHealthCenters", "DroughtExposureTotal")
+rediTable3[3, 4] <- rediCorrFunct(FinalData_montana, "MigrantHealthCenters", "HeatWaveExposureTotal")
+
+rediTable3[1, 5] <- rediCorrFunct(FinalData_northDakota, "MigrantHealthCenters", "WildfireExposureTotal")
+rediTable3[2, 5] <- rediCorrFunct(FinalData_northDakota, "MigrantHealthCenters", "DroughtExposureTotal")
+rediTable3[3, 5] <- rediCorrFunct(FinalData_northDakota, "MigrantHealthCenters", "HeatWaveExposureTotal")
+
+rediTable3[1, 6] <- rediCorrFunct(FinalData_southDakota, "MigrantHealthCenters", "WildfireExposureTotal")
+rediTable3[2, 6] <- rediCorrFunct(FinalData_southDakota, "MigrantHealthCenters", "DroughtExposureTotal")
+rediTable3[3, 6] <- rediCorrFunct(FinalData_southDakota, "MigrantHealthCenters", "HeatWaveExposureTotal")
+
+rediTable3[1, 7] <- rediCorrFunct(FinalData_wyoming, "MigrantHealthCenters", "WildfireExposureTotal")
+rediTable3[2, 7] <- rediCorrFunct(FinalData_wyoming, "MigrantHealthCenters", "DroughtExposureTotal")
+rediTable3[3, 7] <- rediCorrFunct(FinalData_wyoming, "MigrantHealthCenters", "HeatWaveExposureTotal")
+
+rediTable3[1, 1] <- "Total Wildfire"
+rediTable3[2, 1] <- "Total Drought"
+rediTable3[3, 1] <- "Total Heat Wave"
+
+kable(rediTable3, caption = "Correlation Between MHCs and Wildfire/Drought/Heatwave")
+
+write.xlsx(rediTable3, file = "~/internship/workspace/Written Datasets/rediTable3.xlsx")
 ```
 
