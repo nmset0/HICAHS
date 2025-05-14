@@ -558,4 +558,11 @@ ggplot(data = JOIN, aes(y = H2A_workers, x = log(DroughtExposureTotal))) +
   geom_smooth(method='lm', se=FALSE, col = "black", linewidth = 0.75) +
   facet_wrap(.~state, scales = "free") +
   theme(legend.position = "none")
+#====================================================================================================#
+
+# Total exposure for the three env. vars.
+# 2 small tables, state as columns, vars as rows
+
+
+
 
